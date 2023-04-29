@@ -22,6 +22,7 @@ public class UserDao implements Dao<User,Integer>{
                                              "role = ? WHERE id = ?";
     private static final String UPDATE_ROLE_SQL = "UPDATE Users SET role = ? WHERE id = ?";
     private static final String DELETE_SQL = "DELETE FROM Users WHERE id = ?";
+    private static final String FIND_BY_EMAIL_AND_PASSWORD = "SELECT id,name,email,password,phone_number,role FROM Users WHERE email = ? AND password = ?";
 
     private UserDao(){
 
@@ -35,7 +36,7 @@ public class UserDao implements Dao<User,Integer>{
           preparedStatement.setString(2,entity.getEmail());
           preparedStatement.setString(3,entity.getPassword());
           preparedStatement.setLong(4,entity.getPhoneNumber());
-          preparedStatement.setObject(5,entity.getRole());
+          preparedStatement.setObject(5,entity.getRole().name());
           preparedStatement.executeUpdate();
           ResultSet resultSet = preparedStatement.getGeneratedKeys();
           if(resultSet.next()) {
@@ -57,8 +58,8 @@ public class UserDao implements Dao<User,Integer>{
             User user = null;
             if (resultSet.next()){
                 user = new User(id,resultSet.getString("name"),resultSet.getString("email")
-                                ,resultSet.getString("password"),resultSet.getLong("phoneNumber")
-                                , (Role) resultSet.getObject("role"));
+                        ,resultSet.getString("password"),resultSet.getLong("phoneNumber")
+                        , (Role) resultSet.getObject("role"));
             }
             return Optional.ofNullable(user);
 
@@ -66,6 +67,23 @@ public class UserDao implements Dao<User,Integer>{
             throw new DAOException(e);
         }
 
+    }
+
+    public Optional<User> findByEmailAndPassword(String email,String password) {
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_EMAIL_AND_PASSWORD)){
+            preparedStatement.setString(1,email);
+            preparedStatement.setString(2,password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            User user = null;
+            if (resultSet.next()){
+                user = buildUser(resultSet);
+            }
+            return Optional.ofNullable(user);
+
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        }
     }
 
     @Override

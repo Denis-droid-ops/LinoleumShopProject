@@ -1,11 +1,9 @@
 package com.kuznetsov.linoleum.servlet;
 
 
-import com.kuznetsov.linoleum.dao.UserDao;
+
 import com.kuznetsov.linoleum.dto.UpdateUserRoleDto;
 import com.kuznetsov.linoleum.dto.UserDto;
-import com.kuznetsov.linoleum.entity.Role;
-import com.kuznetsov.linoleum.mapper.MapToUser;
 import com.kuznetsov.linoleum.service.UserService;
 import com.kuznetsov.linoleum.util.JspHelper;
 
@@ -25,21 +23,35 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("users",userService.findAll());
-
-
         req.getRequestDispatcher(JspHelper.getPath("content")).forward(req,resp);
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
-        String role = req.getParameter("role");
-        UpdateUserRoleDto updateUserRoleDto = new UpdateUserRoleDto(id,role);
-        userService.updateRole(updateUserRoleDto);
-        System.out.println(updateUserRoleDto);
-        resp.sendRedirect("/users");
-
+        boolean onlyOneAdmin = userService.findAll().stream().map(userDto -> userDto.getRole().name()).filter(name->name.equals("ADMIN")).count()<2;
+        if(req.getParameter("action").equals("delete")){
+            if(onlyOneAdmin){
+                resp.sendRedirect("/users?deleteError");
+            }else {
+                String id = req.getParameter("id");
+                userService.delete(Integer.valueOf(id));
+                req.getSession().invalidate();
+                resp.sendRedirect("/");
+            }
+        }else {
+            UserDto userDto = (UserDto) req.getSession().getAttribute("user");
+            Integer adminId = userDto.getId();
+            String id = req.getParameter("id");
+            String role = req.getParameter("role");
+            if(onlyOneAdmin && adminId==Integer.valueOf(id)){
+                resp.sendRedirect("/users?changeError");
+            }else {
+                UpdateUserRoleDto updateUserRoleDto = new UpdateUserRoleDto(id, role);
+                userService.updateRole(updateUserRoleDto);
+                resp.sendRedirect("/users");
+            }
+        }
 
 
 

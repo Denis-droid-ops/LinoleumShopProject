@@ -32,6 +32,7 @@
               <c:forEach var="user" items="${requestScope.users}">
                   <tr>
                       <form action="/users" method="post">
+                          <input type="hidden" name="action" value="update"/>
                           <input type="hidden" name="id" value="${user.id}"/>
 
                       <td>
@@ -62,17 +63,35 @@
                               <button type="submit" onclick="demo()" class="btn btn-primary">Change role</button>
                               <script>
                                  function demo() {
-                                  alert("Role changed sucess!");
+                                  alert("Change role?");
                                  }
                               </script>
+                          <c:if test = "${param.changeError!=null}">
+                              <div style="color:red">
+                                  <span>Cannot change account role because you are only one admin</span>
+                              </div>
+                          </c:if>
                       </td>
                       </form>
                   </tr>
               </c:forEach>
               </tbody>
       </table>
-      <button type=button class="btn btn-danger">Delete account</button>
-
+      <form class="form-inline my-2 my-lg-0" action="/users" method="post" >
+          <input type="hidden" name="action" value="delete"/>
+          <input type="hidden" name="id" value="${sessionScope.user.id}"/>
+      <button onclick="demo1()" type=submit class="btn btn-danger">Delete account</button>
+          <script>
+              function demo1() {
+                  alert("Delete account?");
+              }
+          </script>
+          <c:if test = "${param.deleteError!=null}">
+              <div style="color:red">
+                  <span>Cannot delete account because you are only one admin</span>
+              </div>
+          </c:if>
+      </form>
   </div>
   <%@include file="footer.jsp"%>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

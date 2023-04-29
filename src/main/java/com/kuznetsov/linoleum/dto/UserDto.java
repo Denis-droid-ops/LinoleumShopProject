@@ -4,7 +4,7 @@ import com.kuznetsov.linoleum.entity.Role;
 
 import java.util.Objects;
 
-public final class UserDto {
+public final class UserDto { //Dto for reading
    private final Integer id;
    private final String name;
    private final String email;
