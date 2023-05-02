@@ -8,6 +8,8 @@ DELETE FROM rolls;
 
 INSERT INTO users(name, email, password, phone_number,role)
 VALUES ('Denis','denis.denis.kuznecov@mail.ru','222','89179292245','admin'),
+       ('Petr','Petrov59@mail.ru','444','89609292245','user'),
+       ('Petr','Petrov59@mail.ru','444','89609292245','user'),
        ('Petr','Petrov59@mail.ru','444','89609292245','user');
 
 

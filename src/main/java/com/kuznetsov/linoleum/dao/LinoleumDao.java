@@ -3,6 +3,8 @@ package com.kuznetsov.linoleum.dao;
 import com.kuznetsov.linoleum.entity.Linoleum;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class LinoleumDao implements Dao<Linoleum,Integer> {
+    private static final Logger logger = LoggerFactory.getLogger(LinoleumDao.class);
     private static final LinoleumDao INSTANCE = new LinoleumDao();
     private static final String FIND_ALL_SQL = "SELECT id,name,protect,thickness,price,image_path FROM Linoleums";
 
@@ -38,6 +41,7 @@ public class LinoleumDao implements Dao<Linoleum,Integer> {
             }
             return linoleums;
         } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
     }

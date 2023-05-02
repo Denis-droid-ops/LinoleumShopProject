@@ -5,6 +5,8 @@ import com.kuznetsov.linoleum.entity.Role;
 import com.kuznetsov.linoleum.entity.User;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserDao implements Dao<User,Integer>{
+    private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
     private static final UserDao INSTANCE = new UserDao();
     private static final String SAVE_SQL = "INSERT INTO Users(name,email,password,phone_number,role) " +
                                            "VALUES(?,?,?,?,?)";
@@ -30,6 +33,7 @@ public class UserDao implements Dao<User,Integer>{
 
     @Override
     public User save(User entity) {
+        logger.debug("SAVE/user entity:{}",entity);
         try (Connection connection = ConnectionManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)){
           preparedStatement.setString(1,entity.getName());
@@ -42,15 +46,18 @@ public class UserDao implements Dao<User,Integer>{
           if(resultSet.next()) {
               entity.setId(resultSet.getInt(1));
           }
+
           return entity;
 
         } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
     }
 
     @Override
     public Optional<User> findById(Integer id) {
+        logger.debug("FINDBYID/user id is:{}",id);
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)){
             preparedStatement.setInt(1,id);
@@ -64,12 +71,14 @@ public class UserDao implements Dao<User,Integer>{
             return Optional.ofNullable(user);
 
         } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
 
     }
 
     public Optional<User> findByEmailAndPassword(String email,String password) {
+        logger.debug("FINDBYEMAILANDPASSWORD/user email:{},user password:{}",email,password);
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_EMAIL_AND_PASSWORD)){
             preparedStatement.setString(1,email);
@@ -82,6 +91,7 @@ public class UserDao implements Dao<User,Integer>{
             return Optional.ofNullable(user);
 
         } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
     }
@@ -97,12 +107,14 @@ public class UserDao implements Dao<User,Integer>{
              }
              return users;
         } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
     }
 
     @Override
     public void update(User entity) {
+        logger.debug("UPDATE/user entity:{}",entity);
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
             preparedStatement.setString(1,entity.getName());
@@ -114,11 +126,13 @@ public class UserDao implements Dao<User,Integer>{
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
     }
 
     public void updateRole(Integer id, Role role) {
+        logger.debug("UPDATEROLE/user id:{},user role:{}",id,role);
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ROLE_SQL)) {
             preparedStatement.setObject(1,role.name());
@@ -126,17 +140,20 @@ public class UserDao implements Dao<User,Integer>{
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
     }
 
     @Override
     public boolean delete(Integer id) {
+        logger.debug("DELETE/user id:{}",id);
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)) {
             preparedStatement.setInt(1,id);
             return preparedStatement.executeUpdate()>0;
         } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
     }
@@ -172,6 +189,7 @@ public class UserDao implements Dao<User,Integer>{
             }
             return list;
         } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
     }

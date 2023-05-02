@@ -11,7 +11,7 @@ CREATE TABLE users
    id     SERIAL PRIMARY KEY,
    name   VARCHAR(124) NOT NULL,
    email  VARCHAR(124) NOT NULL UNIQUE,
-   password VARCHAR(50) NOT NULL UNIQUE ,
+   password VARCHAR(50) NOT NULL,
    phone_number BIGINT NOT NULL UNIQUE ,
    role VARCHAR(20) NOT NULL
 
@@ -36,8 +36,8 @@ CREATE TABLE linoleums
 (
     id     SERIAL PRIMARY KEY,
     name  VARCHAR(50) NOT NULL,
-    protect FLOAT NOT NULL,
-    thickness FLOAT NOT NULL,
+    protect FLOAT4 NOT NULL,
+    thickness FLOAT4 NOT NULL,
     price INTEGER NOT NULL,
     image_path VARCHAR(100) NOT NULL
 );
