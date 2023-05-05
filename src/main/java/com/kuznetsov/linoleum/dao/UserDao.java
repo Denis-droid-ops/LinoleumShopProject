@@ -5,6 +5,7 @@ import com.kuznetsov.linoleum.entity.Role;
 import com.kuznetsov.linoleum.entity.User;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
+import com.kuznetsov.linoleum.util.InitDB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class UserDao implements Dao<User,Integer>{
+
     private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
     private static final UserDao INSTANCE = new UserDao();
     private static final String SAVE_SQL = "INSERT INTO Users(name,email,password,phone_number,role) " +
@@ -28,8 +30,9 @@ public class UserDao implements Dao<User,Integer>{
     private static final String FIND_BY_EMAIL_AND_PASSWORD = "SELECT id,name,email,password,phone_number,role FROM Users WHERE email = ? AND password = ?";
 
     private UserDao(){
-
+       
     }
+
 
     @Override
     public User save(User entity) {
@@ -65,8 +68,8 @@ public class UserDao implements Dao<User,Integer>{
             User user = null;
             if (resultSet.next()){
                 user = new User(id,resultSet.getString("name"),resultSet.getString("email")
-                        ,resultSet.getString("password"),resultSet.getLong("phoneNumber")
-                        , (Role) resultSet.getObject("role"));
+                        ,resultSet.getString("password"),resultSet.getLong("phone_number")
+                        , Role.valueOf(resultSet.getString("role")));
             }
             return Optional.ofNullable(user);
 

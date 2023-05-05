@@ -7,10 +7,10 @@ DELETE FROM linoleums;
 DELETE FROM rolls;
 
 INSERT INTO users(name, email, password, phone_number,role)
-VALUES ('Denis','denis.denis.kuznecov@mail.ru','222','89179292245','admin'),
-       ('Dima','Petrov59@mail.ru','444','89609292245','user'),
-       ('Oleg','Kazan88@mail.ru','333','89659292645','user'),
-       ('Galina','Sidorova23@mail.ru','777','89099292245','user');
+VALUES ('Denis','denis.denis.kuznecov@mail.ru','222','89179292245','ADMIN'),
+       ('Dima','Petrov59@mail.ru','444','89609292245','USER'),
+       ('Oleg','Kazan88@mail.ru','333','89659292645','USER'),
+       ('Galina','Sidorova23@mail.ru','777','89099292245','USER');
 
 
 INSERT INTO layouts(name)

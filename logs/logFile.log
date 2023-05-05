@@ -1,8 +1,0 @@
-30599 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.UserDao - User email:art89898989@mail.ru,user password:444
-100269 [http-nio-8080-exec-10] DEBUG com.kuznetsov.linoleum.dao.UserDao - User email:rqwrqw@gmail.com,user password:888
-120407 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.UserDao - User id:13,user role:ADMIN
-131217 [http-nio-8080-exec-10] DEBUG com.kuznetsov.linoleum.dao.UserDao - User id:16,user role:ADMIN
-134224 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.UserDao - User id:15,user role:ADMIN
-140823 [http-nio-8080-exec-3] DEBUG com.kuznetsov.linoleum.dao.UserDao - User id:11
-147739 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.UserDao - User email:art89898989@mail.ru,user password:444
-156410 [http-nio-8080-exec-6] DEBUG com.kuznetsov.linoleum.dao.UserDao - User id:13
