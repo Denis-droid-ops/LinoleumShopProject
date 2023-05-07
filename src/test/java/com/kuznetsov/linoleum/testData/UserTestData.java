@@ -7,7 +7,7 @@ import com.kuznetsov.linoleum.entity.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserTestData {
+public final class UserTestData {
 
     public static final User NEW_USER = new User();
     public static final User USER1 = new User(1,"Denis","denis.denis.kuznecov@mail.ru","222",89179292245L,Role.ADMIN);
@@ -15,7 +15,10 @@ public class UserTestData {
     public static final User USER3 = new User(3,"Oleg","Kazan88@mail.ru","333",89659292645L,Role.USER);
     public static final User USER4 = new User(4,"Galina","Sidorova23@mail.ru","777",89099292245L,Role.USER);
     public static final Integer USER2_ID = 2;
-    public static final User UPDATED_USER = new User(1,"UpdatedUser","UpdatedUser1@mail.ru","2222",89179292247L,Role.USER);
+    public static final Integer USER3_ID = 3;
+    public static final Integer USER4_ID = 4;
+    public static final User UPDATED_USER1 = new User(1,"UpdatedUser","UpdatedUser1@mail.ru","2222",89179292247L,Role.USER);
+    public static final User USER4_WITH_UPDATED_ROLE = new User(4,"Galina","Sidorova23@mail.ru","777",89099292245L,Role.ADMIN);
     public static final List<User> ALL_USERS = new ArrayList<>(List.of(USER1,USER2,USER3,USER4));
 
     public static User getNewUser(){
