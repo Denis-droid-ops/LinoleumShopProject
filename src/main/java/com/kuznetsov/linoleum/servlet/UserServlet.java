@@ -18,7 +18,7 @@ import java.util.List;
 
 @WebServlet("/users")
 public class UserServlet extends HttpServlet {
-    private final UserService userService = UserService.getInstance();
+    private UserService userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,8 +52,6 @@ public class UserServlet extends HttpServlet {
                 resp.sendRedirect("/users");
             }
         }
-
-
 
     }
 

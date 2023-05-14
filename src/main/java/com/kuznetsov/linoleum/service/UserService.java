@@ -21,10 +21,10 @@ import static java.util.stream.Collectors.toList;
 public class UserService {
 
     private static final UserService INSTANCE = new UserService();
-    private final UserDao userDao = UserDao.getInstance();
-    private final CreateUserValidator createUserValidator = CreateUserValidator.getInstance();
-    private final CreateUserMapper createUserMapper = CreateUserMapper.getInstance();
-    private final UserDtoMapper userDtoMapper = UserDtoMapper.getInstance();
+    private UserDao userDao = UserDao.getInstance();
+    private CreateUserValidator createUserValidator = CreateUserValidator.getInstance();
+    private CreateUserMapper createUserMapper = CreateUserMapper.getInstance();
+    private UserDtoMapper userDtoMapper = UserDtoMapper.getInstance();
 
 
     private UserService(){

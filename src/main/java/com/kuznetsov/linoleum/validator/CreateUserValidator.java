@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class CreateUserValidator implements Validator<CreateUserDto> {
     private static final CreateUserValidator INSTANCE = new CreateUserValidator();
-    private final UserDao userDao = UserDao.getInstance();
+    private  UserDao userDao = UserDao.getInstance();
     private CreateUserValidator(){
 
     }
@@ -22,9 +22,9 @@ public class CreateUserValidator implements Validator<CreateUserDto> {
         if(object.getEmail()==""){
             validationResult.addError(new Error("nullable.email","Email is null, please try again!"));
         }
-      //  if(object.getEmail()!="" && !object.getEmail().matches("[_A-Za-z0-9-]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})")){
-       //     validationResult.addError(new Error("invalid.email","Email is invalid , please try again!"));
-      //  }
+        if(object.getEmail()!="" && !object.getEmail().matches("^[_A-Za-z0-9+-]+(?:[.'’][_A-Za-z0-9-]+)*@[_A-Za-z0-9-]+(?:\\.[_A-Za-z0-9-]+)*\\.[A-Za-z]{2,}$")){
+            validationResult.addError(new Error("invalid.email","Email is invalid , please try again!"));
+        }
         if(userDao.findAll().stream().map(user -> user.getEmail()).collect(Collectors.toList()).contains(object.getEmail())){
             validationResult.addError(new Error("notUnique.email","This email already exists, please enter other email!"));
         }
@@ -37,7 +37,7 @@ public class CreateUserValidator implements Validator<CreateUserDto> {
         if(object.getPhoneNumber()==""){
             validationResult.addError(new Error("nullable.phoneNumber","PhoneNumber is null, please try again!"));
         }
-        if(userDao.findAll().stream().map(user -> user.getPhoneNumber()).collect(Collectors.toList()).contains(object.getPhoneNumber())){
+        if(object.getPhoneNumber()!="" && userDao.findAll().stream().map(user -> user.getPhoneNumber()).collect(Collectors.toList()).contains(Long.valueOf(object.getPhoneNumber()))){
             validationResult.addError(new Error("notUnique.phoneNumber","This phone number already exists, please enter other email!"));
         }
 
