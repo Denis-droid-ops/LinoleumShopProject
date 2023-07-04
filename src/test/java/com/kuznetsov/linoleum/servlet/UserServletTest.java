@@ -6,8 +6,6 @@ import com.kuznetsov.linoleum.entity.Role;
 import com.kuznetsov.linoleum.service.UserService;
 import com.kuznetsov.linoleum.testData.UserTestData;
 import com.kuznetsov.linoleum.util.JspHelper;
-import org.h2.engine.Session;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 @ExtendWith(MockitoExtension.class)
 public class UserServletTest {

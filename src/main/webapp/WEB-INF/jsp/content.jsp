@@ -31,7 +31,7 @@
               <tbody>
               <c:forEach var="user" items="${requestScope.users}">
                   <tr>
-                      <form action="/users" method="post">
+                      <form action="/admin/users" method="post">
                           <input type="hidden" name="action" value="update"/>
                           <input type="hidden" name="id" value="${user.id}"/>
 
@@ -77,7 +77,7 @@
               </c:forEach>
               </tbody>
       </table>
-      <form class="form-inline my-2 my-lg-0" action="/users" method="post" >
+      <form class="form-inline my-2 my-lg-0" action="/admin/users" method="post" >
           <input type="hidden" name="action" value="delete"/>
           <input type="hidden" name="id" value="${sessionScope.user.id}"/>
       <button onclick="demo1()" type=submit class="btn btn-danger">Delete account</button>

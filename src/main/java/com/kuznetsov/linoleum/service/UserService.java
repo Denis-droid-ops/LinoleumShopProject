@@ -56,6 +56,10 @@ public class UserService {
         ,user.getEmail(),user.getPhoneNumber(),user.getRole())).collect(Collectors.toList());
     }
 
+    public Optional<User> findById(Integer id){
+        return userDao.findById(id);
+    }
+
     public static UserService getInstance(){
         return INSTANCE;
     }

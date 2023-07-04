@@ -1,31 +1,32 @@
 package com.kuznetsov.linoleum.entity;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Order {
     private Integer id;
     private LocalDateTime creatingDate;
-    private String status;
-    private String transporting;
+    private OrderStatus status;
+    private OrderTransporting transporting;
     private LocalDateTime transportingDate;
     private Integer cost;
+    private Integer apartmentNum;
     private User user;
     private Linoleum linoleum;
-    private Address address;
 
     public Order() {
     }
 
-    public Order(Integer id, LocalDateTime creatingDate, String status, String transporting, LocalDateTime transportingDate, Integer cost, User user, Linoleum linoleum, Address address) {
+    public Order(Integer id, LocalDateTime creatingDate, OrderStatus status, OrderTransporting transporting, LocalDateTime transportingDate, Integer cost, Integer apartmentNum, User user, Linoleum linoleum) {
         this.id = id;
         this.creatingDate = creatingDate;
         this.status = status;
         this.transporting = transporting;
         this.transportingDate = transportingDate;
         this.cost = cost;
+        this.apartmentNum = apartmentNum;
         this.user = user;
         this.linoleum = linoleum;
-        this.address = address;
     }
 
     public Integer getId() {
@@ -44,19 +45,19 @@ public class Order {
         this.creatingDate = creatingDate;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
-    public String getTransporting() {
+    public OrderTransporting getTransporting() {
         return transporting;
     }
 
-    public void setTransporting(String transporting) {
+    public void setTransporting(OrderTransporting transporting) {
         this.transporting = transporting;
     }
 
@@ -76,6 +77,14 @@ public class Order {
         this.cost = cost;
     }
 
+    public Integer getApartmentNum() {
+        return apartmentNum;
+    }
+
+    public void setApartmentNum(Integer apartmentNum) {
+        this.apartmentNum = apartmentNum;
+    }
+
     public User getUser() {
         return user;
     }
@@ -92,12 +101,17 @@ public class Order {
         this.linoleum = linoleum;
     }
 
-    public Address getAddress() {
-        return address;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+        Order order = (Order) o;
+        return Objects.equals(id, order.id);
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override
@@ -105,13 +119,13 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", creatingDate=" + creatingDate +
-                ", status='" + status + '\'' +
-                ", transporting='" + transporting + '\'' +
+                ", status=" + status +
+                ", transporting=" + transporting +
                 ", transportingDate=" + transportingDate +
                 ", cost=" + cost +
+                ", apartmentNum=" + apartmentNum +
                 ", user=" + user +
                 ", linoleum=" + linoleum +
-                ", address=" + address +
                 '}';
     }
 }

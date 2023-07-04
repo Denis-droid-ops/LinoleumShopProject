@@ -1,19 +1,23 @@
 package com.kuznetsov.linoleum.entity;
 
+import java.util.Objects;
+
 public class Fragment {
     private Integer id;
     private Float width;
     private Float length;
-    private Layout layout;
+    private FragmentType fType;
+    private LayoutName layoutName;
 
     public Fragment() {
     }
 
-    public Fragment(Integer id, Float width, Float length, Layout layout) {
+    public Fragment(Integer id, Float width, Float length, FragmentType fType, LayoutName layoutName) {
         this.id = id;
         this.width = width;
         this.length = length;
-        this.layout = layout;
+        this.fType = fType;
+        this.layoutName = layoutName;
     }
 
     public Integer getId() {
@@ -40,12 +44,33 @@ public class Fragment {
         this.length = length;
     }
 
-    public Layout getLayout() {
-        return layout;
+    public FragmentType getfType() {
+        return fType;
     }
 
-    public void setLayout(Layout layout) {
-        this.layout = layout;
+    public void setfType(FragmentType fType) {
+        this.fType = fType;
+    }
+
+    public LayoutName getLayoutName() {
+        return layoutName;
+    }
+
+    public void setLayoutName(LayoutName layoutName) {
+        this.layoutName = layoutName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Fragment)) return false;
+        Fragment fragment = (Fragment) o;
+        return Objects.equals(id, fragment.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override
@@ -54,7 +79,8 @@ public class Fragment {
                 "id=" + id +
                 ", width=" + width +
                 ", length=" + length +
-                ", layout=" + layout +
+                ", fType=" + fType +
+                ", layoutName=" + layoutName +
                 '}';
     }
 }

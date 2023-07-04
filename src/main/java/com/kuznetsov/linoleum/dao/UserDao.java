@@ -67,9 +67,7 @@ public class UserDao implements Dao<User,Integer>{
             ResultSet resultSet = preparedStatement.executeQuery();
             User user = null;
             if (resultSet.next()){
-                user = new User(id,resultSet.getString("name"),resultSet.getString("email")
-                        ,resultSet.getString("password"),resultSet.getLong("phone_number")
-                        , Role.valueOf(resultSet.getString("role")));
+                user = buildUser(resultSet);
             }
             return Optional.ofNullable(user);
 
@@ -81,7 +79,7 @@ public class UserDao implements Dao<User,Integer>{
     }
 
     public Optional<User> findByEmailAndPassword(String email,String password) {
-        logger.debug("FINDBYEMAILANDPASSWORD/user email:{},user password:{}",email,password);
+        logger.debug("FINDBYEMAILANDPASSWORD/user email:{}",email);
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_EMAIL_AND_PASSWORD)){
             preparedStatement.setString(1,email);
@@ -101,6 +99,7 @@ public class UserDao implements Dao<User,Integer>{
 
     @Override
     public List<User> findAll() {
+        logger.debug("FIND_ALL");
         try(Connection connection = ConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
              ResultSet resultSet = preparedStatement.executeQuery();
@@ -171,6 +170,7 @@ public class UserDao implements Dao<User,Integer>{
     }
 
     public List<User> findAll(UserFilter userFilter){
+        logger.debug("FIND_ALL/users");
         List<Object> params = new ArrayList<>();
         List<String> whereSql = new ArrayList<>();
         if(userFilter.getPhoneNumber()!=0){

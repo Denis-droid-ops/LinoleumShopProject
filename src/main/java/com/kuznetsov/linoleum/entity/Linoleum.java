@@ -75,12 +75,12 @@ public class Linoleum {
         if (this == o) return true;
         if (!(o instanceof Linoleum)) return false;
         Linoleum linoleum = (Linoleum) o;
-        return Objects.equals(id, linoleum.id) && Objects.equals(name, linoleum.name) && Objects.equals(protect, linoleum.protect) && Objects.equals(thickness, linoleum.thickness) && Objects.equals(price, linoleum.price) && Objects.equals(imagePath, linoleum.imagePath);
+        return Objects.equals(id, linoleum.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, protect, thickness, price, imagePath);
+        return Objects.hash(id);
     }
 
     @Override

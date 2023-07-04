@@ -1,0 +1,127 @@
+00:10:04.809 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+00:10:09.553 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+00:10:09.936 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+00:10:18.886 [http-nio-8080-exec-7] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+00:10:18.937 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+00:10:21.811 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:2
+00:10:36.256 [http-nio-8080-exec-8] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYID/user id is:1
+00:10:36.258 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:2
+00:10:36.261 [http-nio-8080-exec-8] DEBUG com.kuznetsov.linoleum.dao.OrderDao - SAVE/order entity:Order{id=null, creatingDate=2023-07-04T00:10:36.251512100, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-15T03:13, cost=3400, apartmentNum=2222, user=User{id=1, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=2, name='saratoga 4', protect=0.5, thickness=3.5, price=850, imagePath='/images/saratoga-4-300x300.jpg'}}
+00:10:36.324 [http-nio-8080-exec-8] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:49
+00:10:36.340 [http-nio-8080-exec-8] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - SAVE/fragment without layout entity:FragmentWithoutLayout{id=null, fWidth=2.0, fLength=2.0, order=Order{id=49, creatingDate=2023-07-04T00:10:36.251512, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-15T03:13, cost=3400, apartmentNum=2222, user=User{id=49, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=49, name='saratoga 4', protect=0.5, thickness=3.5, price=850, imagePath='/images/saratoga-4-300x300.jpg'}}}
+00:13:36.398 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+00:13:40.340 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+00:13:41.000 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+00:13:49.276 [http-nio-8080-exec-6] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+00:13:49.319 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+00:13:51.657 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:2
+00:14:10.781 [http-nio-8080-exec-9] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYID/user id is:1
+00:14:10.784 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:2
+00:14:10.786 [http-nio-8080-exec-9] DEBUG com.kuznetsov.linoleum.dao.OrderDao - SAVE/order entity:Order{id=null, creatingDate=2023-07-04T00:14:10.775017100, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-15T01:14, cost=6800, apartmentNum=55, user=User{id=1, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=2, name='saratoga 4', protect=0.5, thickness=3.5, price=850, imagePath='/images/saratoga-4-300x300.jpg'}}
+00:14:10.844 [http-nio-8080-exec-9] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:50
+00:14:10.854 [http-nio-8080-exec-9] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - SAVE/fragment without layout entity:FragmentWithoutLayout{id=null, fWidth=2.0, fLength=4.0, order=Order{id=50, creatingDate=2023-07-04T00:14:10.775017, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-15T01:14, cost=6800, apartmentNum=55, user=User{id=50, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=50, name='saratoga 4', protect=0.5, thickness=3.5, price=850, imagePath='/images/saratoga-4-300x300.jpg'}}}
+08:27:21.098 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+08:27:25.010 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+08:27:25.390 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+08:27:25.746 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+08:27:32.239 [http-nio-8080-exec-9] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+08:27:32.266 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+08:27:34.516 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:4
+08:27:52.203 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYID/user id is:1
+08:27:52.207 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:4
+08:27:52.210 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.OrderDao - SAVE/order entity:Order{id=null, creatingDate=2023-07-04T08:27:52.197128900, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-23T08:27, cost=710, apartmentNum=29, user=User{id=1, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=4, name='baden 1', protect=0.5, thickness=2.0, price=710, imagePath='/images/BADEN-1-300x300.jpg'}}
+08:27:52.264 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:51
+08:27:52.278 [http-nio-8080-exec-2] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - SAVE/fragment without layout entity:FragmentWithoutLayout{id=null, fWidth=1.0, fLength=1.0, order=Order{id=51, creatingDate=2023-07-04T08:27:52.197129, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-23T08:27, cost=710, apartmentNum=29, user=User{id=51, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=51, name='baden 1', protect=0.5, thickness=2.0, price=710, imagePath='/images/BADEN-1-300x300.jpg'}}}
+19:43:00.970 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:43:05.386 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:43:05.629 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:43:14.701 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+19:43:14.792 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:43:17.352 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:2
+19:43:44.186 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYID/user id is:1
+19:43:44.188 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:2
+19:43:44.191 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.OrderDao - SAVE/order entity:Order{id=null, creatingDate=2023-07-04T19:43:44.182392200, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-06-30T19:43, cost=850, apartmentNum=21, user=User{id=1, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=2, name='saratoga 4', protect=0.5, thickness=3.5, price=850, imagePath='/images/saratoga-4-300x300.jpg'}}
+19:43:44.261 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:52
+19:43:44.266 [http-nio-8080-exec-5] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - SAVE/fragment without layout entity:FragmentWithoutLayout{id=null, fWidth=1.0, fLength=1.0, order=Order{id=52, creatingDate=2023-07-04T19:43:44.182392, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-06-30T19:43, cost=850, apartmentNum=21, user=User{id=52, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=52, name='saratoga 4', protect=0.5, thickness=3.5, price=850, imagePath='/images/saratoga-4-300x300.jpg'}}}
+19:45:11.082 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:45:14.499 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:45:14.778 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:45:28.845 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+19:45:28.881 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:45:31.705 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:4
+19:46:03.831 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYID/user id is:1
+19:46:03.834 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:4
+19:46:03.836 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.OrderDao - SAVE/order entity:Order{id=null, creatingDate=2023-07-04T19:46:03.825356400, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-13T19:45, cost=5680, apartmentNum=555, user=User{id=1, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=4, name='baden 1', protect=0.5, thickness=2.0, price=710, imagePath='/images/BADEN-1-300x300.jpg'}}
+19:46:03.888 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:53
+19:46:03.899 [http-nio-8080-exec-5] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - SAVE/fragment without layout entity:FragmentWithoutLayout{id=null, fWidth=2.0, fLength=4.0, order=Order{id=53, creatingDate=2023-07-04T19:46:03.825356, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-13T19:45, cost=5680, apartmentNum=555, user=User{id=53, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=53, name='baden 1', protect=0.5, thickness=2.0, price=710, imagePath='/images/BADEN-1-300x300.jpg'}}}
+19:52:25.513 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:52:28.886 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:52:29.013 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:52:34.862 [http-nio-8080-exec-9] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+19:52:34.952 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+19:52:37.534 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:4
+19:53:01.882 [http-nio-8080-exec-6] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYID/user id is:1
+19:53:01.884 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:4
+19:53:01.887 [http-nio-8080-exec-6] DEBUG com.kuznetsov.linoleum.dao.OrderDao - SAVE/order entity:Order{id=null, creatingDate=2023-07-04T19:53:01.874651100, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-16T19:52, cost=7100, apartmentNum=111, user=User{id=1, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=4, name='baden 1', protect=0.5, thickness=2.0, price=710, imagePath='/images/BADEN-1-300x300.jpg'}}
+19:53:01.923 [http-nio-8080-exec-6] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:54
+19:53:01.928 [http-nio-8080-exec-6] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - SAVE/fragment without layout entity:FragmentWithoutLayout{id=null, fWidth=2.0, fLength=5.0, order=Order{id=54, creatingDate=2023-07-04T19:53:01.874651, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-16T19:52, cost=7100, apartmentNum=111, user=User{id=54, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=54, name='baden 1', protect=0.5, thickness=2.0, price=710, imagePath='/images/BADEN-1-300x300.jpg'}}}
+20:15:21.169 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:15:25.666 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:15:26.457 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:15:45.054 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+20:15:45.087 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:15:47.008 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:2
+20:15:51.997 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:15:55.224 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:3
+20:16:16.767 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYID/user id is:1
+20:16:16.773 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:3
+20:16:16.775 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.OrderDao - SAVE/order entity:Order{id=null, creatingDate=2023-07-04T20:16:16.762306900, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-21T20:16, cost=12000, apartmentNum=777, user=User{id=1, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=3, name='duart 1', protect=0.4, thickness=2.7, price=600, imagePath='/images/SPENSER-3-300x300.jpg'}}
+20:16:16.832 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:55
+20:16:16.845 [http-nio-8080-exec-2] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - SAVE/fragment without layout entity:FragmentWithoutLayout{id=null, fWidth=4.0, fLength=5.0, order=Order{id=55, creatingDate=2023-07-04T20:16:16.762307, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-21T20:16, cost=12000, apartmentNum=777, user=User{id=55, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=55, name='duart 1', protect=0.4, thickness=2.7, price=600, imagePath='/images/SPENSER-3-300x300.jpg'}}}
+20:19:05.163 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:19:08.362 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:19:08.489 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:21:11.355 [http-nio-8080-exec-7] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+20:21:11.418 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:21:14.012 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:6
+20:21:27.498 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYID/user id is:1
+20:21:27.501 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:6
+20:21:27.504 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.OrderDao - SAVE/order entity:Order{id=null, creatingDate=2023-07-04T20:21:27.493052600, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-16T20:21, cost=8000, apartmentNum=55, user=User{id=1, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=6, name='rigard 4', protect=0.15, thickness=2.0, price=400, imagePath='/images/tango-3-1-300x300.jpg'}}
+20:21:27.548 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:56
+20:21:27.560 [http-nio-8080-exec-1] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - SAVE/fragment without layout entity:FragmentWithoutLayout{id=null, fWidth=5.0, fLength=4.0, order=Order{id=56, creatingDate=2023-07-04T20:21:27.493053, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-16T20:21, cost=8000, apartmentNum=55, user=User{id=56, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=56, name='rigard 4', protect=0.15, thickness=2.0, price=400, imagePath='/images/tango-3-1-300x300.jpg'}}}
+20:40:12.310 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:40:15.503 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:40:15.814 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:40:36.452 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+20:40:36.492 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:42:19.397 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:43:02.496 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:6
+20:43:13.081 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:43:15.864 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:6
+20:44:12.128 [http-nio-8080-exec-3] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYID/user id is:1
+20:44:12.130 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:6
+20:44:12.132 [http-nio-8080-exec-3] DEBUG com.kuznetsov.linoleum.dao.OrderDao - SAVE/order entity:Order{id=null, creatingDate=2023-07-04T20:44:12.123901, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-23T20:43, cost=3200, apartmentNum=1, user=User{id=1, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=6, name='rigard 4', protect=0.15, thickness=2.0, price=400, imagePath='/images/tango-3-1-300x300.jpg'}}
+20:44:12.187 [http-nio-8080-exec-3] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:57
+20:44:12.199 [http-nio-8080-exec-3] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - SAVE/fragment without layout entity:FragmentWithoutLayout{id=null, fWidth=2.0, fLength=4.0, order=Order{id=57, creatingDate=2023-07-04T20:44:12.123901, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-07-23T20:43, cost=3200, apartmentNum=1, user=User{id=57, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=57, name='rigard 4', protect=0.15, thickness=2.0, price=400, imagePath='/images/tango-3-1-300x300.jpg'}}}
+20:44:13.887 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:44:20.292 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:44:39.527 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:46:04.296 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.UserDao - FIND_ALL
+20:46:10.122 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:46:13.230 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:46:21.090 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:3
+20:46:55.247 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYID/user id is:1
+20:46:55.251 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:3
+20:46:55.253 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.OrderDao - SAVE/order entity:Order{id=null, creatingDate=2023-07-04T20:46:55.247800500, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-08-26T20:46, cost=29400, apartmentNum=4, user=User{id=1, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=3, name='duart 1', protect=0.4, thickness=2.7, price=600, imagePath='/images/SPENSER-3-300x300.jpg'}}
+20:46:55.257 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:58
+20:46:55.261 [http-nio-8080-exec-2] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - SAVE/fragment without layout entity:FragmentWithoutLayout{id=null, fWidth=7.0, fLength=7.0, order=Order{id=58, creatingDate=2023-07-04T20:46:55.247801, status=NOTCOMPLETED, transporting=PICKUP, transportingDate=2023-08-26T20:46, cost=29400, apartmentNum=4, user=User{id=58, name='Denis', email='denis.denis.kuznecov@mail.ru', password='222', phoneNumber=89179292245, role=ADMIN}, linoleum=Linoleum{id=58, name='duart 1', protect=0.4, thickness=2.7, price=600, imagePath='/images/SPENSER-3-300x300.jpg'}}}
+20:47:03.117 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:47:06.040 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:4
+20:47:16.808 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:47:19.690 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:47:38.817 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.UserDao - FIND_ALL
+20:47:40.871 [http-nio-8080-exec-6] DEBUG com.kuznetsov.linoleum.dao.UserDao - FIND_ALL
+20:48:00.909 [http-nio-8080-exec-3] DEBUG com.kuznetsov.linoleum.dao.UserDao - FIND_ALL
+20:48:02.089 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+20:48:04.035 [http-nio-8080-exec-9] DEBUG com.kuznetsov.linoleum.dao.UserDao - FIND_ALL
+20:48:07.362 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL

@@ -33,7 +33,16 @@
                             <p class="card-text">Protect: ${lin.protect}</p>
                             <p class="card-text">Thickness: ${lin.thickness}</p>
                             <h5 class="card-title">Price: ${lin.price} P/m2</h5>
-                            <a href="#" class="btn btn-primary">Buy</a>
+                            <form action="" method="post">
+                                <input type="hidden" name="linoleumId" value="${lin.id}"/>
+                                <button type="submit" class="btn btn-primary">Buy</button>
+                                <c:if test = "${param.purchaseError!=null}">
+                                    <div style="color:red">
+                                        <span>To buy you need to register or login</span>
+                                    </div>
+                                </c:if>
+                            </form>
+
                         </div>
                     </div>
                 </div>

@@ -18,7 +18,8 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link active text-white" href="/">Home <span class="sr-only">(current)</span></a>
             <c:if test = "${sessionScope.user.role.name().equals('ADMIN')}">
-                <a class="nav-item nav-link text-white" href="${pageContext.request.contextPath}/users">All users</a>
+                <a class="nav-item nav-link text-white" href="${pageContext.request.contextPath}/admin/users">All users</a>
+                <a class="nav-item nav-link text-white" href="${pageContext.request.contextPath}/admin/orders">All orders</a>
             </c:if>
             <a class="nav-item nav-link text-white" href="#">
                 Pricing
