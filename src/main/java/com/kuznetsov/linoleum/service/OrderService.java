@@ -6,6 +6,8 @@ import com.kuznetsov.linoleum.dto.*;
 import com.kuznetsov.linoleum.entity.*;
 import com.kuznetsov.linoleum.mapper.CreateOrderMapper;
 import com.kuznetsov.linoleum.mapper.CreateUserMapper;
+import com.kuznetsov.linoleum.validator.CreateLayoutValidator;
+import com.kuznetsov.linoleum.validator.ValidationResult;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class OrderService {
     private static final OrderService INSTANCE = new OrderService();
     private OrderDao orderDao = OrderDao.getInstance();
     private final CreateOrderMapper createOrderMapper = CreateOrderMapper.getInstance();
+    private final CreateLayoutValidator createLayoutValidator = CreateLayoutValidator.getInstance();
 
     private final List<CreateFragmentWithoutLayoutDto> withoutLayoutFragments  =  new ArrayList<>();
     private final List<CreateFragmentDto> customLayoutFragments = new ArrayList<>();

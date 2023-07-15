@@ -4,9 +4,11 @@ import com.kuznetsov.linoleum.dto.*;
 import com.kuznetsov.linoleum.entity.Order;
 import com.kuznetsov.linoleum.entity.OrderWithDeliveryAddress;
 import com.kuznetsov.linoleum.entity.OrderWithLayout;
-import com.kuznetsov.linoleum.entity.User;
 import com.kuznetsov.linoleum.service.*;
 import com.kuznetsov.linoleum.util.JspHelper;
+import com.kuznetsov.linoleum.validator.CreateDeliveryAddressValidator;
+import com.kuznetsov.linoleum.validator.CreateTranspDateApartmentValidator;
+import com.kuznetsov.linoleum.validator.ValidationResult;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +25,8 @@ public class OrderServlet extends HttpServlet {
     private final OrderService orderService = OrderService.getInstance();
     private final FragmentService fragmentService = FragmentService.getInstance();
     private final FragmentWithoutLayoutService fragmentWithoutLayoutService = FragmentWithoutLayoutService.getInstance();
+    private final CreateDeliveryAddressValidator createDeliveryAddressValidator = CreateDeliveryAddressValidator.getInstance();
+    private final CreateTranspDateApartmentValidator createTranspDateApartmentValidator = CreateTranspDateApartmentValidator.getInstance();
     private String transporting = null;
 
     @Override
@@ -36,78 +40,128 @@ public class OrderServlet extends HttpServlet {
              transporting = req.getParameter("radioDefault");
              req.getSession().setAttribute("transporting", transporting);
          }
-        System.out.println(transporting+" lfkkkkhkj");
+
         if(req.getParameter("action")!=null && req.getParameter("action").equals("enterOrderDetails")){
             String transportingDate = req.getParameter("transportingDate");
             String apartmentNum = req.getParameter("apartmentNum");
-            if(req.getSession().getAttribute("withoutLFragments")!=null && transporting.equals("DELIVERY")){
-                String dCity = req.getParameter("city");
-                String dStreet = req.getParameter("street");
-                String dHomeNum = req.getParameter("homeNum");
-                CreateDeliveryAddressDto createDeliveryAddressDto = new CreateDeliveryAddressDto(dCity,dStreet,dHomeNum);
-                CreateOrderDto createOrderWithDeliveryAddressDto =
-                        new CreateOrderDto(transporting
-                                ,transportingDate
-                                ,req.getSession().getAttribute("cost").toString()
-                                ,apartmentNum
-                                ,((UserDto)req.getSession().getAttribute("user")).getId().toString()
-                                ,((LinoleumDto)req.getSession().getAttribute("orderLinoleum")).getId().toString()
-                                ,createDeliveryAddressDto);
-                OrderWithDeliveryAddress orderWithDeliveryAddress = orderWithDeliveryAddressService.save(createOrderWithDeliveryAddressDto);
-                orderService.getWithoutLayoutFragments().stream().forEach(f->{
-                    f.setOrderId(orderWithDeliveryAddress.getId().toString());
-                    fragmentWithoutLayoutService.save(f);
-                });
-                req.getSession().setAttribute("order",orderWithDeliveryAddress);
 
-
+            CreateOrderDto createOrderDto = CreateOrderDto.builder().transportingDate(transportingDate)
+                    .apartmentNum(apartmentNum).build();
+            ValidationResult validationResult1 = createTranspDateApartmentValidator.isValid(createOrderDto);
+            if(!validationResult1.isValid()){
+                req.setAttribute("errors",validationResult1.getErrors());
+                doGet(req,resp);
             }else {
-                if (req.getSession().getAttribute("customLayout")!=null &&(Boolean) req.getSession().getAttribute("customLayout")) {
-                    CreateLayoutDto createLayoutDto = (CreateLayoutDto) req.getSession().getAttribute("createLayoutDto");
-                    CreateOrderDto createOrderWithNewLayoutDto =
-                            new CreateOrderDto(transporting
+
+                if (req.getSession().getAttribute("withoutLFragments") != null && transporting.equals("DELIVERY")) {
+                    String dCity = req.getParameter("city");
+                    String dStreet = req.getParameter("street");
+                    String dHomeNum = req.getParameter("homeNum");
+                    CreateDeliveryAddressDto createDeliveryAddressDto = new CreateDeliveryAddressDto(dCity, dStreet, dHomeNum);
+                    ValidationResult validationResult2 = createDeliveryAddressValidator.isValid(createDeliveryAddressDto);
+                    if (!validationResult2.isValid()) {
+                        req.setAttribute("errors", validationResult2.getErrors());
+                        doGet(req, resp);
+                    }else {
+
+                        CreateOrderDto createOrderWithDeliveryAddressDto =
+                                createOrderDto.builder().transporting(transporting)
+                                        .transportingDate(transportingDate)
+                                        .cost(req.getSession().getAttribute("cost").toString())
+                                        .apartmentNum(apartmentNum)
+                                        .userId(((UserDto) req.getSession().getAttribute("user")).getId().toString())
+                                        .linoleumId(((LinoleumDto) req.getSession().getAttribute("orderLinoleum")).getId().toString())
+                                        .createDeliveryAddressDto(createDeliveryAddressDto).build();
+                        //new CreateOrderDto(transporting
+                        //       ,transportingDate
+                        //     ,req.getSession().getAttribute("cost").toString()
+                        //    ,apartmentNum
+                        //  ,((UserDto)req.getSession().getAttribute("user")).getId().toString()
+                        //,((LinoleumDto)req.getSession().getAttribute("orderLinoleum")).getId().toString()
+                        //,createDeliveryAddressDto);
+                        OrderWithDeliveryAddress orderWithDeliveryAddress = orderWithDeliveryAddressService.save(createOrderWithDeliveryAddressDto);
+                        orderService.getWithoutLayoutFragments().forEach(f -> {
+                            f.setOrderId(orderWithDeliveryAddress.getId().toString());
+                            fragmentWithoutLayoutService.save(f);
+                        });
+                        req.getSession().setAttribute("order", orderWithDeliveryAddress);
+
+                    }
+                } else {
+                    if (req.getSession().getAttribute("customLayout") != null && (Boolean) req.getSession().getAttribute("customLayout")) {
+                        CreateLayoutDto createLayoutDto = (CreateLayoutDto) req.getSession().getAttribute("createLayoutDto");
+                        CreateOrderDto createOrderWithNewLayoutDto = createOrderDto.builder().transporting(transporting)
+                                .transportingDate(transportingDate)
+                                .cost(req.getSession().getAttribute("cost").toString())
+                                .apartmentNum(apartmentNum)
+                                .userId(((UserDto) req.getSession().getAttribute("user")).getId().toString())
+                                .linoleumId(((LinoleumDto) req.getSession().getAttribute("orderLinoleum")).getId().toString())
+                                .createLayoutDto(createLayoutDto).build();
+                          /*  new CreateOrderDto(transporting
                                     , transportingDate
                                     , req.getSession().getAttribute("cost").toString()
                                     , apartmentNum
                                     , ((UserDto) req.getSession().getAttribute("user")).getId().toString()
                                     , ((LinoleumDto) req.getSession().getAttribute("orderLinoleum")).getId().toString()
                                     , createLayoutDto);
-                    OrderWithLayout orderWithLayout = orderWithLayoutService.save(createOrderWithNewLayoutDto);
-                    orderService.getCustomLayoutFragments().forEach(f->{
-                        f.setLayoutNameId(orderWithLayout.getLayout().getLayoutName().getId().toString());
-                        fragmentService.save(f);
-                    });
-                    req.getSession().setAttribute("order",orderWithLayout);
-                }else {
-                    if(req.getSession().getAttribute("withoutLFragments")!=null && transporting.equals("PICKUP")){
-                        CreateOrderDto createSimpleOrderDto =
-                                new CreateOrderDto(transporting
+
+                           */
+                        OrderWithLayout orderWithLayout = orderWithLayoutService.save(createOrderWithNewLayoutDto);
+                        orderService.getCustomLayoutFragments().forEach(f -> {
+                            f.setLayoutNameId(orderWithLayout.getLayout().getLayoutName().getId().toString());
+                            fragmentService.save(f);
+                        });
+                        req.getSession().setAttribute("order", orderWithLayout);
+                    } else {
+                        if (req.getSession().getAttribute("withoutLFragments") != null && transporting.equals("PICKUP")) {
+                            CreateOrderDto createSimpleOrderDto = createOrderDto.builder().transporting(transporting)
+                                    .transportingDate(transportingDate)
+                                    .cost(req.getSession().getAttribute("cost").toString())
+                                    .apartmentNum(apartmentNum)
+                                    .userId(((UserDto) req.getSession().getAttribute("user")).getId().toString())
+                                    .linoleumId(((LinoleumDto) req.getSession().getAttribute("orderLinoleum")).getId().toString())
+                                    .build();
+                          /*      new CreateOrderDto(transporting
                                         ,transportingDate
                                         ,req.getSession().getAttribute("cost").toString()
                                         ,apartmentNum
                                         ,((UserDto)req.getSession().getAttribute("user")).getId().toString()
                                         ,((LinoleumDto)req.getSession().getAttribute("orderLinoleum")).getId().toString());
-                        Order order = orderService.save(createSimpleOrderDto);
-                        orderService.getWithoutLayoutFragments().forEach(f->{
-                            f.setOrderId(order.getId().toString());
-                            fragmentWithoutLayoutService.save(f);
-                        });
-                        req.getSession().setAttribute("order",order);
-                    }else {
-                        CreateOrderDto createOrderExistsLayoutDto =
-                                new CreateOrderDto(transporting
+
+                           */
+                            Order order = orderService.save(createSimpleOrderDto);
+                            orderService.getWithoutLayoutFragments().forEach(f -> {
+                                f.setOrderId(order.getId().toString());
+                                fragmentWithoutLayoutService.save(f);
+                            });
+                            req.getSession().setAttribute("order", order);
+                        } else {
+                            CreateOrderDto createOrderExistsLayoutDto = createOrderDto.builder().transporting(transporting)
+                                    .transportingDate(transportingDate)
+                                    .cost(req.getSession().getAttribute("cost").toString())
+                                    .apartmentNum(apartmentNum)
+                                    .userId(((UserDto) req.getSession().getAttribute("user")).getId().toString())
+                                    .linoleumId(((LinoleumDto) req.getSession().getAttribute("orderLinoleum")).getId().toString())
+                                    .layoutId(((LayoutDto) req.getSession().getAttribute("layoutDto")).getId().toString()).build();
+
+                                /*new CreateOrderDto(transporting
                                         , transportingDate
                                         , req.getSession().getAttribute("cost").toString()
                                         , apartmentNum
                                         , ((UserDto) req.getSession().getAttribute("user")).getId().toString()
                                         , ((LinoleumDto) req.getSession().getAttribute("orderLinoleum")).getId().toString()
                                         , ((LayoutDto) req.getSession().getAttribute("layoutDto")).getId().toString());
-                        req.getSession().setAttribute("order",orderWithLayoutService.save(createOrderExistsLayoutDto));
-                    }
-            }
-            }
 
-         resp.sendRedirect("/orderCreateSuccess");
+                                 */
+                            req.getSession().setAttribute("order", orderWithLayoutService.save(createOrderExistsLayoutDto));
+
+
+                        }
+                    }
+                }
+
+                resp.sendRedirect("/orderCreateSuccess");
+            }
         }else {
             resp.sendRedirect("/order");
         }

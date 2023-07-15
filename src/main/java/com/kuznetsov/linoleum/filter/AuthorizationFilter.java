@@ -16,7 +16,7 @@ import java.util.Set;
 @WebFilter("/*")
 public class AuthorizationFilter implements Filter {
     private static final Set<String> PUBLIC_PATH = Set.of("/login","/registration","/logout");
-    private static final Set<String> ADMIN_PATH = Set.of("/users");
+
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

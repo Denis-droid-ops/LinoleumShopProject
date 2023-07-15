@@ -32,9 +32,7 @@
                 </div>
             </div>
             <br>
-            <form class="form justify-content-center" action="/cancelOrderServlet" method="post">
-                <button type="submit" class="btn btn-danger btn-lg">Cancel ordering</button>
-            </form>
+            <a href="/?cancelOrder" class="btn btn-danger btn-lg">Cancel ordering</a>
         </div>
 
         <div class="col">
@@ -137,7 +135,13 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-lg">Create order</button>
-
+                        <c:if test = "${not empty requestScope.errors}">
+                            <div style="color: red">
+                                <c:forEach var="error" items="${requestScope.errors}">
+                                    <span>${error.message}</span>
+                                </c:forEach>
+                            </div>
+                        </c:if>
                     </form>
 
                 </div>

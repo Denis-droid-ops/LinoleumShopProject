@@ -6,6 +6,8 @@ import com.kuznetsov.linoleum.dto.LinoleumDto;
 import com.kuznetsov.linoleum.service.FragmentService;
 import com.kuznetsov.linoleum.service.OrderService;
 import com.kuznetsov.linoleum.util.JspHelper;
+import com.kuznetsov.linoleum.validator.CreateFragmentDtoValidator;
+import com.kuznetsov.linoleum.validator.ValidationResult;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +21,9 @@ import java.util.stream.Collectors;
 
 @WebServlet("/orderFragments")
 public class OrderFragmentsServlet extends HttpServlet {
-    private FragmentService fragmentService = FragmentService.getInstance();
-    private OrderService orderService = OrderService.getInstance();
+    private final FragmentService fragmentService = FragmentService.getInstance();
+    private final OrderService orderService = OrderService.getInstance();
+    private final CreateFragmentDtoValidator createFragmentDtoValidator = CreateFragmentDtoValidator.getInstance();
 
 
     @Override
@@ -37,10 +40,16 @@ public class OrderFragmentsServlet extends HttpServlet {
             String fType= req.getParameter("fragmentType");
             //createDto used, because creating is new fragment;layoutNameId is null, because order not created yet
             CreateFragmentDto enteredFragmentDto = new CreateFragmentDto(width, length, fType, null);
-            orderService.getCustomLayoutFragments().add(enteredFragmentDto);
-            orderService.getCustomLayoutFragments().stream().forEach(f -> System.out.println(f));
-            req.getSession().setAttribute("customLFragments", orderService.getCustomLayoutFragments());
-            resp.sendRedirect("/orderFragments");
+            ValidationResult validationResult1 = createFragmentDtoValidator.isValid(enteredFragmentDto);
+            if (!validationResult1.isValid()){
+                req.setAttribute("errors",validationResult1.getErrors());
+                doGet(req,resp);
+            }else {
+                orderService.getCustomLayoutFragments().add(enteredFragmentDto);
+                orderService.getCustomLayoutFragments().stream().forEach(f -> System.out.println(f));
+                req.getSession().setAttribute("customLFragments", orderService.getCustomLayoutFragments());
+                resp.sendRedirect("/orderFragments");
+            }
         } else {
             if (req.getParameter("action") != null && req.getParameter("action").equals("calculateCost")) {
                 int cost = orderService

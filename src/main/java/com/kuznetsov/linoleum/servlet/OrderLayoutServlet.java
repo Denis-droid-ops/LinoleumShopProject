@@ -4,11 +4,15 @@ package com.kuznetsov.linoleum.servlet;
 import com.kuznetsov.linoleum.dto.*;
 import com.kuznetsov.linoleum.entity.LayoutName;
 import com.kuznetsov.linoleum.entity.LayoutRowType;
+import com.kuznetsov.linoleum.exception.ValidationException;
 import com.kuznetsov.linoleum.service.FragmentService;
 import com.kuznetsov.linoleum.service.LayoutNameService;
 import com.kuznetsov.linoleum.service.LayoutService;
 import com.kuznetsov.linoleum.service.OrderService;
 import com.kuznetsov.linoleum.util.JspHelper;
+import com.kuznetsov.linoleum.validator.CreateFragmentWithoutLayoutValidator;
+import com.kuznetsov.linoleum.validator.CreateLayoutValidator;
+import com.kuznetsov.linoleum.validator.ValidationResult;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +30,9 @@ public class OrderLayoutServlet extends HttpServlet {
     private final FragmentService fragmentService = FragmentService.getInstance();
     private final OrderService orderService = OrderService.getInstance();
     private final LayoutNameService layoutNameService = LayoutNameService.getInstance();
+    private final CreateLayoutValidator createLayoutValidator = CreateLayoutValidator.getInstance();
+    private final CreateFragmentWithoutLayoutValidator createFragmentWithoutLayoutValidator = CreateFragmentWithoutLayoutValidator.getInstance();
+
 
 
 
@@ -53,10 +60,15 @@ public class OrderLayoutServlet extends HttpServlet {
             //createDto used, because creating is new fragment;orderId is null, because order not created yet
             CreateFragmentWithoutLayoutDto createFragmentWithoutLayoutDto =
                     new CreateFragmentWithoutLayoutDto(width,length,null);
-            orderService.getWithoutLayoutFragments().add(createFragmentWithoutLayoutDto);
-            orderService.getWithoutLayoutFragments().stream().forEach(f-> System.out.println(f));
-            req.getSession().setAttribute("withoutLFragments",orderService.getWithoutLayoutFragments());
-            resp.sendRedirect("/orderLayout");
+            ValidationResult validationResult1 = createFragmentWithoutLayoutValidator.isValid(createFragmentWithoutLayoutDto);
+            if(!validationResult1.isValid()){
+                req.setAttribute("errors",validationResult1.getErrors());
+                doGet(req,resp);
+            }else {
+                orderService.getWithoutLayoutFragments().add(createFragmentWithoutLayoutDto);
+                req.getSession().setAttribute("withoutLFragments", orderService.getWithoutLayoutFragments());
+                resp.sendRedirect("/orderLayout");
+            }
         }else {
             if(req.getParameter("action")!=null && req.getParameter("action").equals("calculateCost")) {
                 int cost = orderService
@@ -70,28 +82,36 @@ public class OrderLayoutServlet extends HttpServlet {
                 String roomCount = req.getParameter("roomCount");
                 String layoutRowType = req.getParameter("layoutRowType");
 
-                Optional<LayoutDto> layoutDto = layoutService.findByManyFields(city,street,homeNum,Integer.valueOf(roomCount), LayoutRowType.valueOf(layoutRowType));
+                // creating CreateLayoutNameDto for validation, object may be not used if layout exist in layout table
+                List<LayoutName> layoutNames = layoutNameService.findAll();
+                int idx = layoutNames.get(layoutNames.size()-1).getId()+1;
+                CreateLayoutNameDto createLayoutNameDto = new CreateLayoutNameDto("CUSTOM"+idx);
+                CreateLayoutDto createLayoutDto = new CreateLayoutDto(city, street, homeNum, roomCount, layoutRowType, createLayoutNameDto);
 
-                if (layoutDto.isPresent()) {
-                    req.getSession().setAttribute("layoutDto",layoutDto.get());
-                    int id = layoutDto.get().getLayoutName().getId();
-                    req.getSession().setAttribute("layoutFragments", fragmentService.findAllByLayoutNameId(layoutDto.get().getLayoutName().getId()));
+                //using CreateLayoutValidator for all validations(also dto validation)
+                ValidationResult validationResult2 = createLayoutValidator.isValid(createLayoutDto);
+                if(!validationResult2.isValid()){
+                    req.setAttribute("errors",validationResult2.getErrors());
+                    doGet(req,resp);
                 }else {
-                    List<LayoutName> layoutNames = layoutNameService.findAll();
-                    int idx = layoutNames.get(layoutNames.size()-1).getId()+1;
-                    CreateLayoutNameDto createLayoutNameDto = new CreateLayoutNameDto("CUSTOM"+idx);
-                    CreateLayoutDto createLayoutDto = new CreateLayoutDto(city, street, homeNum, roomCount, layoutRowType, createLayoutNameDto);
-                    req.getSession().setAttribute("customLayout",true);
-                    req.getSession().setAttribute("createLayoutDto", createLayoutDto);
-                }
+                    //checking layout existing in table, CreateLayoutDto in this case is not use
+                    Optional<LayoutDto> layoutDto = layoutService.findByManyFields(city, street, homeNum, Integer.valueOf(roomCount), LayoutRowType.valueOf(layoutRowType));
+                    if (layoutDto.isPresent()) {
+                        req.getSession().setAttribute("layoutDto", layoutDto.get());
+                        int id = layoutDto.get().getLayoutName().getId();
+                        req.getSession().setAttribute("layoutFragments", fragmentService.findAllByLayoutNameId(layoutDto.get().getLayoutName().getId()));
+                    } else {
+                        //using CreateLayoutDto, which was created earlier
+                        req.getSession().setAttribute("customLayout", true);
+                        req.getSession().setAttribute("createLayoutDto", createLayoutDto);
+                    }
 
-                resp.sendRedirect("/orderFragments");
+                    resp.sendRedirect("/orderFragments");
+                }
             }
         }
 
     }
 
-   // public static void clearWithoutLayoutFragments(){
-   //     withoutLayoutFragments.clear();
-   // }
+
 }

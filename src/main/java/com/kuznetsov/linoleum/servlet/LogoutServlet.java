@@ -8,7 +8,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
@@ -24,12 +28,14 @@ public class LogoutServlet extends HttpServlet {
 
     private void eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
         Cookie[] cookies = req.getCookies();
-        if (cookies != null)
-            for (Cookie cookie : cookies) {
-                cookie.setValue("");
-                cookie.setPath("/");
+         List<String> names = Arrays.stream(cookies).map(cookie -> cookie.getName()).collect(Collectors.toList());
+        if (!names.isEmpty()){
+            names.stream().forEach(n->{
+                Cookie cookie = new Cookie(n,"");
                 cookie.setMaxAge(0);
+                cookie.setPath("/");
                 resp.addCookie(cookie);
-            }
+            });
+        }
     }
 }

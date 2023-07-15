@@ -34,9 +34,7 @@
             </div>
           </div>
             <br>
-            <form class="form justify-content-center" action="/cancelOrderServlet" method="post">
-                <button type="submit" class="btn btn-danger btn-lg">Cancel ordering</button>
-            </form>
+            <a href="/?cancelOrder" class="btn btn-danger btn-lg">Cancel ordering</a>
         </div>
 
     <div class="col justify-content-around">
@@ -48,6 +46,7 @@
                     <div class="form-group">
                         <label for="city" style="font-size:20px;" class="font-weight-bold">City/location</label>
                         <input type="text" class="form-control" id="city" name="city" placeholder="Enter city">
+
                     </div>
                     <div class="form-group">
                         <label for="street" style="font-size:20px;" class="font-weight-bold">Street</label>
@@ -55,7 +54,7 @@
                     </div>
                     <div class="form-group">
                         <label for="homeNum" style="font-size:20px;" class="font-weight-bold">Home number</label>
-                        <input type="number" class="form-control" id="homeNum" name="homeNum" placeholder="Enter home number">
+                        <input type="text" class="form-control" id="homeNum" name="homeNum" placeholder="Enter home number">
                     </div>
                     <div class="form-group">
                         <label for="roomCount" style="font-size:20px;" class="font-weight-bold">Room count</label>
@@ -80,6 +79,7 @@
                                 <span>${error.message}</span>
                             </c:forEach>
                         </div>
+                        ${requestScope.errors.clear()}
                     </c:if>
 
                 </form>
@@ -100,8 +100,15 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-lg">Enter sizes</button>
-
+                        <c:if test = "${not empty requestScope.errors}">
+                            <div style="color: red">
+                                <c:forEach var="error" items="${requestScope.errors}">
+                                    <span>${error.message}</span>
+                                </c:forEach>
+                            </div>
+                        </c:if>
                     </form>
+                  <c:if test = "${empty requestScope.errors}">
 
                     <c:forEach var="withoutLFragment" items="${sessionScope.withoutLFragments}">
                         <h5>Entered size:</h5>
@@ -119,6 +126,9 @@
                     <c:if test = "${not empty sessionScope.cost}">
                         <h5 class="card-title">Total cost(without delivery price - 400p): ${sessionScope.cost}</h5>
                     </c:if>
+
+                  </c:if>
+
                 </c:if>
             </div>
         </div>

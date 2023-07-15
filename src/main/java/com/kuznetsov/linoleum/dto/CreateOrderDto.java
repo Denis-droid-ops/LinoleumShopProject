@@ -14,19 +14,7 @@ public final class CreateOrderDto {
     private final CreateLayoutDto createLayoutDto;
     private final CreateDeliveryAddressDto createDeliveryAddressDto;
 
-    public CreateOrderDto(String transporting, String transportingDate, String cost, String apartmentNum, String userId, String linoleumId) {
-        this.transporting = transporting;
-        this.transportingDate = transportingDate;
-        this.cost = cost;
-        this.apartmentNum = apartmentNum;
-        this.userId = userId;
-        this.linoleumId = linoleumId;
-        this.layoutId = null;
-        this.createLayoutDto = null;
-        this.createDeliveryAddressDto = null;
-    }
-
-    public CreateOrderDto(String transporting, String transportingDate, String cost, String apartmentNum, String userId, String linoleumId, String layoutId) {
+    public CreateOrderDto(String transporting, String transportingDate, String cost, String apartmentNum, String userId, String linoleumId, String layoutId, CreateLayoutDto createLayoutDto, CreateDeliveryAddressDto createDeliveryAddressDto) {
         this.transporting = transporting;
         this.transportingDate = transportingDate;
         this.cost = cost;
@@ -34,32 +22,8 @@ public final class CreateOrderDto {
         this.userId = userId;
         this.linoleumId = linoleumId;
         this.layoutId = layoutId;
-        this.createLayoutDto = null;
-        this.createDeliveryAddressDto = null;
-    }
-
-    public CreateOrderDto(String transporting, String transportingDate, String cost, String apartmentNum, String userId, String linoleumId, CreateLayoutDto createLayoutDto) {
-        this.transporting = transporting;
-        this.transportingDate = transportingDate;
-        this.cost = cost;
-        this.apartmentNum = apartmentNum;
-        this.userId = userId;
-        this.linoleumId = linoleumId;
         this.createLayoutDto = createLayoutDto;
-        this.layoutId = null;
-        this.createDeliveryAddressDto = null;
-    }
-
-    public CreateOrderDto(String transporting, String transportingDate, String cost, String apartmentNum, String userId, String linoleumId, CreateDeliveryAddressDto createDeliveryAddressDto) {
-        this.transporting = transporting;
-        this.transportingDate = transportingDate;
-        this.cost = cost;
-        this.apartmentNum = apartmentNum;
-        this.userId = userId;
-        this.linoleumId = linoleumId;
         this.createDeliveryAddressDto = createDeliveryAddressDto;
-        this.layoutId = null;
-        this.createLayoutDto = null;
     }
 
     public String getTransporting() {
@@ -98,6 +62,91 @@ public final class CreateOrderDto {
         return createDeliveryAddressDto;
     }
 
+    public static class CreateOrderDtoBuilder{
+        private String transporting;
+        private String transportingDate;
+        private String cost;
+        private String apartmentNum;
+        private String userId;
+        private String linoleumId;
+
+        private String layoutId;
+        private CreateLayoutDto createLayoutDto;
+        private CreateDeliveryAddressDto createDeliveryAddressDto;
+
+        public CreateOrderDtoBuilder(){}
+
+        public CreateOrderDtoBuilder transporting(String transporting){
+            this.transporting = transporting;
+            return this;
+        }
+
+        public CreateOrderDtoBuilder transportingDate(String transportingDate){
+            this.transportingDate = transportingDate;
+            return this;
+        }
+
+        public CreateOrderDtoBuilder cost(String cost){
+            this.cost = cost;
+            return this;
+        }
+
+        public CreateOrderDtoBuilder apartmentNum(String apartmentNum){
+            this.apartmentNum = apartmentNum;
+            return this;
+        }
+
+        public CreateOrderDtoBuilder userId(String userId){
+            this.userId = userId;
+            return this;
+        }
+
+        public CreateOrderDtoBuilder linoleumId(String linoleumId){
+            this.linoleumId = linoleumId;
+            return this;
+        }
+
+        public CreateOrderDtoBuilder layoutId(String layoutId){
+            this.layoutId = layoutId;
+            return this;
+        }
+
+        public CreateOrderDtoBuilder createLayoutDto(CreateLayoutDto createLayoutDto){
+            this.createLayoutDto = createLayoutDto;
+            return this;
+        }
+
+        public CreateOrderDtoBuilder createDeliveryAddressDto(CreateDeliveryAddressDto createDeliveryAddressDto){
+            this.createDeliveryAddressDto = createDeliveryAddressDto;
+            return this;
+        }
+
+        public CreateOrderDto build(){
+            return new CreateOrderDto(this.transporting,this.transportingDate,this.cost
+            ,this.apartmentNum,this.userId,this.linoleumId,this.layoutId
+            ,this.createLayoutDto,this.createDeliveryAddressDto);
+        }
+
+        @Override
+        public String toString() {
+            return "CreateOrderDtoBuilder{" +
+                    "transporting='" + transporting + '\'' +
+                    ", transportingDate='" + transportingDate + '\'' +
+                    ", cost='" + cost + '\'' +
+                    ", apartmentNum='" + apartmentNum + '\'' +
+                    ", userId='" + userId + '\'' +
+                    ", linoleumId='" + linoleumId + '\'' +
+                    ", layoutId='" + layoutId + '\'' +
+                    ", createLayoutDto=" + createLayoutDto +
+                    ", createDeliveryAddressDto=" + createDeliveryAddressDto +
+                    '}';
+        }
+    }
+
+    public static CreateOrderDtoBuilder builder(){
+        return new CreateOrderDtoBuilder();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -125,4 +174,6 @@ public final class CreateOrderDto {
                 ", createDeliveryAddressDto=" + createDeliveryAddressDto +
                 '}';
     }
+
+
 }

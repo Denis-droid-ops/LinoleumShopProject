@@ -35,9 +35,9 @@
                 </div>
             </div>
             <br>
-            <form class="form justify-content-center" action="/cancelOrderServlet" method="post">
-                <button type="submit" class="btn btn-danger btn-lg">Cancel ordering</button>
-            </form>
+
+            <a href="/?cancelOrder" class="btn btn-danger btn-lg">Cancel ordering</a>
+
         </div>
        <c:if test = "${not empty sessionScope.layoutDto}">
         <div class="col">
@@ -143,7 +143,17 @@
 
                             <button type="submit" class="btn btn-primary btn-lg">Enter sizes</button>
 
+                            <c:if test = "${not empty requestScope.errors}">
+                                <div style="color: red">
+                                    <c:forEach var="error" items="${requestScope.errors}">
+                                        <span>${error.message}</span>
+                                    </c:forEach>
+                                </div>
+                            </c:if>
+
                         </form>
+
+                        <c:if test = "${empty requestScope.errors}">
 
                         <c:forEach var="customLFragment" items="${sessionScope.customLFragments}">
                             <h5>Entered fragments:</h5>
@@ -160,6 +170,7 @@
 
                         <c:if test = "${not empty sessionScope.cost}">
                             <h5 class="card-title">Total cost(without delivery price - 400p): ${sessionScope.cost}</h5>
+                        </c:if>
                         </c:if>
                     </c:if>
 

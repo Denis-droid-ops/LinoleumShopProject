@@ -115,13 +115,9 @@
                 </div>
             </div>
             <br>
-            <form class="form justify-content-center" action="/cancelOrderServlet" method="post">
-                <button type="submit" class="btn btn-primary btn-lg">Go home page</button>
-            </form>
-            <form class="form justify-content-center" action="/cancelOrderServlet" method="post">
-                <input type="hidden" name="action" value="ordersView"/>
-                <button type="submit" class="btn btn-primary btn-lg">View all orders</button>
-            </form>
+                <a href="/" class="btn btn-primary btn-lg">Go home page</a>
+            <br>
+                <a href="/orders" class="btn btn-primary btn-lg">View all orders</a>
         </div>
 </div>
 <%@include file="footer.jsp"%>
