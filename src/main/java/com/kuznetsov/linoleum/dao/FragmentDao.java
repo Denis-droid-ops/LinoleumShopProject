@@ -128,12 +128,12 @@ public class FragmentDao implements Dao<Fragment,Integer> {
     private Fragment buildFragment(ResultSet resultSet) throws SQLException{
         LayoutName layoutName = new LayoutName(resultSet.getObject(5,Integer.class), //using column idx, because field "id" is repeating
                 resultSet.getObject("ln_name",String.class));
-        Fragment fragment = new Fragment(resultSet.getObject("id",Integer.class)
+        return new Fragment(resultSet.getObject("id",Integer.class)
         ,resultSet.getObject("width",Float.class)
         ,resultSet.getObject("length",Float.class)
         ,FragmentType.valueOf(resultSet.getObject("f_type",String.class))
         ,layoutName);
-        return fragment;
+
     }
 
     public static FragmentDao getInstance(){

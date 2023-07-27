@@ -116,6 +116,7 @@ CREATE TABLE rolls
     part_num  INTEGER NOT NULL ,
     r_width FLOAT4 NOT NULL,
     r_length FLOAT4 NOT NULL,
+    is_remain BOOLEAN NOT NULL,
     linoleum_id INTEGER NOT NULL,
     FOREIGN KEY (linoleum_id) REFERENCES linoleums(id) ON DELETE CASCADE
 );

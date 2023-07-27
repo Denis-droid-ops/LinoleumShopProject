@@ -99,7 +99,7 @@ public class UserDao implements Dao<User,Integer>{
 
     @Override
     public List<User> findAll() {
-        logger.debug("FIND_ALL");
+        logger.debug("FIND_ALL/Users");
         try(Connection connection = ConnectionManager.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
              ResultSet resultSet = preparedStatement.executeQuery();

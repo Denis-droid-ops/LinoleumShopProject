@@ -5,7 +5,9 @@ import com.kuznetsov.linoleum.entity.Linoleum;
 
 public class LinoleumDtoMapper implements Mapper<Linoleum, LinoleumDto>{
     private static final LinoleumDtoMapper INSTANCE = new LinoleumDtoMapper();
+
     private LinoleumDtoMapper(){}
+
     @Override
     public LinoleumDto mapFrom(Linoleum object) {
         return new LinoleumDto(object.getId()

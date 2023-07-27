@@ -15,14 +15,28 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body>
+<body <c:if test = "${not empty sessionScope.stockErrors}">
+    onload="demo()";
+</c:if>
+    >
 <%@include file="header.jsp"%>
-<div class="container">
+<div class="container ml-5">
     <h1 align="center">All orders</h1>
+    <script>
+        function demo() {
+            <c:forEach var="error" items="${sessionScope.stockErrors}">
+               alert("${error.message}"+"\n"+"Problem fragment: id="+
+                   "${sessionScope.errorFragment.id}"+"\n"
+               +"width = "+"${sessionScope.errorFragment.width}"+"\n"
+               +"length = "+"${sessionScope.errorFragment.length}");
+            </c:forEach>
+            ${sessionScope.remove('stockErrors')}
+            ${sessionScope.remove('errorFragment')}
+        }
+    </script>
     <table class="table table-bordered table-hover">
         <thead class="thead-light">
         <tr>
-            <th scope="col">Creating date</th>
             <th scope="col">Status</th>
             <th scope="col">Transporting</th>
             <th scope="col">Transporting date</th>
@@ -36,15 +50,8 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="order" items="${requestScope.orders}">
+        <c:forEach var="order" items="${requestScope.orders}" >
             <tr>
-                <form action="/admin/orders" method="post">
-                    <input type="hidden" name="action" value="update"/>
-                    <input type="hidden" name="id" value="${order.id}"/>
-
-                    <td>
-                            ${order.creatingDate}
-                    </td>
                     <td>
                             ${order.status}
                     </td>
@@ -66,17 +73,50 @@
                     <td>
                             ${order.linoleum.name}
                     </td>
+
                     <td>
-                            ${order.address.street}
+                        <c:if test="${not empty order.layout}">
+                            ${order.layout.street}
+                        </c:if>
+                        <c:if test="${not empty order.deliveryAddress}">
+                            ${order.deliveryAddress.dStreet}
+                        </c:if>
                     </td>
                     <td>
-                            ${order.address.homeNum}
-                    </td>
-                    <td>
-                            ${order.address.apartmentNum}
+                        <c:if test="${not empty order.layout}">
+                            ${order.layout.homeNum}
+                        </c:if>
+                        <c:if test="${not empty order.deliveryAddress}">
+                            ${order.deliveryAddress.dHomeNum}
+                        </c:if>
                     </td>
 
-                </form>
+                    <td>
+                            ${order.apartmentNum}
+                    </td>
+                    <td>
+                     <form action="/admin/orders" method="post">
+                        <input type="hidden" name="id" value="${order.id}"/>
+                        <button type="submit" class="btn btn-primary btn-sm">Order details</button>
+                     </form>
+                    </td>
+                <c:if test="${order.status.name() eq 'NOTCOMPLETED'}">
+                    <td>
+                        <form action="/admin/order/rollCutting" method="post">
+                          <input type="hidden" name="id" value="${order.id}"/>
+                          <button type="submit" class="btn btn-primary btn-sm">Cut off</button>
+                        </form>
+                    </td>
+                </c:if>
+                <c:if test="${order.status.name() eq 'CUTTED'}">
+                    <td>
+                        <form action="/admin/orders" method="post">
+                            <input type="hidden" name="action" value="updateStatus"/>
+                            <input type="hidden" name="id" value="${order.id}"/>
+                            <button type="submit" class="btn btn-success btn-sm">Execute order</button>
+                        </form>
+                    </td>
+                </c:if>
             </tr>
         </c:forEach>
         </tbody>

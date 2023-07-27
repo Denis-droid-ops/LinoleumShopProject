@@ -5,7 +5,9 @@ import com.kuznetsov.linoleum.entity.User;
 
 public class UserDtoMapper implements Mapper<User, UserDto>{
     private static final UserDtoMapper INSTANCE = new UserDtoMapper();
+
     private UserDtoMapper(){}
+
     @Override
     public UserDto mapFrom(User object) {
         return new UserDto(object.getId()

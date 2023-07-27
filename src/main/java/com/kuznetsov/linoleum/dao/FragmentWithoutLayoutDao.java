@@ -1,5 +1,6 @@
 package com.kuznetsov.linoleum.dao;
 
+import com.kuznetsov.linoleum.dto.FragmentDto;
 import com.kuznetsov.linoleum.entity.*;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
@@ -23,6 +24,7 @@ public class FragmentWithoutLayoutDao implements Dao<FragmentWithoutLayout,Integ
                                 FROM Fragments_without_layout
                                 
 """;
+    private static final String FIND_ALL_BY_ORDER_ID_SQL = FIND_ALL_SQL+" WHERE order_id = ?";
     private static final String FIND_BY_ID_SQL = "SELECT id,f_width,f_length,order_id FROM Fragments_without_layout WHERE id = ?";
     private static final String DELETE_SQL = "DELETE FROM Fragments_without_layout WHERE id = ?";
     private FragmentWithoutLayoutDao(){}
@@ -59,6 +61,24 @@ public class FragmentWithoutLayoutDao implements Dao<FragmentWithoutLayout,Integ
                 fragmentWithoutLayout = buildFragmentWithoutLayout(resultSet);
             }
             return Optional.ofNullable(fragmentWithoutLayout);
+
+        } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
+            throw new DAOException(e);
+        }
+    }
+
+    public List<FragmentWithoutLayout> findAllByOrderId(Integer orderId){
+        logger.debug("FIND_ALL_BY_ORDER_ID/fragment without layout id is:{}",orderId);
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_ORDER_ID_SQL)){
+            preparedStatement.setInt(1,orderId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<FragmentWithoutLayout> fragmentsWithoutLayout = new ArrayList<>();
+            while (resultSet.next()){
+                fragmentsWithoutLayout.add(buildFragmentWithoutLayout(resultSet));
+            }
+            return fragmentsWithoutLayout;
 
         } catch (SQLException e) {
             logger.error(e.getMessage(),e);

@@ -5,6 +5,7 @@ import com.kuznetsov.linoleum.entity.DeliveryAddress;
 
 public class DeliveryAddressDtoMapper implements Mapper<DeliveryAddress, DeliveryAddressDto>{
     private static final DeliveryAddressDtoMapper INSTANCE = new DeliveryAddressDtoMapper();
+    private DeliveryAddressDtoMapper(){}
     @Override
     public DeliveryAddressDto mapFrom(DeliveryAddress object) {
         return new DeliveryAddressDto(object.getId()

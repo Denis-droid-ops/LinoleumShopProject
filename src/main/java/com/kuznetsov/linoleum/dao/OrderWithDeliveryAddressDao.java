@@ -62,10 +62,10 @@ public class OrderWithDeliveryAddressDao implements Dao<OrderWithDeliveryAddress
                                           ON o.user_id=u.id
                                 LEFT JOIN Linoleums l
                                           ON o.linoleum_id=l.id
-                                LEFT JOIN orders_with_delivery_address owd
+                                JOIN orders_with_delivery_address owd
                                           ON o.id = owd.id
                    """;
-
+    private static final String FIND_BY_ID_SQL = FIND_ALL_SQL+" WHERE o.id = ?";
 
     @Override
     public OrderWithDeliveryAddress save(OrderWithDeliveryAddress entity) {
@@ -85,7 +85,20 @@ public class OrderWithDeliveryAddressDao implements Dao<OrderWithDeliveryAddress
 
     @Override
     public Optional<OrderWithDeliveryAddress> findById(Integer id) {
-        return Optional.empty();
+        logger.debug("FIND_BY_ID/order with delivery address id:{}",id);
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)){
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            OrderWithDeliveryAddress orderWithDeliveryAddress= null;
+            if(resultSet.next()){
+                orderWithDeliveryAddress = buildOrderWithDeliveryAddress(resultSet);
+            }
+            return Optional.ofNullable(orderWithDeliveryAddress);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
+            throw new DAOException(e);
+        }
     }
 
     @Override

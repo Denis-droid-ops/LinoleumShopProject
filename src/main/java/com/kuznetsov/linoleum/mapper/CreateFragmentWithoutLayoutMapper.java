@@ -7,6 +7,9 @@ import com.kuznetsov.linoleum.entity.FragmentWithoutLayout;
 public class CreateFragmentWithoutLayoutMapper implements Mapper<CreateFragmentWithoutLayoutDto, FragmentWithoutLayout> {
     private static final CreateFragmentWithoutLayoutMapper INSTANCE = new CreateFragmentWithoutLayoutMapper();
     private final OrderDao orderDao = OrderDao.getInstance();
+
+    private CreateFragmentWithoutLayoutMapper(){}
+
     @Override
     public FragmentWithoutLayout mapFrom(CreateFragmentWithoutLayoutDto object) {
         FragmentWithoutLayout fragmentWithoutLayout = new FragmentWithoutLayout();

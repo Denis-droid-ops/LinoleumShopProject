@@ -19,21 +19,7 @@ public final class OrderDto {//Dto for reading
     private final Layout layout;
     private final DeliveryAddress deliveryAddress;
 
-    public OrderDto(Integer id, LocalDateTime creatingDate, OrderStatus status, OrderTransporting transporting, LocalDateTime transportingDate, Integer cost, Integer apartmentNum, User user, Linoleum linoleum) {
-        this.id = id;
-        this.creatingDate = creatingDate;
-        this.status = status;
-        this.transporting = transporting;
-        this.transportingDate = transportingDate;
-        this.cost = cost;
-        this.apartmentNum = apartmentNum;
-        this.user = user;
-        this.linoleum = linoleum;
-        this.layout = null;
-        this.deliveryAddress = null;
-    }
-
-    public OrderDto(Integer id, LocalDateTime creatingDate, OrderStatus status, OrderTransporting transporting, LocalDateTime transportingDate, Integer cost, Integer apartmentNum, User user, Linoleum linoleum, Layout layout) {
+    public OrderDto(Integer id, LocalDateTime creatingDate, OrderStatus status, OrderTransporting transporting, LocalDateTime transportingDate, Integer cost, Integer apartmentNum, User user, Linoleum linoleum, Layout layout, DeliveryAddress deliveryAddress) {
         this.id = id;
         this.creatingDate = creatingDate;
         this.status = status;
@@ -44,21 +30,101 @@ public final class OrderDto {//Dto for reading
         this.user = user;
         this.linoleum = linoleum;
         this.layout = layout;
-        this.deliveryAddress = null;
+        this.deliveryAddress = deliveryAddress;
     }
 
-    public OrderDto(Integer id, LocalDateTime creatingDate, OrderStatus status, OrderTransporting transporting, LocalDateTime transportingDate, Integer cost, Integer apartmentNum, User user, Linoleum linoleum, DeliveryAddress deliveryAddress) {
-        this.id = id;
-        this.creatingDate = creatingDate;
-        this.status = status;
-        this.transporting = transporting;
-        this.transportingDate = transportingDate;
-        this.cost = cost;
-        this.apartmentNum = apartmentNum;
-        this.user = user;
-        this.linoleum = linoleum;
-        this.deliveryAddress = deliveryAddress;
-        this.layout = null;
+    public static class OrderDtoBuilder{
+        private Integer id;
+        private LocalDateTime creatingDate;
+        private OrderStatus status;
+        private OrderTransporting transporting;
+        private LocalDateTime transportingDate;
+        private Integer cost;
+        private Integer apartmentNum;
+        private User user;
+        private Linoleum linoleum;
+        private Layout layout;
+        private DeliveryAddress deliveryAddress;
+
+        public OrderDtoBuilder(){}
+
+        public OrderDtoBuilder id(Integer id){
+            this.id = id;
+            return this;
+        }
+
+        public OrderDtoBuilder creatingDate(LocalDateTime creatingDate){
+            this.creatingDate = creatingDate;
+            return this;
+        }
+
+        public OrderDtoBuilder status(OrderStatus status){
+            this.status = status;
+            return this;
+        }
+
+        public OrderDtoBuilder transporting(OrderTransporting transporting){
+            this.transporting = transporting;
+            return this;
+        }
+
+        public OrderDtoBuilder transportingDate(LocalDateTime transportingDate){
+            this.transportingDate = transportingDate;
+            return this;
+        }
+
+        public OrderDtoBuilder cost(Integer cost){
+            this.cost = cost;
+            return this;
+        }
+
+        public OrderDtoBuilder apartmentNum(Integer apartmentNum){
+            this.apartmentNum = apartmentNum;
+            return this;
+        }
+
+        public OrderDtoBuilder user(User user){
+            this.user = user;
+            return this;
+        }
+
+        public OrderDtoBuilder linoleum(Linoleum linoleum){
+            this.linoleum = linoleum;
+            return this;
+        }
+
+        public OrderDtoBuilder layout(Layout layout){
+            this.layout = layout;
+            return this;
+        }
+
+        public OrderDtoBuilder deliveryAddress(DeliveryAddress deliveryAddress){
+            this.deliveryAddress = deliveryAddress;
+            return this;
+        }
+
+        public OrderDto build(){
+            return new OrderDto(this.id,this.creatingDate,this.status,this.transporting
+            ,this.transportingDate,this.cost,this.apartmentNum,this.user
+            ,this.linoleum,this.layout,this.deliveryAddress);
+        }
+
+        @Override
+        public String toString() {
+            return "OrderDtoBuilder{" +
+                    "id=" + id +
+                    ", creatingDate=" + creatingDate +
+                    ", status=" + status +
+                    ", transporting=" + transporting +
+                    ", transportingDate=" + transportingDate +
+                    ", cost=" + cost +
+                    ", apartmentNum=" + apartmentNum +
+                    ", user=" + user +
+                    ", linoleum=" + linoleum +
+                    ", layout=" + layout +
+                    ", deliveryAddress=" + deliveryAddress +
+                    '}';
+        }
     }
 
     @Override
@@ -116,6 +182,10 @@ public final class OrderDto {//Dto for reading
 
     public DeliveryAddress getDeliveryAddress() {
         return deliveryAddress;
+    }
+
+    public static OrderDtoBuilder builder(){
+        return new OrderDtoBuilder();
     }
 
     @Override

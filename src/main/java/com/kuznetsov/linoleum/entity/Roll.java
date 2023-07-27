@@ -1,20 +1,25 @@
 package com.kuznetsov.linoleum.entity;
 
+import java.util.Objects;
+
 public class Roll {
     private Integer id;
     private Integer partNum;
     private Float width;
     private Float length;
+    private boolean isRemain;
     private Linoleum linoleum;
+
 
     public Roll() {
     }
 
-    public Roll(Integer id, Integer partNum, Float width, Float length, Linoleum linoleum) {
+    public Roll(Integer id, Integer partNum, Float width, Float length, boolean isRemain, Linoleum linoleum) {
         this.id = id;
         this.partNum = partNum;
         this.width = width;
         this.length = length;
+        this.isRemain = isRemain;
         this.linoleum = linoleum;
     }
 
@@ -58,6 +63,27 @@ public class Roll {
         this.linoleum = linoleum;
     }
 
+    public boolean isRemain() {
+        return isRemain;
+    }
+
+    public void setRemain(boolean remain) {
+        isRemain = remain;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Roll)) return false;
+        Roll roll = (Roll) o;
+        return Objects.equals(id, roll.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
     @Override
     public String toString() {
         return "Roll{" +
@@ -65,6 +91,7 @@ public class Roll {
                 ", partNum=" + partNum +
                 ", width=" + width +
                 ", length=" + length +
+                ", isRemain=" + isRemain +
                 ", linoleum=" + linoleum +
                 '}';
     }

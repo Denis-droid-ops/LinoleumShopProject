@@ -1,15 +1,11 @@
 package com.kuznetsov.linoleum.mapper;
 
 import com.kuznetsov.linoleum.dao.LayoutsNamesDao;
-import com.kuznetsov.linoleum.dto.CreateApartmentDto;
 import com.kuznetsov.linoleum.dto.CreateFragmentDto;
-import com.kuznetsov.linoleum.dto.CreateLayoutDto;
-import com.kuznetsov.linoleum.dto.CreateLayoutNameDto;
-import com.kuznetsov.linoleum.entity.Apartment;
+
 import com.kuznetsov.linoleum.entity.Fragment;
 import com.kuznetsov.linoleum.entity.FragmentType;
-import com.kuznetsov.linoleum.service.LayoutNameService;
-import com.kuznetsov.linoleum.service.LayoutService;
+
 
 public class CreateFragmentMapper {
     private static final CreateFragmentMapper INSTANCE = new CreateFragmentMapper();

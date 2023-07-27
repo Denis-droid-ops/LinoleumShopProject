@@ -5,7 +5,9 @@ import com.kuznetsov.linoleum.entity.Layout;
 
 public class LayoutDtoMapper implements Mapper<Layout, LayoutDto> {
     private static final LayoutDtoMapper INSTANCE = new LayoutDtoMapper();
+
     private LayoutDtoMapper(){}
+
     @Override
     public LayoutDto mapFrom(Layout object) {
         return new LayoutDto(object.getId()

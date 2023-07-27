@@ -74,9 +74,10 @@ public class OrderWithLayoutDao implements Dao<OrderWithLayout,Integer> {
                                           ON o.user_id=u.id
                                 LEFT JOIN Linoleums l
                                           ON o.linoleum_id=l.id
-                                LEFT JOIN orders_with_layout_layoutNames owl
+                                JOIN orders_with_layout_layoutNames owl
                                           ON o.id = owl.id
                    """;
+    private static final String FIND_BY_ID_SQL = FIND_ALL_SQL+" WHERE o.id = ?";
 
     @Override
     public OrderWithLayout save(OrderWithLayout entity) {
@@ -96,7 +97,20 @@ public class OrderWithLayoutDao implements Dao<OrderWithLayout,Integer> {
 
     @Override
     public Optional<OrderWithLayout> findById(Integer id) {
-        return Optional.empty();
+        logger.debug("FIND_BY_ID/order with layout id:{}",id);
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)){
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            OrderWithLayout orderWithLayout= null;
+            if(resultSet.next()){
+                orderWithLayout = buildOrderWithLayout(resultSet);
+            }
+            return Optional.ofNullable(orderWithLayout);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
+            throw new DAOException(e);
+        }
     }
 
     @Override

@@ -6,6 +6,8 @@ import com.kuznetsov.linoleum.entity.DeliveryAddress;
 public class CreateDeliveryAddressesMapper implements Mapper<CreateDeliveryAddressDto, DeliveryAddress>{
     private static final CreateDeliveryAddressesMapper INSTANCE = new CreateDeliveryAddressesMapper();
 
+    private CreateDeliveryAddressesMapper(){}
+
     @Override
     public DeliveryAddress mapFrom(CreateDeliveryAddressDto object) {
         DeliveryAddress deliveryAddress = new DeliveryAddress();

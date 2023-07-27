@@ -128,11 +128,17 @@
                             <label for="transportingDate" style="font-size:20px;" class="font-weight-bold">Transporting date</label>
                             <input type="datetime-local" class="form-control" id="transportingDate" name="transportingDate" placeholder="Enter transporting date">
                         </div>
-
+                       <c:if test = "${sessionScope.transporting.equals('DELIVERY')}">
                         <div class="form-group">
                             <label for="apartmentNum" style="font-size:20px;" class="font-weight-bold">Apartment number</label>
                             <input type="number" class="form-control" id="apartmentNum" name="apartmentNum" placeholder="Enter apartment number">
                         </div>
+                       </c:if>
+                        <c:if test = "${!sessionScope.transporting.equals('DELIVERY')}">
+                            <div class="form-group">
+                                <input type="hidden" name="apartmentNum" value="0"/>
+                            </div>
+                        </c:if>
 
                         <button type="submit" class="btn btn-primary btn-lg">Create order</button>
                         <c:if test = "${not empty requestScope.errors}">

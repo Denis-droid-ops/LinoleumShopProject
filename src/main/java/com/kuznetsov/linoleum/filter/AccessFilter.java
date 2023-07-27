@@ -20,11 +20,17 @@ public class AccessFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         String uri = req.getRequestURI();
-        if((uri.equals("/orderFragments") || uri.equals("/orderLayout") || uri.equals("/order") || uri.equals("/orderCreateSuccess")) && req.getHeader("referer")==null){
+        if(((uri.equals("/orderFragments") || uri.equals("/orderLayout") || uri.equals("/order") || uri.equals("/orderCreateSuccess") || uri.equals("/admin/order/rollCutting") || uri.equals("orderDetails")) && req.getHeader("referer")==null)
+             || (req.getSession().getAttribute("token")!=null && uri.equals("/admin/order/rollCutting") && req.getHeader("referer").equals("http://localhost:8080/admin/orders"))){
             orderService.clearWithoutLayoutFragments();
             orderService.clearCustomLayoutFragments();
+            req.getSession().removeAttribute("token");
             Collections.list(req.getSession().getAttributeNames()).stream().filter(s->!s.equals("user")).forEach(s->req.getSession().removeAttribute(s));
-            resp.sendRedirect("/");
+            if(uri.equals("/admin/order/rollCutting")){
+                resp.sendRedirect("/admin/orders");
+            }else {
+                resp.sendRedirect("/");
+            }
         }else {
 
             chain.doFilter(request, response);
