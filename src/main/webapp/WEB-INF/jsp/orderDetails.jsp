@@ -31,6 +31,14 @@
                     <h5 class="card-title">Price: ${requestScope.order.linoleum.price} P/m2</h5>
                 </div>
             </div>
+            <br>
+            <c:if test="${requestScope.order.status eq 'NOTCOMPLETED'}">
+                <form action="/admin/orders" method="post">
+                    <input type="hidden" name="action" value="deleteOrder"/>
+                    <input type="hidden" name="id" value="${order.id}"/>
+                    <button type="submit" class="btn btn-danger btn-lg">Delete order</button>
+                </form>
+            </c:if>
         </div>
 
         <div class="col">
@@ -67,6 +75,8 @@
 
                     </div>
                 </div>
+            <br>
+
         </div>
 
         <div class="col mr-5">

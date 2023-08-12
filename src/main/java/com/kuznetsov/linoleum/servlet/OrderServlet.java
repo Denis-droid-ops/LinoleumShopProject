@@ -1,6 +1,7 @@
 package com.kuznetsov.linoleum.servlet;
 
 import com.kuznetsov.linoleum.dto.*;
+import com.kuznetsov.linoleum.entity.Fragment;
 import com.kuznetsov.linoleum.entity.Order;
 import com.kuznetsov.linoleum.entity.OrderWithDeliveryAddress;
 import com.kuznetsov.linoleum.entity.OrderWithLayout;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet {
@@ -109,7 +111,8 @@ public class OrderServlet extends HttpServlet {
                         OrderWithLayout orderWithLayout = orderWithLayoutService.save(createOrderWithNewLayoutDto);
                         orderService.getCustomLayoutFragments().forEach(f -> {
                             f.setLayoutNameId(orderWithLayout.getLayout().getLayoutName().getId().toString());
-                            fragmentService.save(f);
+                            Fragment newFragment = fragmentService.save(f);
+                            fragmentService.saveWithOrder(newFragment.getId(),orderWithLayout.getId());
                         });
                         req.getSession().setAttribute("order", orderWithLayout);
                     } else {
@@ -144,16 +147,12 @@ public class OrderServlet extends HttpServlet {
                                     .linoleumId(((LinoleumDto) req.getSession().getAttribute("orderLinoleum")).getId().toString())
                                     .layoutId(((LayoutDto) req.getSession().getAttribute("layoutDto")).getId().toString()).build();
 
-                                /*new CreateOrderDto(transporting
-                                        , transportingDate
-                                        , req.getSession().getAttribute("cost").toString()
-                                        , apartmentNum
-                                        , ((UserDto) req.getSession().getAttribute("user")).getId().toString()
-                                        , ((LinoleumDto) req.getSession().getAttribute("orderLinoleum")).getId().toString()
-                                        , ((LayoutDto) req.getSession().getAttribute("layoutDto")).getId().toString());
-
-                                 */
-                            req.getSession().setAttribute("order", orderWithLayoutService.save(createOrderExistsLayoutDto));
+                            List<FragmentDto> choosedFragments = (List<FragmentDto>) req.getSession().getAttribute("choosedFragments");
+                            OrderWithLayout savedOrderWithLayout = orderWithLayoutService.save(createOrderExistsLayoutDto);
+                            choosedFragments.stream().forEach(f->{
+                                fragmentService.saveWithOrder(f.getId(),savedOrderWithLayout.getId());
+                            });
+                            req.getSession().setAttribute("order", savedOrderWithLayout);
 
 
                         }

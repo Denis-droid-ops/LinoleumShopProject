@@ -8,9 +8,11 @@ public final class CreateLayoutDto {
     private final String homeNum;
     private final String roomCount;
     private final String layoutRowType;
-    //private final String layoutNameId; if new layout creating, then creating new CUSTOM layoutName, not choosing from existed
+    //Using not final variables because they must not be initialized together
+    private  String layoutNameId;
+    //if new layout creating, then creating new CUSTOM layoutName, not choosing from existed
     //only admin can update and choose layoutName
-    private final CreateLayoutNameDto createLayoutNameDto;
+    private CreateLayoutNameDto createLayoutNameDto;
 
     public CreateLayoutDto(String city, String street, String homeNum, String roomCount, String layoutRowType, CreateLayoutNameDto createLayoutNameDto) {
         this.city = city;
@@ -19,6 +21,15 @@ public final class CreateLayoutDto {
         this.roomCount = roomCount;
         this.layoutRowType = layoutRowType;
         this.createLayoutNameDto = createLayoutNameDto;
+    }
+
+    public CreateLayoutDto(String city, String street, String homeNum, String roomCount, String layoutRowType, String layoutNameId) {
+        this.city = city;
+        this.street = street;
+        this.homeNum = homeNum;
+        this.roomCount = roomCount;
+        this.layoutRowType = layoutRowType;
+        this.layoutNameId = layoutNameId;
     }
 
     public String getCity() {
@@ -43,6 +54,10 @@ public final class CreateLayoutDto {
 
     public CreateLayoutNameDto getCreateLayoutNameDto() {
         return createLayoutNameDto;
+    }
+
+    public String getLayoutNameId() {
+        return layoutNameId;
     }
 
     @Override

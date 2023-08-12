@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
 
-@WebFilter("/*")
+@WebFilter(filterName = "filter4",urlPatterns = "/*")
 public class CleanBackFilter implements Filter {
 
     OrderService orderService = OrderService.getInstance();
@@ -33,10 +33,10 @@ public class CleanBackFilter implements Filter {
         }
 
         if((req.getHeader("referer")!=null &&(req.getHeader("referer").equals("http://localhost:8080/orderLayout") ||
-        req.getHeader("referer").equals("http://localhost:8080/orderFragments") ||
-        req.getHeader("referer").equals("http://localhost:8080/order") ))
-        && (!req.getRequestURI().equals("/order") && !req.getRequestURI().equals("/orderLayout")
-        && !req.getRequestURI().equals("/orderFragments") && !req.getRequestURI().equals("/orderCreateSuccess") && !req.getRequestURI().equals("/logout")
+                req.getHeader("referer").equals("http://localhost:8080/orderFragments") ||
+                req.getHeader("referer").equals("http://localhost:8080/order") ))
+                && (!req.getRequestURI().equals("/order") && !req.getRequestURI().equals("/orderLayout")
+                && !req.getRequestURI().equals("/orderFragments") && !req.getRequestURI().equals("/orderCreateSuccess") && !req.getRequestURI().equals("/logout")
                 && !req.getRequestURI().equals("/login") && req.getParameter("cancelOrder")==null && req.getParameter("another")==null )){
 
             URL url = new URL(req.getHeader("referer"));

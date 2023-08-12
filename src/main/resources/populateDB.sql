@@ -34,18 +34,18 @@ VALUES ('84s2xInc'),
 
 
 INSERT INTO layouts(city, street, home_num,room_count,row_type,l_type,layout_name_id)
-VALUES ('Nizhnekamsk','Korabelnaya',4,1,'SINGLE','TEMPLATE',1),
-       ('Nizhnekamsk','Tukaya',17,1,'SINGLE','TEMPLATE',13),
-       ('Nizhnekamsk','Korabelnaya',14,1,'SINGLE','TEMPLATE',1),
+VALUES ('Nizhnekamsk','Korabelnaya',4,1,'ONE_LINE','TEMPLATE',1),
+       ('Nizhnekamsk','Tukaya',17,1,'ONE_LINE','TEMPLATE',13),
+       ('Nizhnekamsk','Korabelnaya',14,1,'ONE_LINE','TEMPLATE',1),
        ('Nizhnekamsk','Stroiteley',1,2,'DIFFERENT','TEMPLATE',2),
-       ('Nizhnekamsk','Junosti',3,2,'SINGLE','TEMPLATE',14),
-       ('Nizhnekamsk','Mira',44,3,'SINGLE','TEMPLATE',8),
-       ('Nizhnekamsk','Mira',12,3,'SINGLE','TEMPLATE',8),
+       ('Nizhnekamsk','Junosti',3,2,'ONE_LINE','TEMPLATE',14),
+       ('Nizhnekamsk','Mira',44,3,'ONE_LINE','TEMPLATE',8),
+       ('Nizhnekamsk','Mira',12,3,'ONE_LINE','TEMPLATE',8),
        ('Nizhnekamsk','Korabelnaya',25,4,'DIFFERENT','TEMPLATE',17),
-       ('Nizhnekamsk','Himikov',10,3,'SINGLE','TEMPLATE',8),
+       ('Nizhnekamsk','Himikov',10,3,'ONE_LINE','TEMPLATE',8),
        ('Nizhnekamsk','Himikov',94,4,'ANGULAR','TEMPLATE',10),
        ('Borok','Lenina',2,5,'HOME','CUSTOM',17),
-       ('Kamskie polyani','Solnechnaya',5,1,'SINGLE','TEMPLATE',15);
+       ('Kamskie polyani','Solnechnaya',5,1,'ONE_LINE','TEMPLATE',15);
 
 INSERT INTO fragments(width, length,f_type,layout_name_id)
 VALUES  (3.5,5.85,'HALL',1),

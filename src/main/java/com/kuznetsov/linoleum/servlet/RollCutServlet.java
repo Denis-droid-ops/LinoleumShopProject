@@ -46,7 +46,7 @@ public class RollCutServlet extends HttpServlet {
                 req.setAttribute("fragmentsWL", fragmentWithoutLayoutDtoList);
                 fragmentWithoutLayoutDtoList.forEach(f -> rollDtos.add(rollService.cutRoll(f, linoleumName)));
             } else {
-                List<FragmentDto> fragmentDtoList = fragmentService.findAllByLayoutNameId(orderDto.getLayout().getLayoutName().getId());
+                List<FragmentDto> fragmentDtoList = fragmentService.findAllWithOrdersByOrderId(orderDto.getId());
                 req.setAttribute("fragments", fragmentDtoList);
                 fragmentDtoList.forEach(f -> rollDtos.add(rollService.cutRoll(f, linoleumName)));
             }

@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS fragments CASCADE ;
 DROP TABLE IF EXISTS linoleums CASCADE ;
 DROP TABLE IF EXISTS delivery_addresses CASCADE ;
 DROP TABLE IF EXISTS fragments_without_layout CASCADE;
+DROP TABLE IF EXISTS fragments_orders CASCADE;
 DROP TABLE IF EXISTS rolls CASCADE;
 
 CREATE TABLE users
@@ -105,7 +106,16 @@ CREATE TABLE fragments_without_layout
     id     SERIAL PRIMARY KEY,
     f_width  FLOAT4 NOT NULL ,
     f_length FLOAT4 NOT NULL,
-    order_id INTEGER,
+    order_id INTEGER NOT NULL ,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+);
+
+CREATE TABLE fragments_orders
+(
+    id     SERIAL PRIMARY KEY,
+    fragment_id  INTEGER NOT NULL ,
+    FOREIGN KEY (fragment_id) REFERENCES fragments(id) ON DELETE CASCADE,
+    order_id INTEGER NOT NULL ,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 

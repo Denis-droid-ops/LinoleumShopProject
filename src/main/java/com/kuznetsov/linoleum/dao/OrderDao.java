@@ -99,44 +99,7 @@ public class OrderDao implements Dao<Order,Integer>{
                                                                  ON o.id = owd.id         
                                        
                    """;
-    private static final String FIND_ALL_UNREFERENCED_SQL =
-            """
-                       SELECT o.id,
-                              o.creating_date,
-                              o.status,
-                              o.transporting,
-                              o.transporting_date,
-                              o.cost,
-                              o.apartment_num,
-                              o.user_id,
-                              o.linoleum_id,
-                              u.id,
-                              u.name,
-                              u.email,
-                              u.password,
-                              u.phone_number,
-                              u.role,
-                              l.id,
-                              l.l_name,
-                              l.protect,
-                              l.thickness,
-                              l.price,
-                              l.image_path,
-                              owl.id,
-                              owd.id
-                           FROM Orders o
-                                LEFT JOIN Users u
-                                          ON o.user_id=u.id
-                                LEFT JOIN Linoleums l
-                                          ON o.linoleum_id=l.id
-                                LEFT JOIN Orders_with_layout owl
-                                		  ON o.id = owl.id
-                                LEFT JOIN Orders_with_delivery_address owd
-                                ON o.id = owd.id
-                                WHERE owl.id IS NULL
-                                AND owd.id IS NULL          
-                                      
-                   """;
+    private static final String FIND_ALL_BY_USER_ID_SQL = FIND_ALL_SQL+" WHERE o.user_id = ?";
     private static final String FIND_BY_ID_SQL = FIND_ALL_SQL+" WHERE o.id = ?";
     private static final String UPDATE_SQL = "UPDATE Orders SET status=?, transporting=?, transporting_date=?, linoleum_id=? WHERE id=?";
     private static final String UPDATE_STATUS_SQL = "UPDATE Orders SET status=? WHERE id=?";
@@ -201,6 +164,25 @@ public class OrderDao implements Dao<Order,Integer>{
             List<Order> orders = new ArrayList<>();
             while (resultSet.next()){
                  orders.add(buildOrder(resultSet));
+            }
+            return orders;
+        } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
+            throw new DAOException(e);
+        }
+    }
+
+
+    public List<Order> findAllByUserId(Integer userId) {
+        logger.debug("FIND_ALL_BY_USER_ID {}/userId is:",userId);
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_USER_ID_SQL)){
+            preparedStatement.setInt(1,userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Order> orders = new ArrayList<>();
+            while (resultSet.next()){
+                orders.add(buildOrder(resultSet));
             }
             return orders;
         } catch (SQLException e) {

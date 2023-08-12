@@ -11,21 +11,17 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Set;
 
-@WebFilter("/*")
+
+@WebFilter(filterName = "filter2",urlPatterns = { "/admin/order/rollCutting","/admin/orderDetails", "/admin/orders","/admin/rolls","/admin/users"})
 public class AuthorizationFilter implements Filter {
-    private static final Set<String> PUBLIC_PATH = Set.of("/login","/registration","/logout");
-
-
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String uri = ((HttpServletRequest) servletRequest).getRequestURI();
-        if(isPublicPath(uri) || isAdmin(servletRequest)){
+        if(isAdmin(servletRequest)){
             filterChain.doFilter(servletRequest,servletResponse);
         }else {
             String prev = ((HttpServletRequest) servletRequest).getHeader("referer");
-            ((HttpServletResponse)servletResponse).sendRedirect(prev!=null? prev:"/login");
+            ((HttpServletResponse)servletResponse).sendRedirect(prev!=null? prev:"/");
         }
     }
 
@@ -33,10 +29,6 @@ public class AuthorizationFilter implements Filter {
         UserDto userDto =(UserDto) ((HttpServletRequest)servletRequest).getSession().getAttribute("user");
         if(userDto==null) return false;
         return userDto.getRole().name().equals("ADMIN");
-    }
-
-    private boolean isPublicPath(String uri) {
-        return PUBLIC_PATH.stream().anyMatch(path->uri.startsWith(path)) || uri.equals("/");
     }
 
 }

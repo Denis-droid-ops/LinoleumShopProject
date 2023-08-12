@@ -27,7 +27,7 @@
                 <c:forEach var="lin" items="${requestScope.linoleums}">
                 <div class="col-sm-4 pt-3" style="background-color:blue;">
                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="${lin.imagePath}" alt="Card image cap">
+                        <img class="card-img-top" width="300" height="300" src="${pageContext.request.contextPath}${lin.imagePath}" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">${lin.name}</h5>
                             <p class="card-text">Protect: ${lin.protect}</p>

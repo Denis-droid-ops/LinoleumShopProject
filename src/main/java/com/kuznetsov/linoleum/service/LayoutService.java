@@ -1,18 +1,18 @@
 package com.kuznetsov.linoleum.service;
 
 import com.kuznetsov.linoleum.dao.LayoutDao;
-import com.kuznetsov.linoleum.dao.OrderDao;
 import com.kuznetsov.linoleum.dto.CreateLayoutDto;
-import com.kuznetsov.linoleum.dto.CreateLayoutNameDto;
 import com.kuznetsov.linoleum.dto.LayoutDto;
+import com.kuznetsov.linoleum.dto.UpdateLayoutTypeDto;
 import com.kuznetsov.linoleum.entity.Layout;
-import com.kuznetsov.linoleum.entity.LayoutName;
 import com.kuznetsov.linoleum.entity.LayoutRowType;
+import com.kuznetsov.linoleum.entity.LayoutType;
 import com.kuznetsov.linoleum.exception.ValidationException;
 import com.kuznetsov.linoleum.mapper.CreateLayoutMapper;
 import com.kuznetsov.linoleum.mapper.LayoutDtoMapper;
 import com.kuznetsov.linoleum.validator.CreateLayoutValidator;
 import com.kuznetsov.linoleum.validator.ValidationResult;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +41,15 @@ public class LayoutService {
         return layoutDao.findAll().stream().map(l->new LayoutDto(l.getId(),l.getCity()
         ,l.getStreet(),l.getHomeNum(),l.getRoomCount(),l.getLayoutRowType(),l.getlType(),l.getLayoutName()))
                 .collect(Collectors.toList());
+    }
+
+    public boolean delete(Integer id) {
+        return layoutDao.delete(id);
+    }
+
+    public void updateLType(UpdateLayoutTypeDto updateLayoutTypeDto) {
+        layoutDao.updateLType(Integer.parseInt(updateLayoutTypeDto.getId())
+                ,LayoutType.valueOf(updateLayoutTypeDto.getLayoutType()));
     }
 
     public Optional<LayoutDto> findByManyFields(String city,String street,String homeNum,Integer roomCount,LayoutRowType layoutRowType){

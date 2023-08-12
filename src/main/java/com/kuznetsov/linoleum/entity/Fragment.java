@@ -1,5 +1,6 @@
 package com.kuznetsov.linoleum.entity;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Fragment {
@@ -8,8 +9,18 @@ public class Fragment {
     private Float length;
     private FragmentType fType;
     private LayoutName layoutName;
+    private List<Order> orders;
 
     public Fragment() {
+    }
+
+    public Fragment(Integer id, Float width, Float length, FragmentType fType, LayoutName layoutName,List<Order> orders) {
+        this.id = id;
+        this.width = width;
+        this.length = length;
+        this.fType = fType;
+        this.layoutName = layoutName;
+        this.orders = orders;
     }
 
     public Fragment(Integer id, Float width, Float length, FragmentType fType, LayoutName layoutName) {
@@ -60,6 +71,14 @@ public class Fragment {
         this.layoutName = layoutName;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,6 +100,7 @@ public class Fragment {
                 ", length=" + length +
                 ", fType=" + fType +
                 ", layoutName=" + layoutName +
+                ", orders=" + orders +
                 '}';
     }
 }

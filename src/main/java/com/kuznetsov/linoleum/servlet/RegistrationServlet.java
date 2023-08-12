@@ -28,7 +28,6 @@ public class RegistrationServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String phoneNumber = req.getParameter("phoneNumber");
-        System.out.println();
         CreateUserDto createUserDto = new CreateUserDto(name,email,password,phoneNumber);
         try {
             userService.save(createUserDto);

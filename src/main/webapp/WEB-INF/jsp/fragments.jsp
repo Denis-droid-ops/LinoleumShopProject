@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Denis
-  Date: 03.07.2023
-  Time: 21:41
+  Date: 29.07.2023
+  Time: 22:06
   To change this template use File | Settings | File Templates.
 --%>
 <%@taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,80 +10,61 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>User orders</title>
+    <title>Fragments</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 <%@include file="header.jsp"%>
-<div class="container ml-5">
-    <h1 align="center">All orders</h1>
-
+<div class="container">
+    <h1 align="center">Fragments</h1>
     <table class="table table-bordered table-hover">
         <thead class="thead-light">
         <tr>
-            <th scope="col">Status</th>
-            <th scope="col">Transporting</th>
-            <th scope="col">Transporting date</th>
-            <th scope="col">Cost</th>
-            <th scope="col">Linoleum name</th>
-            <th scope="col">Street</th>
-            <th scope="col">Home number</th>
-            <th scope="col">Apartment number</th>
+            <th scope="col">Fragment id</th>
+            <th scope="col">Width</th>
+            <th scope="col">Length</th>
+            <th scope="col">Fragment type</th>
+            <th scope="col">Layout name</th>
+
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="order" items="${requestScope.userOrders}" >
+        <c:forEach var="fragment" items="${requestScope.fragments}">
             <tr>
                 <td>
-                        ${order.status}
+                        ${fragment.id}
                 </td>
                 <td>
-                        ${order.transporting}
+                        ${fragment.width}
                 </td>
                 <td>
-                        ${order.transportingDate}
+                        ${fragment.length}
                 </td>
                 <td>
-                        ${order.cost}
-                </td>
-
-                <td>
-                        ${order.linoleum.name}
-                </td>
-
-                <td>
-                    <c:if test="${not empty order.layout}">
-                        ${order.layout.street}
-                    </c:if>
-                    <c:if test="${not empty order.deliveryAddress}">
-                        ${order.deliveryAddress.dStreet}
-                    </c:if>
+                        ${fragment.fType}
                 </td>
                 <td>
-                    <c:if test="${not empty order.layout}">
-                        ${order.layout.homeNum}
-                    </c:if>
-                    <c:if test="${not empty order.deliveryAddress}">
-                        ${order.deliveryAddress.dHomeNum}
-                    </c:if>
-                </td>
-
-                <td>
-                        ${order.apartmentNum}
+                        ${fragment.layoutName.lnName}
                 </td>
                 <td>
-                    <form action="/orders" method="post">
-                        <input type="hidden" name="id" value="${order.id}"/>
-                        <button type="submit" class="btn btn-primary btn-sm">Order details</button>
+                    <a href="/admin/fragments?updateFragment&id=${fragment.id}" class="btn btn-primary btn-sm">Update fragment</a>
+                </td>
+                <td>
+                    <form action="/admin/fragments" method="post">
+                        <input type="hidden" name="id" value="${fragment.id}"/>
+                        <input type="hidden" name="action" value="deleteFragment"/>
+                        <button type="submit" class="btn btn-danger btn-sm">Delete layout</button>
                     </form>
                 </td>
-
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <br>
+    <a href="/admin/fragments?addFragment" class="btn btn-primary btn-lg">Add fragment</a>
+    <br>
 
 </div>
 <%@include file="footer.jsp"%>

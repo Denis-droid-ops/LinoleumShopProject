@@ -33,6 +33,7 @@ public class LayoutDao implements Dao<Layout,Integer> {
 """;
     private static final String FIND_BY_ID_SQL = FIND_ALL_SQL+" WHERE l.id = ?";
     private static final String UPDATE_SQL = "UPDATE Layouts SET city=? WHERE id=?";
+    private static final String UPDATE_L_TYPE_SQL = "UPDATE Layouts SET l_type=? WHERE id=?";
     private static final String DELETE_SQL = "DELETE FROM Layouts WHERE id=?";
     private static final String FIND_ALL_TEMPLATE_SQL = FIND_ALL_SQL+" WHERE l.l_type=?";
     private static final String FIND_BY_MANY_FIELDS_SQL = FIND_ALL_SQL+ """
@@ -149,6 +150,21 @@ public class LayoutDao implements Dao<Layout,Integer> {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)){
             preparedStatement.setObject(1,entity.getCity());
             preparedStatement.setInt(2,entity.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
+            throw new DAOException(e);
+        }
+    }
+
+
+    public void updateLType(Integer layoutId,LayoutType layoutType) {
+        logger.debug("UPDATE_L_TYPE/layoutId:{},layoutType:{}",layoutId,layoutType);
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_L_TYPE_SQL)){
+            preparedStatement.setObject(1,layoutType.name());
+            preparedStatement.setInt(2,layoutId);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {

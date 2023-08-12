@@ -1,6 +1,6 @@
 package com.kuznetsov.linoleum.filter;
 
-import com.kuznetsov.linoleum.entity.Order;
+
 import com.kuznetsov.linoleum.service.OrderService;
 
 import javax.servlet.*;
@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Set;
 
-@WebFilter("/*")
+
+@WebFilter(filterName = "filter3", urlPatterns = "/*")
 public class AccessFilter implements Filter {
     OrderService orderService = OrderService.getInstance();
 
@@ -20,8 +20,8 @@ public class AccessFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         String uri = req.getRequestURI();
-        if(((uri.equals("/orderFragments") || uri.equals("/orderLayout") || uri.equals("/order") || uri.equals("/orderCreateSuccess") || uri.equals("/admin/order/rollCutting") || uri.equals("orderDetails")) && req.getHeader("referer")==null)
-             || (req.getSession().getAttribute("token")!=null && uri.equals("/admin/order/rollCutting") && req.getHeader("referer").equals("http://localhost:8080/admin/orders"))){
+        if(((uri.equals("/orderFragments") || uri.equals("/orderLayout") || uri.equals("/order") || uri.equals("/orderCreateSuccess") || uri.equals("/admin/order/rollCutting") || uri.equals("/admin/orderDetails")) && req.getHeader("referer")==null)
+                || (req.getSession().getAttribute("token")!=null && uri.equals("/admin/order/rollCutting") && req.getHeader("referer").equals("http://localhost:8080/admin/orders"))){
             orderService.clearWithoutLayoutFragments();
             orderService.clearCustomLayoutFragments();
             req.getSession().removeAttribute("token");
@@ -32,7 +32,6 @@ public class AccessFilter implements Filter {
                 resp.sendRedirect("/");
             }
         }else {
-
             chain.doFilter(request, response);
         }
 

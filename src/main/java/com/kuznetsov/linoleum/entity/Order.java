@@ -1,6 +1,7 @@
 package com.kuznetsov.linoleum.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 public class Order {
@@ -13,11 +14,13 @@ public class Order {
     private Integer apartmentNum;
     private User user;
     private Linoleum linoleum;
+    private List<Fragment> fragments;
 
     public Order() {
     }
 
-    public Order(Integer id, LocalDateTime creatingDate, OrderStatus status, OrderTransporting transporting, LocalDateTime transportingDate, Integer cost, Integer apartmentNum, User user, Linoleum linoleum) {
+    public Order(Integer id, LocalDateTime creatingDate, OrderStatus status, OrderTransporting transporting, LocalDateTime transportingDate,
+                 Integer cost, Integer apartmentNum, User user, Linoleum linoleum, List<Fragment> fragments) {
         this.id = id;
         this.creatingDate = creatingDate;
         this.status = status;
@@ -27,6 +30,21 @@ public class Order {
         this.apartmentNum = apartmentNum;
         this.user = user;
         this.linoleum = linoleum;
+        this.fragments = fragments;
+    }
+
+    public Order(Integer id, LocalDateTime creatingDate, OrderStatus status, OrderTransporting transporting, LocalDateTime transportingDate,
+                 Integer cost, Integer apartmentNum, User user, Linoleum linoleum) {
+        this.id = id;
+        this.creatingDate = creatingDate;
+        this.status = status;
+        this.transporting = transporting;
+        this.transportingDate = transportingDate;
+        this.cost = cost;
+        this.apartmentNum = apartmentNum;
+        this.user = user;
+        this.linoleum = linoleum;
+
     }
 
     public Integer getId() {
@@ -101,6 +119,14 @@ public class Order {
         this.linoleum = linoleum;
     }
 
+    public List<Fragment> getFragments() {
+        return fragments;
+    }
+
+    public void setFragments(List<Fragment> fragments) {
+        this.fragments = fragments;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,6 +152,7 @@ public class Order {
                 ", apartmentNum=" + apartmentNum +
                 ", user=" + user +
                 ", linoleum=" + linoleum +
+                ", fragments=" + fragments +
                 '}';
     }
 }

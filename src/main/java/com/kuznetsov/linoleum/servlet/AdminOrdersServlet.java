@@ -34,15 +34,20 @@ public class AdminOrdersServlet extends HttpServlet {
         if(req.getParameter("action")!=null && req.getParameter("action").equals("updateStatus")){
             orderService.updateStatus(Integer.parseInt(req.getParameter("id")), OrderStatus.COMPLETED);
             resp.sendRedirect("/admin/orders");
-        }else {
-            OrderDto orderDto = orderService.findById(Integer.valueOf(req.getParameter("id"))).get();
-            req.setAttribute("order", orderDto);
-            if (orderDto.getLayout() == null) {
-                req.setAttribute("fragmentsWL", fragmentWithoutLayoutService.findAllByOrderId(orderDto.getId()));
-            } else {
-                req.setAttribute("fragments", fragmentService.findAllByLayoutNameId(orderDto.getLayout().getLayoutName().getId()));
+        }else{
+            if(req.getParameter("action")!=null && req.getParameter("action").equals("deleteOrder")){
+               orderService.delete(Integer.parseInt(req.getParameter("id")));
+               resp.sendRedirect("/admin/orders");
+            }else {
+                OrderDto orderDto = orderService.findById(Integer.valueOf(req.getParameter("id"))).get();
+                req.setAttribute("order", orderDto);
+                if (orderDto.getLayout() == null) {
+                    req.setAttribute("fragmentsWL", fragmentWithoutLayoutService.findAllByOrderId(orderDto.getId()));
+                } else {
+                    req.setAttribute("fragments", fragmentService.findAllWithOrdersByOrderId(orderDto.getId()));
+                }
+                req.getRequestDispatcher(JspHelper.getPath("orderDetails")).forward(req, resp);
             }
-            req.getRequestDispatcher(JspHelper.getPath("orderDetails")).forward(req, resp);
         }
     }
 }

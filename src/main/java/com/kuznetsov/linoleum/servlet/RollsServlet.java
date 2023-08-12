@@ -29,12 +29,16 @@ public class RollsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String partNum = req.getParameter("partNum");
-        String width = req.getParameter("width");
-        String length = req.getParameter("length");
-        String linoleumId = req.getParameter("linoleum");
-        CreateRollDto createRollDto = new CreateRollDto(partNum,width,length,linoleumId);
-        rollService.save(createRollDto);
+        if(req.getParameter("action")!=null && req.getParameter("action").equals("deleteRoll")){
+            rollService.delete(Integer.parseInt(req.getParameter("id")));
+        }else {
+            String partNum = req.getParameter("partNum");
+            String width = req.getParameter("width");
+            String length = req.getParameter("length");
+            String linoleumId = req.getParameter("linoleum");
+            CreateRollDto createRollDto = new CreateRollDto(partNum, width, length, linoleumId);
+            rollService.save(createRollDto);
+        }
         resp.sendRedirect("/admin/rolls");
     }
 }

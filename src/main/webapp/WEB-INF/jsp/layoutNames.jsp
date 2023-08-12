@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Denis
-  Date: 18.07.2023
-  Time: 20:26
+  Date: 04.08.2023
+  Time: 20:53
   To change this template use File | Settings | File Templates.
 --%>
 <%@taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Stock</title>
+    <title>Layout names</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -18,55 +18,37 @@
 <body>
 <%@include file="header.jsp"%>
 <div class="container">
-    <h1 align="center">Stock(Rolls)</h1>
+    <h1 align="center">Layout names</h1>
     <table class="table table-bordered table-hover">
         <thead class="thead-light">
-
         <tr>
-            <th scope="col">Roll id</th>
-            <th scope="col">Part number</th>
-            <th scope="col">Width</th>
-            <th scope="col">Length</th>
-            <th scope="col">Is remain</th>
-            <th scope="col">Roll's linoleum name</th>
-
+            <th scope="col">Layout name id</th>
+            <th scope="col">Name</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="roll" items="${requestScope.rolls}">
+        <c:forEach var="layoutName" items="${requestScope.layoutNames}">
             <tr>
                 <td>
-                        ${roll.id}
+                        ${layoutName.id}
                 </td>
                 <td>
-                        ${roll.partNum}
-                </td>
-                <td>
-                        ${roll.rWidth}
-                </td>
-                <td>
-                        ${roll.rLength}
-                </td>
-                <td>
-                        ${roll.remain}
-                </td>
-                <td>
-                        ${roll.linoleum.name}
-                </td>
-                <td>
-                    <form action="/admin/rolls" method="post">
-                        <input type="hidden" name="id" value="${roll.id}"/>
-                        <input type="hidden" name="action" value="deleteRoll"/>
-                        <button type="submit" class="btn btn-danger btn-sm">delete</button>
-                    </form>
+                        ${layoutName.lnName}
                 </td>
 
+                <td>
+                    <form action="/admin/layoutNames" method="post">
+                        <input type="hidden" name="id" value="${layoutName.id}"/>
+                        <input type="hidden" name="action" value="deleteLayoutName"/>
+                        <button type="submit" class="btn btn-danger btn-sm">Delete layout name</button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
     <br>
-    <a href="/admin/rolls?addRoll" class="btn btn-primary btn-lg">Add roll</a>
+    <a href="/admin/layoutNames?addLayoutName" class="btn btn-primary btn-lg">Add layout name</a>
     <br>
 
 </div>

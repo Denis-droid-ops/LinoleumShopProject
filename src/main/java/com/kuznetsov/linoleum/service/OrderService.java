@@ -4,11 +4,17 @@ package com.kuznetsov.linoleum.service;
 import com.kuznetsov.linoleum.dao.*;
 import com.kuznetsov.linoleum.dto.*;
 import com.kuznetsov.linoleum.entity.*;
+import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.mapper.CreateOrderMapper;
 import com.kuznetsov.linoleum.mapper.OrderDtoMapper;
+import com.kuznetsov.linoleum.util.ConnectionManager;
 import com.kuznetsov.linoleum.validator.CreateLayoutValidator;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -70,6 +76,49 @@ public class OrderService {
              }).collect(Collectors.toList());
     }
 
+    public List<OrderDto> findAllByUserId(Integer userId) {
+        return orderDao.findAllByUserId(userId).stream().map(o->{
+            OrderDto orderDto = OrderDto.builder().id(o.getId())
+                    .creatingDate(o.getCreatingDate())
+                    .status(o.getStatus())
+                    .transporting(o.getTransporting())
+                    .transportingDate(o.getTransportingDate())
+                    .cost(o.getCost())
+                    .apartmentNum(o.getApartmentNum())
+                    .user(o.getUser())
+                    .linoleum(o.getLinoleum())
+                    .build();
+
+            if(o.getClass()==OrderWithLayout.class)
+                return OrderDto.builder().id(o.getId())
+                        .creatingDate(o.getCreatingDate())
+                        .status(o.getStatus())
+                        .transporting(o.getTransporting())
+                        .transportingDate(o.getTransportingDate())
+                        .cost(o.getCost())
+                        .apartmentNum(o.getApartmentNum())
+                        .user(o.getUser())
+                        .linoleum(o.getLinoleum())
+                        .layout(((OrderWithLayout)o).getLayout())
+                        .build();
+
+            if(o.getClass()==OrderWithDeliveryAddress.class)
+                return OrderDto.builder().id(o.getId())
+                        .creatingDate(o.getCreatingDate())
+                        .status(o.getStatus())
+                        .transporting(o.getTransporting())
+                        .transportingDate(o.getTransportingDate())
+                        .cost(o.getCost())
+                        .apartmentNum(o.getApartmentNum())
+                        .user(o.getUser())
+                        .linoleum(o.getLinoleum())
+                        .deliveryAddress(((OrderWithDeliveryAddress)o).getDeliveryAddress())
+                        .build();
+
+            return orderDto;
+        }).collect(Collectors.toList());
+    }
+
     public Optional<OrderDto> findById(Integer id){
         return orderDao.findById(id).map(o->orderDtoMapper.mapFrom(o));
     }
@@ -81,6 +130,10 @@ public class OrderService {
 
     public void updateStatus(Integer orderId,OrderStatus orderStatus){
         orderDao.updateStatus(orderId,orderStatus);
+    }
+
+    public boolean delete(Integer orderId){
+        return orderDao.delete(orderId);
     }
 
     //calculate order cost (also for custom layout and without layout fragments)
