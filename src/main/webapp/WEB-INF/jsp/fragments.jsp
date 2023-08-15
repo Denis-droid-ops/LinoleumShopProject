@@ -19,6 +19,9 @@
 <%@include file="header.jsp"%>
 <div class="container">
     <h1 align="center">Fragments</h1>
+    <br>
+    <a href="/admin/fragments?addFragment" class="btn btn-primary btn-lg">Add fragment</a>
+    <br>
     <table class="table table-bordered table-hover">
         <thead class="thead-light">
         <tr>
@@ -62,9 +65,7 @@
         </c:forEach>
         </tbody>
     </table>
-    <br>
-    <a href="/admin/fragments?addFragment" class="btn btn-primary btn-lg">Add fragment</a>
-    <br>
+
 
 </div>
 <%@include file="footer.jsp"%>

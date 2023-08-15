@@ -19,6 +19,9 @@
 <%@include file="header.jsp"%>
 <div class="container">
     <h1 align="center">Stock(Rolls)</h1>
+    <br>
+    <a href="/admin/rolls?addRoll" class="btn btn-primary btn-lg">Add roll</a>
+    <br>
     <table class="table table-bordered table-hover">
         <thead class="thead-light">
 
@@ -65,9 +68,7 @@
         </c:forEach>
         </tbody>
     </table>
-    <br>
-    <a href="/admin/rolls?addRoll" class="btn btn-primary btn-lg">Add roll</a>
-    <br>
+
 
 </div>
 <%@include file="footer.jsp"%>

@@ -19,6 +19,9 @@
 <%@include file="header.jsp"%>
 <div class="container">
     <h1 align="center">Layouts</h1>
+    <br>
+    <a href="/admin/layouts?addLayout" class="btn btn-primary btn-lg">Add layout</a>
+    <br>
     <table class="table table-bordered table-hover">
         <thead class="thead-light">
         <tr>
@@ -92,9 +95,7 @@
           </c:forEach>
         </tbody>
     </table>
-    <br>
-    <a href="/admin/layouts?addLayout" class="btn btn-primary btn-lg">Add layout</a>
-    <br>
+
 
 </div>
 <%@include file="footer.jsp"%>

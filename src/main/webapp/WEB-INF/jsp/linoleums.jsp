@@ -20,12 +20,60 @@
 <div class="container-fluid">
     <h1>Linoleum shop catalog</h1>
     <div class="row g-2 pt-4">
-        <div class="col-sm-2" style="background-color:yellow;height:800px;"></div>
+        <div class="col-sm-2" style="height:800px;">
+            <div class="card mr-5 mt-4" style="width: 12rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Sort by</h5>
+                       <form action="" method="get">
+                           <input type="hidden" name="action" value="sorting"/>
+                           <div class="form-check">
+                               <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="l_name">
+                               <label class="form-check-label" for="flexRadioDefault1">
+                                   Name
+                               </label>
+                           </div>
+                           <div class="form-check">
+                               <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="protect">
+                               <label class="form-check-label" for="flexRadioDefault2">
+                                   Protect
+                               </label>
+                           </div>
+                           <div class="form-check">
+                               <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="thickness">
+                               <label class="form-check-label" for="flexRadioDefault3">
+                                   Thickness
+                               </label>
+                           </div>
+                           <div class="form-check">
+                               <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" value="price">
+                               <label class="form-check-label" for="flexRadioDefault4">
+                                   Price
+                               </label>
+                           </div>
+
+                           <h5 class="card-title mt-5">Price filtering</h5>
+
+                           <div class="form-group">
+                               <label for="min" style="font-size:20px;" class="font-weight-bold">Min</label>
+                               <input type="number" step="1" class="form-control" id="min" name="min" placeholder="Enter min price">
+                           </div>
+                           <div class="form-group">
+                               <label for="max" style="font-size:20px;" class="font-weight-bold">Max</label>
+                               <input type="number" step="1" class="form-control" id="max" name="max" placeholder="Enter max price">
+                           </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg">Sort/Filter</button>
+                       </form>
+                </div>
+            </div>
+
+
+        </div>
         <div class="col-sm-10">
 
             <div class="row g-2 pt-4">
                 <c:forEach var="lin" items="${requestScope.linoleums}">
-                <div class="col-sm-4 pt-3" style="background-color:blue;">
+                <div class="col-sm-4 pt-3">
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top" width="300" height="300" src="${pageContext.request.contextPath}${lin.imagePath}" alt="Card image cap">
                         <div class="card-body">

@@ -3,11 +3,13 @@ package com.kuznetsov.linoleum.service;
 import com.kuznetsov.linoleum.dao.LinoleumDao;
 import com.kuznetsov.linoleum.dto.CreateLinoleumDto;
 import com.kuznetsov.linoleum.dto.LinoleumDto;
+import com.kuznetsov.linoleum.dto.LinoleumFilter;
 import com.kuznetsov.linoleum.dto.UpdateLinoleumDto;
 import com.kuznetsov.linoleum.entity.Linoleum;
 import com.kuznetsov.linoleum.mapper.CreateLinoleumMapper;
 import com.kuznetsov.linoleum.mapper.LinoleumDtoMapper;
 import com.kuznetsov.linoleum.mapper.UpdateLinoleumMapper;
+
 
 
 import java.io.IOException;
@@ -31,9 +33,16 @@ public class LinoleumService {
                 .collect(Collectors.toList());
     }
 
+    public List<LinoleumDto> findAll(LinoleumFilter linoleumFilter, String field){
+       return linoleumDao.findAll(linoleumFilter,field).stream()
+               .map(l->new LinoleumDto(l.getId(),l.getName(),l.getProtect()
+               ,l.getThickness(),l.getPrice(),l.getImagePath())).collect(Collectors.toList());
+    }
+
     public Optional<LinoleumDto> findById(Integer id){
         return linoleumDao.findById(id).map(l->linoleumDtoMapper.mapFrom(l));
     }
+
 
     public Linoleum save(CreateLinoleumDto createLinoleumDto) throws IOException {
         //without validation , because this method will be used only by admin

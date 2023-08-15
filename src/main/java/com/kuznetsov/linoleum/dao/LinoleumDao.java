@@ -1,6 +1,9 @@
 package com.kuznetsov.linoleum.dao;
 
+import com.kuznetsov.linoleum.dto.LinoleumFilter;
+import com.kuznetsov.linoleum.dto.UserFilter;
 import com.kuznetsov.linoleum.entity.Linoleum;
+import com.kuznetsov.linoleum.entity.User;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
 import org.slf4j.Logger;
@@ -10,6 +13,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class LinoleumDao implements Dao<Linoleum,Integer> {
     private static final Logger logger = LoggerFactory.getLogger(LinoleumDao.class);
@@ -19,6 +23,7 @@ public class LinoleumDao implements Dao<Linoleum,Integer> {
     private static final String DELETE_SQL = "DELETE FROM Linoleums WHERE id = ?";
     private static final String SAVE_SQL = "INSERT INTO Linoleums(l_name, protect, thickness, price, image_path) VALUES(?,?,?,?,?)";
     private static final String UPDATE_SQL = "UPDATE Linoleums SET l_name = ?, protect = ?,thickness = ?,price = ?,image_path = ? WHERE id = ?";
+    private static final String ORDER_BY_SQL = FIND_ALL_SQL+" ORDER BY %s"; //When use "?", jdbc view field as "'field'"(must be "field")
 
     private LinoleumDao(){}
 
@@ -81,6 +86,50 @@ public class LinoleumDao implements Dao<Linoleum,Integer> {
             throw new DAOException(e);
         }
     }
+
+    public List<Linoleum> findAll(LinoleumFilter linoleumFilter, String field){
+        logger.debug("FIND_ALL WITH FILTER/linoleumFilter is: {}, ORDER_BY/fiels is {}",linoleumFilter,field);
+        List<Object> params = new ArrayList<>();
+        List<String> whereSql = new ArrayList<>();
+
+        if(linoleumFilter.getMinPrice()!=0){
+            whereSql.add("price > ?");
+            params.add(linoleumFilter.getMinPrice());
+        }
+
+        if(linoleumFilter.getMaxPrice()!=0){
+            whereSql.add("price < ?");
+            params.add(linoleumFilter.getMaxPrice());
+        }
+        String sql;
+        if(params.isEmpty()){
+            sql = String.format(" ORDER BY %s",field);
+        }else {
+            if(field.equals("")){
+                sql = whereSql.stream().collect(Collectors.joining(" AND ", " WHERE ", ""));
+            }else {
+                String joiningSql = whereSql.stream().collect(Collectors.joining(" AND ", " WHERE ", " ORDER BY %s"));
+                sql = String.format(joiningSql, field);
+            }
+        }
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL+sql)) {
+            List<Linoleum> list = new ArrayList<>();
+            for(int i = 0;i<params.size();i++){
+                preparedStatement.setObject(i+1,params.get(i));
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+               list.add(buildLinoleum(resultSet));
+            }
+            return list;
+        } catch (SQLException e) {
+            logger.error(e.getMessage(),e);
+            throw new DAOException(e);
+        }
+    }
+
+
 
     private Linoleum buildLinoleum(ResultSet resultSet) throws SQLException {
         return new Linoleum(resultSet.getObject("id",Integer.class)
