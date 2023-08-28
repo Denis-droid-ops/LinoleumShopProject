@@ -32,10 +32,11 @@ public class CleanBackFilter implements Filter {
             Collections.list(req.getSession().getAttributeNames()).stream().filter(s->!s.equals("user")).forEach(s->req.getSession().removeAttribute(s));
         }
 
-        if((req.getHeader("referer")!=null &&(req.getHeader("referer").equals("http://localhost:8080/orderLayout") ||
+        if((req.getHeader("referer")!=null &&(req.getHeader("referer").startsWith("http://localhost:8080/orderLayout") ||
                 req.getHeader("referer").equals("http://localhost:8080/orderFragments") ||
-                req.getHeader("referer").equals("http://localhost:8080/order") ))
+                req.getHeader("referer").equals("http://localhost:8080/order")))
                 && (!req.getRequestURI().equals("/order") && !req.getRequestURI().equals("/orderLayout")
+                && !req.getRequestURI().startsWith("/resources")
                 && !req.getRequestURI().equals("/orderFragments") && !req.getRequestURI().equals("/orderCreateSuccess") && !req.getRequestURI().equals("/logout")
                 && !req.getRequestURI().equals("/login") && req.getParameter("cancelOrder")==null && req.getParameter("another")==null )){
 

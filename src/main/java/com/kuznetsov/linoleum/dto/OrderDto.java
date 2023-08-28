@@ -13,6 +13,7 @@ public final class OrderDto {//Dto for reading
     private final LocalDateTime transportingDate;
     private final Integer cost;
     private final Integer apartmentNum;
+    //TODO: need to correct next fields(Object->ObjectDto)
     private final User user;
     private final Linoleum linoleum;
 

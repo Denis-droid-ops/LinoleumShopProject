@@ -25,7 +25,7 @@
                 <form action="" method="post">
                     <div class="form-group">
                         <label for="email" style="font-size:20px;" class="font-weight-bold">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="${param.email}" placeholder="Enter email" required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
                     </div>
                     <div class="form-group">
                         <label for="password" style="font-size:20px;" class="font-weight-bold">Password</label>

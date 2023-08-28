@@ -1,667 +1,151 @@
-21:13:34.515 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:13:43.738 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:13:44.947 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:13:58.746 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:14:56.543 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=500, minPrice=200}, ORDER_BY/fiels is l_name
-21:14:56.598 [http-nio-8080-exec-5] ERROR c.kuznetsov.linoleum.dao.LinoleumDao - ОШИБКА: ошибка синтаксиса (примерное положение: "%")
-  Позиция: 108
-org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса (примерное положение: "%")
-  Позиция: 108
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2366)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:356)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:496)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:413)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:134)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at com.kuznetsov.linoleum.dao.LinoleumDao.findAll(LinoleumDao.java:113)
-	at com.kuznetsov.linoleum.service.LinoleumService.findAll(LinoleumService.java:37)
-	at com.kuznetsov.linoleum.servlet.LinoleumServlet.doGet(LinoleumServlet.java:27)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.CleanBackFilter.doFilter(CleanBackFilter.java:49)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AuthenticationFilter.doFilter(AuthenticationFilter.java:21)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AccessFilter.doFilter(AccessFilter.java:35)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-21:14:57.003 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=500, minPrice=200}, ORDER_BY/fiels is l_name
-21:14:57.005 [http-nio-8080-exec-1] ERROR c.kuznetsov.linoleum.dao.LinoleumDao - ОШИБКА: ошибка синтаксиса (примерное положение: "%")
-  Позиция: 108
-org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса (примерное положение: "%")
-  Позиция: 108
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2366)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:356)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:496)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:413)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:134)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at com.kuznetsov.linoleum.dao.LinoleumDao.findAll(LinoleumDao.java:113)
-	at com.kuznetsov.linoleum.service.LinoleumService.findAll(LinoleumService.java:37)
-	at com.kuznetsov.linoleum.servlet.LinoleumServlet.doGet(LinoleumServlet.java:27)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.CleanBackFilter.doFilter(CleanBackFilter.java:49)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AuthenticationFilter.doFilter(AuthenticationFilter.java:21)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AccessFilter.doFilter(AccessFilter.java:35)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-21:16:43.491 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:16:51.512 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:16:51.693 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:17:02.924 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:17:52.281 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=700, minPrice=200}, ORDER_BY/fiels is l_name
-21:17:52.633 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=700, minPrice=200}, ORDER_BY/fiels is l_name
-21:18:15.775 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=700, minPrice=200}, ORDER_BY/fiels is l_name
-21:18:15.952 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=700, minPrice=200}, ORDER_BY/fiels is l_name
-21:18:19.272 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=700, minPrice=200}, ORDER_BY/fiels is l_name
-21:18:19.445 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=700, minPrice=200}, ORDER_BY/fiels is l_name
-21:18:22.437 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:18:25.606 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:46:43.097 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:46:47.560 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:46:48.199 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:46:51.983 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:47:11.281 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:48:54.300 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:48:57.789 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:48:57.930 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:49:03.185 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:49:06.190 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-21:49:06.260 [http-nio-8080-exec-2] ERROR c.kuznetsov.linoleum.dao.LinoleumDao - ОШИБКА: ошибка синтаксиса (примерное положение: "ORDER")
-  Позиция: 74
-org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса (примерное положение: "ORDER")
-  Позиция: 74
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2366)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:356)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:496)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:413)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:134)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at com.kuznetsov.linoleum.dao.LinoleumDao.findAll(LinoleumDao.java:113)
-	at com.kuznetsov.linoleum.service.LinoleumService.findAll(LinoleumService.java:37)
-	at com.kuznetsov.linoleum.servlet.LinoleumServlet.doGet(LinoleumServlet.java:36)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.CleanBackFilter.doFilter(CleanBackFilter.java:49)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AuthenticationFilter.doFilter(AuthenticationFilter.java:21)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AccessFilter.doFilter(AccessFilter.java:35)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-21:49:06.841 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-21:49:06.844 [http-nio-8080-exec-7] ERROR c.kuznetsov.linoleum.dao.LinoleumDao - ОШИБКА: ошибка синтаксиса (примерное положение: "ORDER")
-  Позиция: 74
-org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса (примерное положение: "ORDER")
-  Позиция: 74
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2366)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:356)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:496)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:413)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:134)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at com.kuznetsov.linoleum.dao.LinoleumDao.findAll(LinoleumDao.java:113)
-	at com.kuznetsov.linoleum.service.LinoleumService.findAll(LinoleumService.java:37)
-	at com.kuznetsov.linoleum.servlet.LinoleumServlet.doGet(LinoleumServlet.java:36)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.CleanBackFilter.doFilter(CleanBackFilter.java:49)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AuthenticationFilter.doFilter(AuthenticationFilter.java:21)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AccessFilter.doFilter(AccessFilter.java:35)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-21:51:35.178 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:51:39.840 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:51:40.197 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:51:58.237 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:52:10.498 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-21:52:10.547 [http-nio-8080-exec-3] ERROR c.kuznetsov.linoleum.dao.LinoleumDao - ОШИБКА: ошибка синтаксиса (примерное положение: "ORDER")
-  Позиция: 75
-org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса (примерное положение: "ORDER")
-  Позиция: 75
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2366)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:356)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:496)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:413)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:134)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at com.kuznetsov.linoleum.dao.LinoleumDao.findAll(LinoleumDao.java:113)
-	at com.kuznetsov.linoleum.service.LinoleumService.findAll(LinoleumService.java:37)
-	at com.kuznetsov.linoleum.servlet.LinoleumServlet.doGet(LinoleumServlet.java:36)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.CleanBackFilter.doFilter(CleanBackFilter.java:49)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AuthenticationFilter.doFilter(AuthenticationFilter.java:21)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AccessFilter.doFilter(AccessFilter.java:35)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-21:52:10.931 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-21:52:10.934 [http-nio-8080-exec-2] ERROR c.kuznetsov.linoleum.dao.LinoleumDao - ОШИБКА: ошибка синтаксиса (примерное положение: "ORDER")
-  Позиция: 75
-org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса (примерное положение: "ORDER")
-  Позиция: 75
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2366)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:356)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:496)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:413)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:134)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at com.kuznetsov.linoleum.dao.LinoleumDao.findAll(LinoleumDao.java:113)
-	at com.kuznetsov.linoleum.service.LinoleumService.findAll(LinoleumService.java:37)
-	at com.kuznetsov.linoleum.servlet.LinoleumServlet.doGet(LinoleumServlet.java:36)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.CleanBackFilter.doFilter(CleanBackFilter.java:49)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AuthenticationFilter.doFilter(AuthenticationFilter.java:21)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AccessFilter.doFilter(AccessFilter.java:35)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-21:53:59.754 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:54:21.940 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:54:22.084 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:54:27.660 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-21:55:51.014 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-22:03:56.570 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:04:00.231 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:04:00.441 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:04:04.719 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:04:32.005 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-22:04:35.070 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-22:04:43.116 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is protect
-22:04:46.252 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is protect
-22:04:55.743 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is thickness
-22:04:58.898 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is thickness
-22:05:04.772 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is price
-22:05:07.944 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is price
-22:06:40.295 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is l_name
-22:06:45.902 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is l_name
-22:06:57.051 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:07:00.089 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:07:14.717 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is 
-22:07:14.742 [http-nio-8080-exec-3] ERROR c.kuznetsov.linoleum.dao.LinoleumDao - ОШИБКА: ошибка синтаксиса в конце
-  Позиция: 108
-org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса в конце
-  Позиция: 108
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2366)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:356)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:496)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:413)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:134)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at com.kuznetsov.linoleum.dao.LinoleumDao.findAll(LinoleumDao.java:117)
-	at com.kuznetsov.linoleum.service.LinoleumService.findAll(LinoleumService.java:37)
-	at com.kuznetsov.linoleum.servlet.LinoleumServlet.doGet(LinoleumServlet.java:36)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.CleanBackFilter.doFilter(CleanBackFilter.java:49)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AuthenticationFilter.doFilter(AuthenticationFilter.java:21)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AccessFilter.doFilter(AccessFilter.java:35)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-22:07:15.003 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is 
-22:07:15.008 [http-nio-8080-exec-8] ERROR c.kuznetsov.linoleum.dao.LinoleumDao - ОШИБКА: ошибка синтаксиса в конце
-  Позиция: 108
-org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса в конце
-  Позиция: 108
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2366)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:356)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:496)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:413)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:134)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at com.kuznetsov.linoleum.dao.LinoleumDao.findAll(LinoleumDao.java:117)
-	at com.kuznetsov.linoleum.service.LinoleumService.findAll(LinoleumService.java:37)
-	at com.kuznetsov.linoleum.servlet.LinoleumServlet.doGet(LinoleumServlet.java:36)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.CleanBackFilter.doFilter(CleanBackFilter.java:49)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AuthenticationFilter.doFilter(AuthenticationFilter.java:21)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AccessFilter.doFilter(AccessFilter.java:35)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-22:09:16.715 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:09:21.887 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:09:22.031 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:09:25.971 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:09:44.756 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is 
-22:10:52.976 [http-nio-8080-exec-6] ERROR c.kuznetsov.linoleum.dao.LinoleumDao - ОШИБКА: ошибка синтаксиса в конце
-  Позиция: 108
-org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса в конце
-  Позиция: 108
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2366)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:356)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:496)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:413)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:134)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at com.kuznetsov.linoleum.dao.LinoleumDao.findAll(LinoleumDao.java:117)
-	at com.kuznetsov.linoleum.service.LinoleumService.findAll(LinoleumService.java:37)
-	at com.kuznetsov.linoleum.servlet.LinoleumServlet.doGet(LinoleumServlet.java:36)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.CleanBackFilter.doFilter(CleanBackFilter.java:49)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AuthenticationFilter.doFilter(AuthenticationFilter.java:21)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AccessFilter.doFilter(AccessFilter.java:35)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-22:11:19.127 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:11:22.080 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:11:22.279 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:11:29.878 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:11:39.162 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is 
-22:11:39.202 [http-nio-8080-exec-5] ERROR c.kuznetsov.linoleum.dao.LinoleumDao - ОШИБКА: ошибка синтаксиса в конце
-  Позиция: 109
-org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса в конце
-  Позиция: 109
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2366)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:356)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:496)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:413)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:134)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at com.kuznetsov.linoleum.dao.LinoleumDao.findAll(LinoleumDao.java:117)
-	at com.kuznetsov.linoleum.service.LinoleumService.findAll(LinoleumService.java:37)
-	at com.kuznetsov.linoleum.servlet.LinoleumServlet.doGet(LinoleumServlet.java:36)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.CleanBackFilter.doFilter(CleanBackFilter.java:49)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AuthenticationFilter.doFilter(AuthenticationFilter.java:21)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AccessFilter.doFilter(AccessFilter.java:35)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-22:11:39.597 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is 
-22:11:39.598 [http-nio-8080-exec-9] ERROR c.kuznetsov.linoleum.dao.LinoleumDao - ОШИБКА: ошибка синтаксиса в конце
-  Позиция: 109
-org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса в конце
-  Позиция: 109
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2366)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:356)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:496)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:413)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:190)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:134)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at org.apache.tomcat.dbcp.dbcp2.DelegatingPreparedStatement.executeQuery(DelegatingPreparedStatement.java:121)
-	at com.kuznetsov.linoleum.dao.LinoleumDao.findAll(LinoleumDao.java:117)
-	at com.kuznetsov.linoleum.service.LinoleumService.findAll(LinoleumService.java:37)
-	at com.kuznetsov.linoleum.servlet.LinoleumServlet.doGet(LinoleumServlet.java:36)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.CleanBackFilter.doFilter(CleanBackFilter.java:49)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AuthenticationFilter.doFilter(AuthenticationFilter.java:21)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at com.kuznetsov.linoleum.filter.AccessFilter.doFilter(AccessFilter.java:35)
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
-	at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:687)
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360)
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1743)
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-22:12:08.983 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:12:15.208 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:12:15.367 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:12:21.935 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:13:03.202 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is 
-22:18:29.444 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:18:32.613 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:18:33.396 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:18:38.264 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:18:55.078 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-22:18:58.145 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-22:19:08.649 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is 
-22:19:08.902 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is 
-22:19:21.357 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is price
-22:19:24.521 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is price
-22:19:44.703 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-22:19:47.671 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-22:19:53.702 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is 
-22:19:53.913 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is 
-22:20:17.267 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is price
-22:20:17.551 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=701, minPrice=499}, ORDER_BY/fiels is price
-22:20:23.436 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:20:26.478 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:20:32.933 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-22:20:36.015 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-22:20:46.081 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=699, minPrice=0}, ORDER_BY/fiels is 
-22:20:46.265 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=699, minPrice=0}, ORDER_BY/fiels is 
-22:20:56.172 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=700}, ORDER_BY/fiels is 
-22:20:59.229 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=700}, ORDER_BY/fiels is 
-22:21:06.843 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-22:21:10.080 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
-22:21:19.677 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:21:22.641 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:21:29.381 [http-nio-8080-exec-3] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
-22:21:29.608 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:21:31.710 [http-nio-8080-exec-3] DEBUG c.k.linoleum.dao.LayoutsNamesDao - FIND_ALL/layouts_names
-22:21:33.923 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:21:36.126 [http-nio-8080-exec-4] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_ALL/orders
-22:21:37.741 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.UserDao - FIND_ALL/Users
-22:21:39.958 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_ALL/orders
-22:21:49.016 [http-nio-8080-exec-8] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:17
-22:21:49.023 [http-nio-8080-exec-8] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - FIND_ALL_BY_ORDER_ID/fragment without layout id is:17
-22:21:49.083 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - FIND_ALL/fragments
-22:21:49.137 [http-nio-8080-exec-8] DEBUG com.kuznetsov.linoleum.dao.RollDao - FIND_ALL/Rolls
-22:21:49.233 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_ALL/orders
-22:22:13.093 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.RollDao - FIND_ALL/Rolls
-22:22:22.000 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - FIND_ALL/fragments
-22:22:22.004 [http-nio-8080-exec-5] DEBUG c.k.linoleum.dao.LayoutsNamesDao - FIND_ALL/layouts_names
-22:22:23.909 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:22:29.231 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_ALL/orders
-22:22:34.682 [http-nio-8080-exec-6] DEBUG com.kuznetsov.linoleum.dao.UserDao - FIND_ALL/Users
-22:22:36.856 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
-22:22:44.201 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LayoutDao - FIND_ALL/layouts
-22:23:05.409 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LayoutDao - FIND_ALL/layouts
-22:23:13.375 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LayoutDao - UPDATE_L_TYPE/layoutId:11,layoutType:TEMPLATE
-22:23:13.433 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LayoutDao - FIND_ALL/layouts
-22:23:24.454 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LayoutDao - UPDATE_L_TYPE/layoutId:11,layoutType:CUSTOM
-22:23:24.478 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LayoutDao - FIND_ALL/layouts
-22:23:31.638 [http-nio-8080-exec-4] DEBUG com.kuznetsov.linoleum.dao.RollDao - FIND_ALL/Rolls
+21:40:59.148 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:41:04.211 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:41:09.390 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:41:28.633 [http-nio-8080-exec-10] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:Sidorova23@mail.ru
+21:41:29.065 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:41:34.260 [http-nio-8080-exec-10] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_ALL_BY_USER_ID 4/userId is:
+21:41:38.622 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:41:43.056 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_ALL_BY_USER_ID 4/userId is:
+21:41:44.533 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:14
+21:41:44.542 [http-nio-8080-exec-2] DEBUG c.k.l.dao.FragmentWithoutLayoutDao - FIND_ALL_BY_ORDER_ID/fragment without layout id is:14
+21:41:49.854 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:41:54.538 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
+21:41:58.671 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:42:26.264 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is price
+21:42:29.574 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:42:38.712 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:43:41.885 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - FIND_ALL/fragments
+21:43:41.951 [http-nio-8080-exec-6] DEBUG c.k.linoleum.dao.LayoutsNamesDao - FIND_ALL/layouts_names
+21:43:56.301 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:49:29.742 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:49:32.899 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:49:33.048 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:49:44.165 [http-nio-8080-exec-9] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:Sidorova23@mail.ru
+21:49:44.200 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:50:00.618 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:50:07.355 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:4
+21:50:23.212 [http-nio-8080-exec-10] DEBUG c.k.linoleum.dao.LayoutsNamesDao - FIND_ALL/layouts_names
+21:50:23.234 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LayoutDao - FIND_BY_MANY_FIELDS/layout city: Nizhnekamsk,layout street: Tukaya,layout homeNum: 4,layout roomCount: 2,layout rowType: DIFFERENT
+21:52:00.017 [http-nio-8080-exec-4] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYID/user id is:4
+21:52:00.020 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:4
+21:52:00.023 [http-nio-8080-exec-4] DEBUG c.k.linoleum.dao.LayoutsNamesDao - SAVE/layoutName entity:LayoutName{id=null, lnName='CUSTOM19'}
+21:52:00.061 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LayoutDao - SAVE/layout entity:Layout{id=null, city='Nizhnekamsk', street='Tukaya', homeNum=4, roomCount=2, layoutRowType=DIFFERENT, lType=CUSTOM, layoutName=LayoutName{id=21, lnName='CUSTOM19'}}
+21:52:00.150 [http-nio-8080-exec-4] DEBUG c.k.linoleum.dao.OrderWithLayoutDao - SAVE/order with layout entity:OrderWithLayout{layout=Layout{id=17, city='Nizhnekamsk', street='Tukaya', homeNum=4, roomCount=2, layoutRowType=DIFFERENT, lType=CUSTOM, layoutName=LayoutName{id=21, lnName='CUSTOM19'}}}
+21:52:00.151 [http-nio-8080-exec-4] DEBUG com.kuznetsov.linoleum.dao.OrderDao - SAVE/order entity:OrderWithLayout{layout=Layout{id=17, city='Nizhnekamsk', street='Tukaya', homeNum=4, roomCount=2, layoutRowType=DIFFERENT, lType=CUSTOM, layoutName=LayoutName{id=21, lnName='CUSTOM19'}}}
+21:52:00.243 [http-nio-8080-exec-4] DEBUG c.k.linoleum.dao.LayoutsNamesDao - FINDBYID/layoutName id: 21
+21:52:00.248 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - SAVE/fragment entity:Fragment{id=null, width=4.0, length=4.0, fType=HALL, layoutName=LayoutName{id=21, lnName='CUSTOM19'}, orders=null}
+21:52:00.301 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - SAVE/fragmentWithOrder fragmentId:97, orderId: 20
+21:52:00.354 [http-nio-8080-exec-4] DEBUG c.k.linoleum.dao.LayoutsNamesDao - FINDBYID/layoutName id: 21
+21:52:00.355 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - SAVE/fragment entity:Fragment{id=null, width=2.5, length=5.0, fType=KITCHEN, layoutName=LayoutName{id=21, lnName='CUSTOM19'}, orders=null}
+21:52:00.358 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - SAVE/fragmentWithOrder fragmentId:98, orderId: 20
+21:52:07.996 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:52:13.757 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:52:21.699 [http-nio-8080-exec-10] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+21:52:21.711 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:52:25.266 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:52:27.656 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - FIND_ALL/fragments
+21:52:27.666 [http-nio-8080-exec-7] DEBUG c.k.linoleum.dao.LayoutsNamesDao - FIND_ALL/layouts_names
+21:52:28.993 [http-nio-8080-exec-3] DEBUG c.k.linoleum.dao.LayoutsNamesDao - FIND_ALL/layouts_names
+21:52:30.261 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LayoutDao - FIND_ALL/layouts
+21:52:31.598 [http-nio-8080-exec-9] DEBUG com.kuznetsov.linoleum.dao.RollDao - FIND_ALL/Rolls
+21:52:36.351 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_ALL/orders
+21:52:45.886 [http-nio-8080-exec-7] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:20
+21:52:45.899 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - FIND_ALL_FRAGMENTS_ORDERS_BY_ORDER_ID/orderId is: 20
+21:52:53.888 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_ALL/orders
+21:52:58.575 [http-nio-8080-exec-9] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:20
+21:52:58.583 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - FIND_ALL_FRAGMENTS_ORDERS_BY_ORDER_ID/orderId is: 20
+21:52:58.592 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - FIND_ALL/fragments
+21:52:58.616 [http-nio-8080-exec-9] DEBUG com.kuznetsov.linoleum.dao.RollDao - FIND_ALL/Rolls
+21:52:58.658 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_ALL/orders
+21:53:11.686 [http-nio-8080-exec-6] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_BY_ID/order id:20
+21:53:11.692 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - FIND_ALL_FRAGMENTS_ORDERS_BY_ORDER_ID/orderId is: 20
+21:53:14.439 [http-nio-8080-exec-4] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_ALL/orders
+21:53:41.056 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - FIND_ALL/fragments
+21:53:41.056 [http-nio-8080-exec-3] DEBUG c.k.linoleum.dao.LayoutsNamesDao - FIND_ALL/layouts_names
+21:53:44.134 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.RollDao - FIND_ALL/Rolls
+21:53:46.800 [http-nio-8080-exec-9] DEBUG com.kuznetsov.linoleum.dao.OrderDao - FIND_ALL/orders
+21:53:47.502 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:59:08.215 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:59:12.236 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+21:59:12.645 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:11:57.562 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:12:01.403 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:12:01.727 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:12:15.911 [http-nio-8080-exec-7] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+22:12:15.959 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:12:17.530 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:12:28.941 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:12:30.777 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:12:32.037 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:12:32.039 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:45
+22:13:48.395 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:15:18.653 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:45
+22:15:18.660 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - UPDATE/linoleum entity:Linoleum{id=45, name='Userrr', protect=5.0, thickness=5.0, price=2000, imagePath='/resources/images/atlanta-1-1-300x300.jpg'}
+22:15:18.735 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:15:20.086 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:15:39.837 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:15:43.310 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:15:43.314 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:45
+22:15:52.056 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:45
+22:15:52.061 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - UPDATE/linoleum entity:Linoleum{id=45, name='Userrr', protect=5.0, thickness=5.0, price=2000, imagePath='/resources/images/SPENSER-3-300x300.jpg'}
+22:15:52.090 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:15:53.529 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:16:40.512 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:16:42.808 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:16:42.810 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:44
+22:16:47.813 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:44
+22:16:47.817 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - UPDATE/linoleum entity:Linoleum{id=44, name='Firamir', protect=2.0, thickness=2.0, price=900, imagePath='/resources/images/CALIFORNIA-1-300x300.jpg'}
+22:16:47.833 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:16:49.216 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:20:27.893 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:20:30.231 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:20:33.071 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:20:33.073 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:5
+22:20:43.917 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:5
+22:20:43.922 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - UPDATE/linoleum entity:Linoleum{id=5, name='atlanta 1', protect=0.4, thickness=4.7, price=1000, imagePath='/resources/images/atlanta-3-1-300x300.jpg'}
+22:20:43.933 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:20:45.279 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.UserDao - FIND_ALL/Users
+22:20:46.452 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:20:57.614 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:20:59.279 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:20:59.281 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:45
+22:21:06.409 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:21:28.679 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:21:30.583 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:21:30.585 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:45
+22:21:42.925 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - UPDATE/linoleum entity:Linoleum{id=45, name='Spencer 3', protect=5.0, thickness=5.0, price=2000, imagePath='/resources/images/SPENSER-3-300x300.jpg'}
+22:21:42.936 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:21:48.997 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:21:49.000 [http-nio-8080-exec-10] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_BY_ID/linoleum id is:44
+22:21:58.829 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - UPDATE/linoleum entity:Linoleum{id=44, name='California 2', protect=2.0, thickness=2.0, price=900, imagePath='/resources/images/CALIFORNIA-1-300x300.jpg'}
+22:21:58.839 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:21:59.804 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:22:10.276 [http-nio-8080-exec-7] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL WITH FILTER/linoleumFilter is: LinoleumFilter{maxPrice=0, minPrice=0}, ORDER_BY/fiels is l_name
+22:22:25.349 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.FragmentDao - FIND_ALL/fragments
+22:22:25.370 [http-nio-8080-exec-1] DEBUG c.k.linoleum.dao.LayoutsNamesDao - FIND_ALL/layouts_names
+22:22:49.370 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:deniss.denis.kuznecov@mail.ru
+22:22:56.163 [http-nio-8080-exec-7] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:deniss.denis.kuznecov@mail.ru
+22:23:00.004 [http-nio-8080-exec-3] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:deniss.denis.kuznecov@mail.ru
+22:23:04.694 [http-nio-8080-exec-10] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:deniss.denis.kuznecov@mail.ru
+22:24:17.359 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:deniss.denis.kuznecov@mail.ru
+22:24:21.903 [http-nio-8080-exec-6] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:deniss.denis.kuznecov@mail.ru
+22:25:02.518 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:25:06.312 [http-nio-8080-exec-2] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:25:07.432 [http-nio-8080-exec-6] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:26:10.849 [http-nio-8080-exec-7] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+22:26:10.881 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:26:21.081 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:deniss.denis.kuznecov@mail.ru
+22:26:28.232 [http-nio-8080-exec-8] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:deniss.denis.kuznecov@mail.ru
+22:27:42.902 [http-nio-8080-exec-1] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:deniss.denis.kuznecov@mail.ru
+22:29:05.848 [http-nio-8080-exec-1] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:29:09.218 [http-nio-8080-exec-3] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:29:09.938 [http-nio-8080-exec-5] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:29:19.092 [http-nio-8080-exec-5] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+22:29:19.122 [http-nio-8080-exec-9] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:29:29.189 [http-nio-8080-exec-10] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:deniis.denis.kuznecov@mail.ru
+22:29:35.473 [http-nio-8080-exec-2] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+22:29:35.489 [http-nio-8080-exec-4] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL
+22:29:47.434 [http-nio-8080-exec-8] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kkuznecov@mail.ru
+22:29:53.136 [http-nio-8080-exec-3] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:art89898989@mail.ru
+22:29:57.659 [http-nio-8080-exec-4] DEBUG com.kuznetsov.linoleum.dao.UserDao - FINDBYEMAILANDPASSWORD/user email:denis.denis.kuznecov@mail.ru
+22:29:57.678 [http-nio-8080-exec-8] DEBUG c.kuznetsov.linoleum.dao.LinoleumDao - FIND_ALL

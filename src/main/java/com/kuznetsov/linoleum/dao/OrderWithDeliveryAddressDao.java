@@ -1,6 +1,7 @@
 package com.kuznetsov.linoleum.dao;
 
 import com.kuznetsov.linoleum.entity.*;
+import com.kuznetsov.linoleum.exception.ConnectionException;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
 import org.slf4j.Logger;
@@ -71,51 +72,75 @@ public class OrderWithDeliveryAddressDao implements Dao<OrderWithDeliveryAddress
     public OrderWithDeliveryAddress save(OrderWithDeliveryAddress entity) {
         logger.debug("SAVE/order with delivery address entity:{}",entity);
         OrderWithDeliveryAddress intermediateOrder = (OrderWithDeliveryAddress) orderDao.save(entity);
-        try (Connection connection = ConnectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL)){
-             preparedStatement.setInt(1,intermediateOrder.getId());
-             preparedStatement.setInt(2,entity.getDeliveryAddress().getId());
-             preparedStatement.executeUpdate();
-             return intermediateOrder;
-        } catch (SQLException e) {
+        try (Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL)){
+                preparedStatement.setInt(1,intermediateOrder.getId());
+                preparedStatement.setInt(2,entity.getDeliveryAddress().getId());
+                preparedStatement.executeUpdate();
+                connection.commit();
+                return intermediateOrder;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(), e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(), e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public Optional<OrderWithDeliveryAddress> findById(Integer id) {
         logger.debug("FIND_BY_ID/order with delivery address id:{}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)){
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            OrderWithDeliveryAddress orderWithDeliveryAddress= null;
-            if(resultSet.next()){
-                orderWithDeliveryAddress = buildOrderWithDeliveryAddress(resultSet);
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)){
+                preparedStatement.setInt(1,id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                OrderWithDeliveryAddress orderWithDeliveryAddress= null;
+                if(resultSet.next()){
+                    orderWithDeliveryAddress = buildOrderWithDeliveryAddress(resultSet);
+                }
+                connection.commit();
+                return Optional.ofNullable(orderWithDeliveryAddress);
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return Optional.ofNullable(orderWithDeliveryAddress);
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public List<OrderWithDeliveryAddress> findAll() {
         logger.debug("FIND_ALL/orders with delivery address");
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)){
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<OrderWithDeliveryAddress> orders = new ArrayList<>();
-            while (resultSet.next()){
-                orders.add(buildOrderWithDeliveryAddress(resultSet));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<OrderWithDeliveryAddress> orders = new ArrayList<>();
+                while (resultSet.next()){
+                    orders.add(buildOrderWithDeliveryAddress(resultSet));
+                }
+                connection.commit();
+                return orders;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return orders;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override

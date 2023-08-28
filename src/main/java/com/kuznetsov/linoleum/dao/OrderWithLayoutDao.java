@@ -1,6 +1,7 @@
 package com.kuznetsov.linoleum.dao;
 
 import com.kuznetsov.linoleum.entity.*;
+import com.kuznetsov.linoleum.exception.ConnectionException;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
 import org.slf4j.Logger;
@@ -83,51 +84,74 @@ public class OrderWithLayoutDao implements Dao<OrderWithLayout,Integer> {
     public OrderWithLayout save(OrderWithLayout entity) {
         logger.debug("SAVE/order with layout entity:{}",entity);
         OrderWithLayout intermediateOrder = (OrderWithLayout) orderDao.save(entity);
-        try (Connection connection = ConnectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL)){
-            preparedStatement.setInt(1,intermediateOrder.getId());
-            preparedStatement.setInt(2,entity.getLayout().getId());
-            preparedStatement.executeUpdate();
-            return intermediateOrder;
-        } catch (SQLException e) {
+        try (Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL)){
+                preparedStatement.setInt(1,intermediateOrder.getId());
+                preparedStatement.setInt(2,entity.getLayout().getId());
+                preparedStatement.executeUpdate();
+                connection.commit();
+                return intermediateOrder;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(), e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(), e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public Optional<OrderWithLayout> findById(Integer id) {
         logger.debug("FIND_BY_ID/order with layout id:{}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)){
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            OrderWithLayout orderWithLayout= null;
-            if(resultSet.next()){
-                orderWithLayout = buildOrderWithLayout(resultSet);
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)){
+                preparedStatement.setInt(1,id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                OrderWithLayout orderWithLayout= null;
+                if(resultSet.next()){
+                    orderWithLayout = buildOrderWithLayout(resultSet);
+                }
+                connection.commit();
+                return Optional.ofNullable(orderWithLayout);
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return Optional.ofNullable(orderWithLayout);
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public List<OrderWithLayout> findAll() {
         logger.debug("FIND_ALL/orders with layout");
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)){
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<OrderWithLayout> orders = new ArrayList<>();
-            while (resultSet.next()){
-                orders.add(buildOrderWithLayout(resultSet));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<OrderWithLayout> orders = new ArrayList<>();
+                while (resultSet.next()){
+                    orders.add(buildOrderWithLayout(resultSet));
+                }
+                return orders;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return orders;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override

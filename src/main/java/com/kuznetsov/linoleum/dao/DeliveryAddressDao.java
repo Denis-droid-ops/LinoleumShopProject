@@ -1,6 +1,7 @@
 package com.kuznetsov.linoleum.dao;
 
 import com.kuznetsov.linoleum.entity.*;
+import com.kuznetsov.linoleum.exception.ConnectionException;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
 import org.slf4j.Logger;
@@ -25,86 +26,126 @@ public class DeliveryAddressDao implements Dao<DeliveryAddress,Integer> {
     @Override
     public DeliveryAddress save(DeliveryAddress entity) {
         logger.debug("SAVE/delivery address entity:{}",entity);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, entity.getdCity());
-            preparedStatement.setString(2, entity.getdStreet());
-            preparedStatement.setString(3, entity.getdHomeNum());
-            preparedStatement.execute();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if(resultSet.next()){
-                entity.setId(resultSet.getInt("id"));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
+                preparedStatement.setString(1, entity.getdCity());
+                preparedStatement.setString(2, entity.getdStreet());
+                preparedStatement.setString(3, entity.getdHomeNum());
+                preparedStatement.execute();
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if(resultSet.next()){
+                    entity.setId(resultSet.getInt("id"));
+                }
+                connection.commit();
+                return entity;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return entity;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public Optional<DeliveryAddress> findById(Integer id) {
         logger.debug("FINDBYID/delivery address id:{}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            DeliveryAddress deliveryAddress = null;
-            if(resultSet.next()){
-                deliveryAddress = buildDeliveryAddress(resultSet);
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
+                preparedStatement.setInt(1,id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                DeliveryAddress deliveryAddress = null;
+                if(resultSet.next()){
+                    deliveryAddress = buildDeliveryAddress(resultSet);
+                }
+                connection.commit();
+                return Optional.ofNullable(deliveryAddress);
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return Optional.ofNullable(deliveryAddress);
-        } catch (SQLException e) {
+        }catch(SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public List<DeliveryAddress> findAll() {
         logger.debug("FIND_ALL");
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<DeliveryAddress> deliveryAddresses = new ArrayList<>();
-            while (resultSet.next()){
-                deliveryAddresses.add(buildDeliveryAddress(resultSet));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<DeliveryAddress> deliveryAddresses = new ArrayList<>();
+                while (resultSet.next()){
+                    deliveryAddresses.add(buildDeliveryAddress(resultSet));
+                }
+                connection.commit();
+                return deliveryAddresses;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return deliveryAddresses;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public void update(DeliveryAddress entity) {
         logger.debug("UPDATE/delivery entity:{}",entity);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
-            preparedStatement.setString(1,entity.getdCity());
-            preparedStatement.setString(2,entity.getdStreet());
-            preparedStatement.setString(3,entity.getdHomeNum());
-            preparedStatement.setLong(4,entity.getId());
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
+                preparedStatement.setString(1,entity.getdCity());
+                preparedStatement.setString(2,entity.getdStreet());
+                preparedStatement.setString(3,entity.getdHomeNum());
+                preparedStatement.setLong(4,entity.getId());
+                preparedStatement.executeUpdate();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public boolean delete(Integer id) {
         logger.debug("DELETE/delivery address id:{}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)) {
-            preparedStatement.setInt(1,id);
-            return preparedStatement.executeUpdate()>0;
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)) {
+                preparedStatement.setInt(1,id);
+                int res = preparedStatement.executeUpdate();
+                connection.commit();
+                return res>0;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     private DeliveryAddress buildDeliveryAddress(ResultSet resultSet) throws SQLException{

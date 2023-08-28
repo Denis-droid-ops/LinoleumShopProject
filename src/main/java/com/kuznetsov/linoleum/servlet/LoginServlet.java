@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 
     private void onLoginFail(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            resp.sendRedirect("/login?error&email="+req.getParameter("email"));
+            resp.sendRedirect("/login?error");
         } catch (IOException e) {
             e.printStackTrace();
         }

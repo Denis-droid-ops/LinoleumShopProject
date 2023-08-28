@@ -2,6 +2,7 @@ package com.kuznetsov.linoleum.dao;
 
 import com.kuznetsov.linoleum.entity.Linoleum;
 import com.kuznetsov.linoleum.entity.Roll;
+import com.kuznetsov.linoleum.exception.ConnectionException;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
 import org.slf4j.Logger;
@@ -43,91 +44,130 @@ public class RollDao implements Dao<Roll,Integer>{
     @Override
     public Roll save(Roll entity) {
         logger.debug("SAVE/roll entity:{}",entity);
-        try (Connection connection = ConnectionManager.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)){
-            preparedStatement.setInt(1,entity.getPartNum());
-            preparedStatement.setFloat(2,entity.getWidth());
-            preparedStatement.setFloat(3,entity.getLength());
-            preparedStatement.setBoolean(4,entity.isRemain());
-            preparedStatement.setInt(5,entity.getLinoleum().getId());
-            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if(resultSet.next()) {
-                entity.setId(resultSet.getInt(1));
+        try (Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)){
+                preparedStatement.setInt(1,entity.getPartNum());
+                preparedStatement.setFloat(2,entity.getWidth());
+                preparedStatement.setFloat(3,entity.getLength());
+                preparedStatement.setBoolean(4,entity.isRemain());
+                preparedStatement.setInt(5,entity.getLinoleum().getId());
+                preparedStatement.executeUpdate();
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if(resultSet.next()) {
+                    entity.setId(resultSet.getInt(1));
+                }
+                connection.commit();
+                return entity;
+
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-
-            return entity;
-
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public Optional<Roll> findById(Integer id) {
         logger.debug("FIND_BY_ID/roll id is:{}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)){
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Roll roll = null;
-            if (resultSet.next()){
-                roll = buildRoll(resultSet);
-            }
-            return Optional.ofNullable(roll);
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)){
+                preparedStatement.setInt(1,id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                Roll roll = null;
+                if (resultSet.next()){
+                    roll = buildRoll(resultSet);
+                }
+                connection.commit();
+                return Optional.ofNullable(roll);
 
-        } catch (SQLException e) {
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public List<Roll> findAll() {
         logger.debug("FIND_ALL/Rolls");
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Roll> rolls = new ArrayList<>();
-            while (resultSet.next()){
-                rolls.add(buildRoll(resultSet));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL)) {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Roll> rolls = new ArrayList<>();
+                while (resultSet.next()){
+                    rolls.add(buildRoll(resultSet));
+                }
+                connection.commit();
+                return rolls;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return rolls;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public void update(Roll entity) {
         logger.debug("UPDATE/roll entity:{}",entity);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
-            preparedStatement.setFloat(1,entity.getWidth());
-            preparedStatement.setFloat(2,entity.getLength());
-            preparedStatement.setBoolean(3,entity.isRemain());
-            preparedStatement.setInt(4,entity.getId());
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
+                preparedStatement.setFloat(1,entity.getWidth());
+                preparedStatement.setFloat(2,entity.getLength());
+                preparedStatement.setBoolean(3,entity.isRemain());
+                preparedStatement.setInt(4,entity.getId());
+                preparedStatement.executeUpdate();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public boolean delete(Integer id) {
         logger.debug("DELETE/roll id:{}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)) {
-            preparedStatement.setInt(1,id);
-            return preparedStatement.executeUpdate()>0;
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)) {
+                preparedStatement.setInt(1,id);
+                int res = preparedStatement.executeUpdate();
+                connection.commit();
+                return res>0;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     private Roll buildRoll(ResultSet resultSet) throws SQLException {

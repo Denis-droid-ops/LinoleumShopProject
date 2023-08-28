@@ -22,6 +22,8 @@ CREATE TABLE users
 
 );
 
+CREATE INDEX password_idx ON users(password);
+
 CREATE TABLE layouts_names
 (
     id     IDENTITY PRIMARY KEY,
@@ -40,6 +42,9 @@ CREATE TABLE layouts
     layout_name_id INTEGER NOT NULL,
     FOREIGN KEY (layout_name_id) REFERENCES layouts_names(id) ON DELETE CASCADE
 );
+
+CREATE INDEX layouts_name_id_idx ON layouts(layout_name_id);
+CREATE INDEX l_type_idx ON layouts(l_type);
 
 CREATE TABLE fragments
 (
@@ -87,6 +92,9 @@ CREATE TABLE orders
 
 );
 
+CREATE INDEX user_id_idx ON orders(user_id);
+CREATE INDEX linoleum_id_idx ON orders(linoleum_id);
+
 CREATE TABLE orders_with_layout
 (
     id  INTEGER PRIMARY KEY REFERENCES orders(id) ON DELETE CASCADE ,
@@ -94,12 +102,16 @@ CREATE TABLE orders_with_layout
     FOREIGN KEY (layout_id) REFERENCES layouts(id) ON DELETE CASCADE
 );
 
+CREATE INDEX layout_id_idx ON orders_with_layout(layout_id);
+
 CREATE TABLE orders_with_delivery_address
 (
     id  INTEGER PRIMARY KEY REFERENCES orders(id) ON DELETE CASCADE ,
     delivery_address_id INTEGER,
     FOREIGN KEY (delivery_address_id) REFERENCES delivery_addresses(id) ON DELETE CASCADE
 );
+
+CREATE INDEX delivery_address_id_idx ON orders_with_delivery_address(delivery_address_id);
 
 CREATE TABLE fragments_without_layout
 (
@@ -118,6 +130,8 @@ CREATE TABLE fragments_orders
     order_id INTEGER,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
+
+CREATE INDEX order_id_idx ON fragments_orders(order_id);
 
 CREATE TABLE rolls
 (

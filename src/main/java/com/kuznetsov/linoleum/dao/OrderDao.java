@@ -1,6 +1,7 @@
 package com.kuznetsov.linoleum.dao;
 
 import com.kuznetsov.linoleum.entity.*;
+import com.kuznetsov.linoleum.exception.ConnectionException;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
 import org.slf4j.Logger;
@@ -17,8 +18,7 @@ public class OrderDao implements Dao<Order,Integer>{
     private static final OrderDao INSTANCE = new OrderDao();
     private static final String     SAVE_SQL = "INSERT INTO Orders(creating_date,status,transporting,transporting_date" +
             ",cost,apartment_num,user_id,linoleum_id) VALUES(?,?,?,?,?,?,?,?)";
-    //private static final String SAVE_SQL_WITH_DELIVERY_ADDRESS = SAVE_SQL+"; INSERT INTO Orders_with_delivery_address(delivery_address_id) VALUES(?)";
-    //private static final String SAVE_SQL_WITH_LAYOUT = "INSERT INTO Orders(layout_id) VALUES(?)";
+
 
 
     private static final String FIND_ALL_SQL = """
@@ -109,132 +109,182 @@ public class OrderDao implements Dao<Order,Integer>{
     @Override
     public Order save(Order entity) {
         logger.debug("SAVE/order entity:{}",entity);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)){
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)){
+                preparedStatement.setObject(1, entity.getCreatingDate());
+                preparedStatement.setObject(2,entity.getStatus().name());
+                preparedStatement.setObject(3,entity.getTransporting().name());
+                preparedStatement.setObject(4,entity.getTransportingDate());
+                preparedStatement.setInt(5,entity.getCost());
+                preparedStatement.setInt(6,entity.getApartmentNum());
+                preparedStatement.setInt(7,entity.getUser().getId());
+                preparedStatement.setInt(8,entity.getLinoleum().getId());
+                preparedStatement.executeUpdate();
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if(resultSet.next()){
+                    entity.setId(resultSet.getInt("id"));
+                }
+                connection.commit();
+                return entity;
 
-            preparedStatement.setObject(1, entity.getCreatingDate());
-            preparedStatement.setObject(2,entity.getStatus().name());
-            preparedStatement.setObject(3,entity.getTransporting().name());
-            preparedStatement.setObject(4,entity.getTransportingDate());
-            preparedStatement.setInt(5,entity.getCost());
-            preparedStatement.setInt(6,entity.getApartmentNum());
-            preparedStatement.setInt(7,entity.getUser().getId());
-            preparedStatement.setInt(8,entity.getLinoleum().getId());
-
-            preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if(resultSet.next()){
-                entity.setId(resultSet.getInt("id"));
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(), e);
+                throw new ConnectionException(e);
             }
-            System.out.println(entity.getId());
-            return entity;
-
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(), e);
             throw new DAOException(e);
         }
+
 
     }
 
     @Override
     public Optional<Order> findById(Integer id) {
         logger.debug("FIND_BY_ID/order id:{}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)){
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Order order= null;
-            if(resultSet.next()){
-              order = buildOrder(resultSet);
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)){
+                preparedStatement.setInt(1,id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                Order order= null;
+                if(resultSet.next()){
+                    order = buildOrder(resultSet);
+                }
+                connection.commit();
+                return Optional.ofNullable(order);
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-         return Optional.ofNullable(order);
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public List<Order> findAll() {
         logger.debug("FIND_ALL/orders");
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)){
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            List<Order> orders = new ArrayList<>();
-            while (resultSet.next()){
-                 orders.add(buildOrder(resultSet));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Order> orders = new ArrayList<>();
+                while (resultSet.next()){
+                    orders.add(buildOrder(resultSet));
+                }
+                connection.commit();
+                return orders;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return orders;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
 
     public List<Order> findAllByUserId(Integer userId) {
         logger.debug("FIND_ALL_BY_USER_ID {}/userId is:",userId);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_USER_ID_SQL)){
-            preparedStatement.setInt(1,userId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            List<Order> orders = new ArrayList<>();
-            while (resultSet.next()){
-                orders.add(buildOrder(resultSet));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_USER_ID_SQL)){
+                preparedStatement.setInt(1,userId);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Order> orders = new ArrayList<>();
+                while (resultSet.next()){
+                    orders.add(buildOrder(resultSet));
+                }
+                connection.commit();
+                return orders;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return orders;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
 
     @Override
     public void update(Order entity) {
         logger.debug("UPDATE/order entity:{}",entity);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)){
-            preparedStatement.setObject(1,entity.getStatus());
-            preparedStatement.setObject(2,entity.getTransporting());
-            preparedStatement.setObject(3,entity.getTransportingDate());
-            preparedStatement.setInt(4,entity.getLinoleum().getId());
-            preparedStatement.setInt(5,entity.getId());
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)){
+                preparedStatement.setObject(1,entity.getStatus());
+                preparedStatement.setObject(2,entity.getTransporting());
+                preparedStatement.setObject(3,entity.getTransportingDate());
+                preparedStatement.setInt(4,entity.getLinoleum().getId());
+                preparedStatement.setInt(5,entity.getId());
+                preparedStatement.executeUpdate();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     public void updateStatus(Integer orderId,OrderStatus orderStatus) {
         logger.debug("UPDATE_STATUS/order status:{}",orderStatus);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_STATUS_SQL)){
-            preparedStatement.setObject(1,orderStatus.name());
-            preparedStatement.setInt(2,orderId);
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_STATUS_SQL)){
+                preparedStatement.setObject(1,orderStatus.name());
+                preparedStatement.setInt(2,orderId);
+                preparedStatement.executeUpdate();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public boolean delete(Integer id) {
         logger.debug("DELETE/order id:{}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)){
-            preparedStatement.setInt(1,id);
-            return preparedStatement.executeUpdate()>0;
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)){
+                preparedStatement.setInt(1,id);
+                int res = preparedStatement.executeUpdate();
+                connection.commit();
+                return res>0;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     private Order buildOrder(ResultSet resultSet) throws SQLException {

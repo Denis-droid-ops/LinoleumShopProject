@@ -1,6 +1,7 @@
 package com.kuznetsov.linoleum.dao;
 
 import com.kuznetsov.linoleum.entity.*;
+import com.kuznetsov.linoleum.exception.ConnectionException;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
 import org.slf4j.Logger;
@@ -226,161 +227,234 @@ public class FragmentDao implements Dao<Fragment,Integer> {
     @Override
     public Fragment save(Fragment entity) {
         logger.debug("SAVE/fragment entity:{}",entity);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setFloat(1, entity.getWidth());
-            preparedStatement.setFloat(2, entity.getLength());
-            preparedStatement.setString(3, entity.getfType().name());
-            preparedStatement.setInt(4, entity.getLayoutName().getId());
-            preparedStatement.execute();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if(resultSet.next()){
-                entity.setId(resultSet.getInt("id"));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
+                preparedStatement.setFloat(1, entity.getWidth());
+                preparedStatement.setFloat(2, entity.getLength());
+                preparedStatement.setString(3, entity.getfType().name());
+                preparedStatement.setInt(4, entity.getLayoutName().getId());
+                preparedStatement.execute();
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if(resultSet.next()){
+                    entity.setId(resultSet.getInt("id"));
+                }
+                connection.commit();
+                return entity;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return entity;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     public void saveWithOrder(Integer fragmentId,Integer orderId) {
         logger.debug("SAVE/fragmentWithOrder fragmentId:{}, orderId: {}",fragmentId,orderId);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SAVE_FRAGMENT_ORDER_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setInt(1,fragmentId);
-            preparedStatement.setInt(2,orderId);
-            preparedStatement.execute();
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(SAVE_FRAGMENT_ORDER_SQL, Statement.RETURN_GENERATED_KEYS)) {
+                preparedStatement.setInt(1,fragmentId);
+                preparedStatement.setInt(2,orderId);
+                preparedStatement.execute();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public Optional<Fragment> findById(Integer id) {
         logger.debug("FINDBYID/fragment id:{}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Fragment fragment = null;
-            if(resultSet.next()){
-                fragment = buildFragmentLazy(resultSet);
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
+                preparedStatement.setInt(1,id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                Fragment fragment = null;
+                if(resultSet.next()){
+                    fragment = buildFragmentLazy(resultSet);
+                }
+                connection.commit();
+                return Optional.ofNullable(fragment);
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return Optional.ofNullable(fragment);
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public List<Fragment> findAll() {
         logger.debug("FIND_ALL/fragments");
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)){
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Fragment> fragments = new ArrayList<>();
-            while (resultSet.next()){
-                fragments.add(buildFragmentLazy(resultSet));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Fragment> fragments = new ArrayList<>();
+                while (resultSet.next()){
+                    fragments.add(buildFragmentLazy(resultSet));
+                }
+                connection.commit();
+                return fragments;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return fragments;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
 
     public List<Fragment> findAllWithOrders() {
         logger.debug("FIND_ALL_FRAGMENTS_ORDERS/fragments");
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_FRAGMENTS_ORDERS_SQL)){
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Fragment> fragments = new ArrayList<>();
-            while (resultSet.next()){
-                Fragment fragment = buildFragment(resultSet);
-                if(fragments.contains(fragment)){
-                    fragments.stream().filter(f->f.equals(fragment)).forEach(f->f.getOrders().add(fragment.getOrders().get(0)));
-                }else {
-                    fragments.add(fragment);
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_FRAGMENTS_ORDERS_SQL)){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Fragment> fragments = new ArrayList<>();
+                while (resultSet.next()){
+                    Fragment fragment = buildFragment(resultSet);
+                    if(fragments.contains(fragment)){
+                        fragments.stream().filter(f->f.equals(fragment)).forEach(f->f.getOrders().add(fragment.getOrders().get(0)));
+                    }else {
+                        fragments.add(fragment);
+                    }
                 }
+                connection.commit();
+                return fragments;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return fragments;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     public List<Fragment> findAllWithOrdersByOrderId(Integer orderId) {
         logger.debug("FIND_ALL_FRAGMENTS_ORDERS_BY_ORDER_ID/orderId is: {}",orderId);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_FRAGMENTS_ORDERS_BY_ORDER_ID_SQL)){
-            preparedStatement.setInt(1,orderId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Fragment> fragments = new ArrayList<>();
-            while (resultSet.next()){
-                Fragment fragment = buildFragment(resultSet);
-                if(fragments.contains(fragment)){
-                    fragments.stream().filter(f->f.equals(fragment)).forEach(f->f.getOrders().add(fragment.getOrders().get(0)));
-                }else {
-                    fragments.add(fragment);
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_FRAGMENTS_ORDERS_BY_ORDER_ID_SQL)){
+                preparedStatement.setInt(1,orderId);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Fragment> fragments = new ArrayList<>();
+                while (resultSet.next()){
+                    Fragment fragment = buildFragment(resultSet);
+                    if(fragments.contains(fragment)){
+                        fragments.stream().filter(f->f.equals(fragment)).forEach(f->f.getOrders().add(fragment.getOrders().get(0)));
+                    }else {
+                        fragments.add(fragment);
+                    }
                 }
+                connection.commit();
+                return fragments;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return fragments;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     public List<Fragment> findAllByLayoutNameId(Integer layoutNameid) {
         logger.debug("FIND_ALL_BY_LAYOUT_NAME_ID/fragments_layout_name_id is:{}",layoutNameid);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_LAYOUT_NAME_SQL)) {
-            preparedStatement.setInt(1,layoutNameid);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Fragment> fragments = new ArrayList<>();
-            while (resultSet.next()){
-                fragments.add(buildFragmentLazy(resultSet));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_LAYOUT_NAME_SQL)) {
+                preparedStatement.setInt(1,layoutNameid);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Fragment> fragments = new ArrayList<>();
+                while (resultSet.next()){
+                    fragments.add(buildFragmentLazy(resultSet));
+                }
+                connection.commit();
+                return fragments;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return fragments;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public void update(Fragment entity) {
         logger.debug("UPDATE/fragment is:{}",entity);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)){
-            preparedStatement.setFloat(1,entity.getWidth());
-            preparedStatement.setFloat(2,entity.getLength());
-            preparedStatement.setObject(3,entity.getfType().name());
-            preparedStatement.setInt(4,entity.getLayoutName().getId());
-            preparedStatement.setInt(5,entity.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)){
+                preparedStatement.setFloat(1,entity.getWidth());
+                preparedStatement.setFloat(2,entity.getLength());
+                preparedStatement.setObject(3,entity.getfType().name());
+                preparedStatement.setInt(4,entity.getLayoutName().getId());
+                preparedStatement.setInt(5,entity.getId());
+                preparedStatement.executeUpdate();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public boolean delete(Integer id) {
         logger.debug("DELETE/fragment id:{}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)){
-            preparedStatement.setInt(1,id);
-            return preparedStatement.executeUpdate()>0;
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)){
+                preparedStatement.setInt(1,id);
+                int res = preparedStatement.executeUpdate();
+                connection.commit();
+                return res>0;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     private Fragment buildFragment(ResultSet resultSet) throws SQLException{

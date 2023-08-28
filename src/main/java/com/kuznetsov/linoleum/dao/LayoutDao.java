@@ -1,6 +1,7 @@
 package com.kuznetsov.linoleum.dao;
 
 import com.kuznetsov.linoleum.entity.*;
+import com.kuznetsov.linoleum.exception.ConnectionException;
 import com.kuznetsov.linoleum.exception.DAOException;
 import com.kuznetsov.linoleum.util.ConnectionManager;
 import org.slf4j.Logger;
@@ -46,43 +47,59 @@ public class LayoutDao implements Dao<Layout,Integer> {
     @Override
     public Layout save(Layout entity) {
         logger.debug("SAVE/layout entity:{}",entity);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, entity.getCity());
-            preparedStatement.setString(2, entity.getStreet());
-            preparedStatement.setString(3, entity.getHomeNum());
-            preparedStatement.setInt(4, entity.getRoomCount());
-            preparedStatement.setString(5, entity.getLayoutRowType().name());
-            preparedStatement.setString(6, entity.getlType().name());
-            preparedStatement.setInt(7, entity.getLayoutName().getId());
-            preparedStatement.execute();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if(resultSet.next()){
-                entity.setId(resultSet.getInt("id"));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
+                preparedStatement.setString(1, entity.getCity());
+                preparedStatement.setString(2, entity.getStreet());
+                preparedStatement.setString(3, entity.getHomeNum());
+                preparedStatement.setInt(4, entity.getRoomCount());
+                preparedStatement.setString(5, entity.getLayoutRowType().name());
+                preparedStatement.setString(6, entity.getlType().name());
+                preparedStatement.setInt(7, entity.getLayoutName().getId());
+                preparedStatement.execute();
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if(resultSet.next()){
+                    entity.setId(resultSet.getInt("id"));
+                }
+                connection.commit();
+                return entity;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return entity;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public Optional<Layout> findById(Integer id) {
         logger.debug("FINDBYID/layout id: {}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
-            preparedStatement.setInt(1,id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Layout layout = null;
-            if(resultSet.next()){
-                layout = buildLayout(resultSet);
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID_SQL)) {
+                preparedStatement.setInt(1,id);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                Layout layout = null;
+                if(resultSet.next()){
+                    layout = buildLayout(resultSet);
+                }
+                connection.commit();
+                return Optional.ofNullable(layout);
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return Optional.ofNullable(layout);
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
 
@@ -90,100 +107,147 @@ public class LayoutDao implements Dao<Layout,Integer> {
     ,LayoutRowType layoutRowType) {
         logger.debug("FIND_BY_MANY_FIELDS/layout city: {},layout street: {},layout homeNum: {},layout roomCount: {}" +
                 ",layout rowType: {}",city,street,homeNum,roomCount,layoutRowType);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_MANY_FIELDS_SQL)) {
-            preparedStatement.setString(1,city);
-            preparedStatement.setString(2,street);
-            preparedStatement.setString(3,homeNum);
-            preparedStatement.setInt(4,roomCount);
-            preparedStatement.setObject(5,layoutRowType.name());
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_MANY_FIELDS_SQL)) {
+                preparedStatement.setString(1,city);
+                preparedStatement.setString(2,street);
+                preparedStatement.setString(3,homeNum);
+                preparedStatement.setInt(4,roomCount);
+                preparedStatement.setObject(5,layoutRowType.name());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            Layout layout = null;
-            if(resultSet.next()){
-                layout = buildLayout(resultSet);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                Layout layout = null;
+                if(resultSet.next()){
+                    layout = buildLayout(resultSet);
+                }
+                connection.commit();
+                return Optional.ofNullable(layout);
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return Optional.ofNullable(layout);
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public List<Layout> findAll() {
         logger.debug("FIND_ALL/layouts");
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)){
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Layout> layouts = new ArrayList<>();
-            while (resultSet.next()){
-                layouts.add(buildLayout(resultSet));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SQL)){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Layout> layouts = new ArrayList<>();
+                while (resultSet.next()){
+                    layouts.add(buildLayout(resultSet));
+                }
+                connection.commit();
+                return layouts;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return layouts;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     public List<Layout> findAllTemplate() {
         logger.debug("FIND_ALL_TEMPLATE/layouts");
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_TEMPLATE_SQL)){
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Layout> layouts = new ArrayList<>();
-            while (resultSet.next()){
-                layouts.add(buildLayout(resultSet));
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_TEMPLATE_SQL)){
+                ResultSet resultSet = preparedStatement.executeQuery();
+                List<Layout> layouts = new ArrayList<>();
+                while (resultSet.next()){
+                    layouts.add(buildLayout(resultSet));
+                }
+                connection.commit();
+                return layouts;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
             }
-            return layouts;
-        } catch (SQLException e) {
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public void update(Layout entity) {
         logger.debug("UPDATE/layout entity:{}",entity);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)){
-            preparedStatement.setObject(1,entity.getCity());
-            preparedStatement.setInt(2,entity.getId());
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_SQL)){
+                preparedStatement.setObject(1,entity.getCity());
+                preparedStatement.setInt(2,entity.getId());
+                preparedStatement.executeUpdate();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
 
     public void updateLType(Integer layoutId,LayoutType layoutType) {
         logger.debug("UPDATE_L_TYPE/layoutId:{},layoutType:{}",layoutId,layoutType);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_L_TYPE_SQL)){
-            preparedStatement.setObject(1,layoutType.name());
-            preparedStatement.setInt(2,layoutId);
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_L_TYPE_SQL)){
+                preparedStatement.setObject(1,layoutType.name());
+                preparedStatement.setInt(2,layoutId);
+                preparedStatement.executeUpdate();
+                connection.commit();
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     @Override
     public boolean delete(Integer id) {
         logger.debug("DELETE/layout id:{}",id);
-        try(Connection connection = ConnectionManager.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)){
-            preparedStatement.setInt(1,id);
-            return preparedStatement.executeUpdate()>0;
-        } catch (SQLException e) {
+        try(Connection connection = ConnectionManager.getConnection()){
+            connection.setAutoCommit(false);
+            try(PreparedStatement preparedStatement = connection.prepareStatement(DELETE_SQL)){
+                preparedStatement.setInt(1,id);
+                int res = preparedStatement.executeUpdate();
+                connection.commit();
+                return res>0;
+            } catch (SQLException e) {
+                connection.rollback();
+                logger.error(e.getMessage(),e);
+                throw new ConnectionException(e);
+            }
+        }catch (SQLException e){
             logger.error(e.getMessage(),e);
             throw new DAOException(e);
         }
+
     }
 
     private Layout buildLayout(ResultSet resultSet) throws SQLException {
