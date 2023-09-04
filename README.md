@@ -47,5 +47,45 @@ Java, JavaEE, Apache Tomcat, Maven, JDBC, PostgreSQL, H2 database, JUnit 5, Mock
 
 ## Скриншоты приложения
 
+Главная страница:
+![Image](https://i.ibb.co/tQ9LVKt/img1.jpg)
 
+Страница аутентификации:
+![Image](https://i.ibb.co/Csrw5XX/img2.jpg)
+
+Главная страница с залогиненным администратором:
+![Image](https://i.ibb.co/wy91VMZ/img3.jpg)
+
+Страница с таблицей заказов(доступна только администратору):
+![Image](https://i.ibb.co/FXKrk5J/img4.jpg)
+
+Страница с таблицей пользователей(доступна только администратору):
+![Image](https://i.ibb.co/2YNP8gY/img5.jpg)
+
+Страница с таблицей рулонов(доступна только администратору):
+![Image](https://i.ibb.co/0BVPn7h/img6.jpg)
+
+Страница с таблицей фрагментов(доступна только администратору):
+![Image](https://i.ibb.co/K6Jr6LM/img7.jpg)
+
+Страница с таблицей товаров(доступна только администратору):
+![Image](https://i.ibb.co/6sVCzCk/img8.jpg)
+
+Страницы с оформлением заказа:
+![Image](https://i.ibb.co/Kr4LKsh/img9.jpg)
+
+![Image](https://i.ibb.co/PzSZBwC/img10.jpg)
+
+![Image](https://i.ibb.co/jDHC0JH/img11.jpg)
+
+![Image](https://i.ibb.co/jDHC0JH/img11.jpg)
+
+Страница с успешно оформленным заказом:
+![Image](https://i.ibb.co/Lv1JhxY/img12.jpg)
+
+Страница с информацией об отрезаемых кусках и отрезаемых рулонах:
+![Image](https://i.ibb.co/s5F5c58/img13.jpg)
    
+## Авторы
+Telegram: @gilbertGrp
+https://github.com/Denis-droid-ops
