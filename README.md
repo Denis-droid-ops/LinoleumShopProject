@@ -88,4 +88,5 @@ Java, JavaEE, Apache Tomcat, Maven, JDBC, PostgreSQL, H2 database, JUnit 5, Mock
    
 ## Авторы
 Telegram: @gilbertGrp
-https://github.com/Denis-droid-ops
+
+GitHub profile: https://github.com/Denis-droid-ops
