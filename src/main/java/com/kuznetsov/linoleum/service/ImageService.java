@@ -1,6 +1,5 @@
 package com.kuznetsov.linoleum.service;
 
-import com.kuznetsov.linoleum.util.PropertiesUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +11,7 @@ import java.util.Optional;
 
 public class ImageService {
     private static final ImageService INSTANCE = new ImageService();
-    private final String basePath = PropertiesUtil.get("image.base.url");
+    private final String basePath = System.getenv("LINOLEUM_ROOT");
 
     private ImageService(){}
 
@@ -30,11 +29,15 @@ public class ImageService {
         file.delete();
     }
 
-    public Optional<InputStream> get(String imagePath) throws IOException {
+   public Optional<InputStream> get(String imagePath) throws IOException {
         Path imageFullPath = Path.of(basePath,imagePath);
         return Files.exists(imageFullPath) ? Optional.of(Files.newInputStream(imageFullPath))
                 :Optional.empty();
     }
+
+   // public Optional<InputStream> get(String imagePath) throws IOException {
+   //     return Optional.of(new FileInputStream(basePath+imagePath));
+   // }
 
     public static ImageService getInstance(){
         return INSTANCE;

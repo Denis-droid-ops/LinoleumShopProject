@@ -16,6 +16,7 @@ public class ImageServlet extends HttpServlet {
     private final ImageService imageService = ImageService.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.print("System VARIABLE::::"+System.getenv("LINOLEUM_ROOT"));
         String imagePath = req.getRequestURI();
         imageService.get(imagePath)
                 .ifPresentOrElse(image->{

@@ -47,15 +47,5 @@ public final class ConnectionManager {
         }
     }
 
- /*   public static Connection getConnectionForTests() throws SQLException {
-        try {
-            config.load("application.properties");
-        Connection connection = DriverManager.getConnection(config.getString("db.url")
-            ,config.getString("db.user"),config.getString("db.password"));
-        return connection;
-        } catch (ConfigurationException e) {
-            throw new DAOException(e);
-        }
-   }
-*/
+
 }

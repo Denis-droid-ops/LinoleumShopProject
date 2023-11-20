@@ -14,8 +14,7 @@ import java.util.Collections;
 
 @WebFilter(filterName = "filter4",urlPatterns = "/*")
 public class CleanBackFilter implements Filter {
-
-    OrderService orderService = OrderService.getInstance();
+    private OrderService orderService = OrderService.getInstance();
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
@@ -25,16 +24,17 @@ public class CleanBackFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        if((req.getHeader("referer")!=null && req.getHeader("referer").equals("http://localhost:8080/orderCreateSuccess"))
+        final String HOST_WITH_PORT = req.getScheme()+"://"+req.getHeader("Host");
+        if((req.getHeader("referer")!=null && req.getHeader("referer").equals(HOST_WITH_PORT+"/orderCreateSuccess"))
                 || req.getParameter("cancelOrder")!=null){
             orderService.clearWithoutLayoutFragments();
             orderService.clearCustomLayoutFragments();
             Collections.list(req.getSession().getAttributeNames()).stream().filter(s->!s.equals("user")).forEach(s->req.getSession().removeAttribute(s));
         }
 
-        if((req.getHeader("referer")!=null &&(req.getHeader("referer").startsWith("http://localhost:8080/orderLayout") ||
-                req.getHeader("referer").equals("http://localhost:8080/orderFragments") ||
-                req.getHeader("referer").equals("http://localhost:8080/order")))
+        if((req.getHeader("referer")!=null &&(req.getHeader("referer").startsWith(HOST_WITH_PORT+"/orderLayout") ||
+                req.getHeader("referer").equals(HOST_WITH_PORT+"/orderFragments") ||
+                req.getHeader("referer").equals(HOST_WITH_PORT+"/order")))
                 && (!req.getRequestURI().equals("/order") && !req.getRequestURI().equals("/orderLayout")
                 && !req.getRequestURI().startsWith("/resources")
                 && !req.getRequestURI().equals("/orderFragments") && !req.getRequestURI().equals("/orderCreateSuccess") && !req.getRequestURI().equals("/logout")

@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
+
 
 @WebServlet("/admin/users")
 public class UserServlet extends HttpServlet {
@@ -32,7 +31,7 @@ public class UserServlet extends HttpServlet {
         boolean onlyOneAdmin = userService.findAll().stream().map(userDto -> userDto.getRole().name()).filter(name->name.equals("ADMIN")).count()<2;
         if(req.getParameter("action").equals("delete")){
             if(onlyOneAdmin){
-                resp.sendRedirect("admin/users?deleteError");
+                resp.sendRedirect("/admin/users?deleteError");
             }else {
                 String id = req.getParameter("id");
                 userService.delete(Integer.valueOf(id));
@@ -45,11 +44,11 @@ public class UserServlet extends HttpServlet {
             String id = req.getParameter("id");
             String role = req.getParameter("role");
             if(onlyOneAdmin && adminId==Integer.valueOf(id)){
-                resp.sendRedirect("admin/users?changeError");
+                resp.sendRedirect("/admin/users?changeError");
             }else {
                 UpdateUserRoleDto updateUserRoleDto = new UpdateUserRoleDto(id, role);
                 userService.updateRole(updateUserRoleDto);
-                resp.sendRedirect("admin/users");
+                resp.sendRedirect("/admin/users");
             }
         }
 

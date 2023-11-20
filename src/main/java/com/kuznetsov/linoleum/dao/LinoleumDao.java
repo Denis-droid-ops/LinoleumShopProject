@@ -115,12 +115,12 @@ public class LinoleumDao implements Dao<Linoleum,Integer> {
         List<String> whereSql = new ArrayList<>();
 
         if(linoleumFilter.getMinPrice()!=0){
-            whereSql.add("price > ?");
+            whereSql.add("price >= ?");
             params.add(linoleumFilter.getMinPrice());
         }
 
         if(linoleumFilter.getMaxPrice()!=0){
-            whereSql.add("price < ?");
+            whereSql.add("price <= ?");
             params.add(linoleumFilter.getMaxPrice());
         }
         String sql;
