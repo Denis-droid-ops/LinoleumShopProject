@@ -35,11 +35,9 @@ Java, JavaEE, Apache Tomcat, Maven, JDBC, PostgreSQL, H2 database, JUnit 5, Mock
 
 ## Как запустить проект?
 
-Проект не развернут на каком либо сервере, поэтому проще всего запустить его на локальном сервере, например, Apache Tomcat:
-
-1) Заходим в репозиторий проекта, в правой колонке заходим в releases, скачиваем архив проекта ROOT.war
-2) Заходим в корневой каталог Tomcat, в папку webapps, помещаем туда ROOT.war, и переименовываем папку ROOT на ROOT-closed
-3) Запускаем сервер Tomcat(Корневой каталог Tomcat/bin/startup.bat, остановка сервера - Tomcat/bin/shutdown.bat), и пользуемся приложением
+Проект развернут на VDS сервере Ubuntu, поэтому чтобы запустить и посмотреть проект,
+достаточно перейти по ссылке:
+http://45.11.26.170:8080/
 
 ## Тестирование
 
@@ -54,22 +52,22 @@ Java, JavaEE, Apache Tomcat, Maven, JDBC, PostgreSQL, H2 database, JUnit 5, Mock
 ![Image](https://i.ibb.co/Csrw5XX/img2.jpg)
 
 Главная страница с залогиненным администратором:
-![Image](https://i.ibb.co/wy91VMZ/img3.jpg)
+![Image](https://drive.google.com/uc?export=view&id=1KfbGmJf5hOtJZ0ATwFxv1Kyf8Xj4G5w7)
 
 Страница с таблицей заказов(доступна только администратору):
 ![Image](https://i.ibb.co/FXKrk5J/img4.jpg)
 
 Страница с таблицей пользователей(доступна только администратору):
-![Image](https://i.ibb.co/2YNP8gY/img5.jpg)
+![Image](https://drive.google.com/uc?export=view&id=1tvF2SgJc8RHPLlEkClxaLJZetLPbdR2x)
 
 Страница с таблицей рулонов(доступна только администратору):
-![Image](https://i.ibb.co/0BVPn7h/img6.jpg)
+![Image](https://drive.google.com/uc?export=view&id=1M02ePNJN63gAoo4V8x8_0U8Dl71AhJUX)
 
 Страница с таблицей фрагментов(доступна только администратору):
-![Image](https://i.ibb.co/K6Jr6LM/img7.jpg)
+![Image](https://drive.google.com/uc?export=view&id=1SIJPiqolSItKtSa1htkBdjNCA3sWZ7yD)
 
 Страница с таблицей товаров(доступна только администратору):
-![Image](https://i.ibb.co/6sVCzCk/img8.jpg)
+![Image](https://drive.google.com/uc?export=view&id=1lvghlnSCnKJP1_yo3DInwwcIUEulNJCs)
 
 Страницы с оформлением заказа:
 ![Image](https://i.ibb.co/Kr4LKsh/img9.jpg)
@@ -80,8 +78,7 @@ Java, JavaEE, Apache Tomcat, Maven, JDBC, PostgreSQL, H2 database, JUnit 5, Mock
 
 ![Image](https://i.ibb.co/jDHC0JH/img11.jpg)
 
-Страница с успешно оформленным заказом:
-![Image](https://i.ibb.co/Lv1JhxY/img12.jpg)
+![Image](https://drive.google.com/uc?export=view&id=1Gawcedbg0csaIDNWSHsqcjKTrLNdPtrN)
 
 Страница с информацией об отрезаемых кусках и отрезаемых рулонах:
 ![Image](https://i.ibb.co/s5F5c58/img13.jpg)
